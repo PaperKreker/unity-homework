@@ -251,7 +251,7 @@ namespace Modules.Inventories
             {
                 return false;
             }
-            return FindStorageItem(item) != null;
+            return GetStorageItem(item) != null;
         }
 
         /// <summary>
@@ -290,7 +290,7 @@ namespace Modules.Inventories
 
         public bool RemoveItem(Item item, out Vector2Int position)
         {
-            StorageItem storageItem = FindStorageItem(item);
+            StorageItem storageItem = GetStorageItem(item);
             if (storageItem == null)
             {
                 position = Vector2Int.zero;
@@ -353,7 +353,7 @@ namespace Modules.Inventories
                 throw new NullReferenceException();
             }
 
-            StorageItem storageItem = FindStorageItem(item);
+            StorageItem storageItem = GetStorageItem(item);
             if (storageItem == null)
             {
                 throw new KeyNotFoundException();
@@ -439,7 +439,48 @@ namespace Modules.Inventories
 
         public bool MoveItem(Item item, Vector2Int position)
         {
-            throw new NotImplementedException();
+            if (item == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (!Contains(item) || !IsValidItemBounds(item, position.x, position.y))
+            {
+                return false;
+            }
+            for (int x = position.x; x - position.x < item.Size.x; ++x)
+            {
+                for (int y = position.y; y - position.y < item.Size.y; ++y)
+                {
+                    if (IsOccupied(x, y) && storage[x, y].Content != item)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            StorageItem storageItem = GetStorageItem(item);
+            StorageItem newStorageItem = new StorageItem(item, position.x, position.y);
+            Vector2Int itemPosition = new Vector2Int(storageItem.StartX, storageItem.StartY);
+            IterateItemPositions(
+                item,
+                itemPosition.x,
+                itemPosition.y,
+                (position) =>
+                {
+                    storage[position.x, position.y] = null;
+                });
+            IterateItemPositions(
+                item,
+                position.x,
+                position.y,
+                (position) =>
+                {
+                    storage[position.x, position.y] = newStorageItem;
+                });
+
+            OnMoved?.Invoke(item, position);
+
+            return true;
         }
 
         /// <summary>
@@ -493,7 +534,7 @@ namespace Modules.Inventories
         /// <summary>
         /// Returns storage item if it has specific item
         /// </summary>
-        private StorageItem FindStorageItem(Item item)
+        private StorageItem GetStorageItem(Item item)
         {
             for (int x = 0; x < Width; ++x)
             {
@@ -578,94 +619,6 @@ namespace Modules.Inventories
                 Content = item;
                 StartX = startX;
                 StartY = startY;
-            }
-        }
-
-        // За то без System.Collections
-        private class ItemList
-        {
-            public int Count { get; private set; }
-            private int capacity = 8;
-            private Item[] items;
-
-            public Item this[int i]
-            {
-                get => items[i];
-                set => items[i] = value; 
-            }
-
-            public ItemList()
-            {
-                items = new Item[capacity];
-            }
-
-            public void Add(Item item)
-            {
-                items[Count] = item;
-                ++Count;
-
-                if (Count == capacity)
-                {
-                    Expand();
-                }
-            }
-
-            public void Remove(Item item)
-            {
-                int index = FindIndex(item);
-                if (index == -1)
-                {
-                    return;
-                }
-
-                items[index] = items[Count - 1];
-                items[Count - 1] = null;
-                --Count;
-
-                if (Count < capacity / 4)
-                {
-                    Shrink();
-                }
-            }
-
-            private int FindIndex(Item item)
-            {
-                for (int i = 0; i < Count; i++)
-                {
-                    if (items[i] == item)
-                    {
-                        return i;
-                    }
-                }
-                return -1;
-            }
-
-            private void Expand()
-            {
-                Resize(capacity * 2);
-            }
-
-            private void Shrink()
-            {
-                if (capacity == 8)
-                {
-                    return;
-                }
-
-                Resize(capacity / 2);
-            }
-
-            private void Resize(int newCapacity)
-            {
-                Item[] temp = new Item[newCapacity];
-
-                for (int i = 0; i < capacity; i++)
-                {
-                    temp[i] = items[i];
-                }
-
-                capacity = newCapacity;
-                items = temp;
             }
         }
     }
