@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 namespace Modules.Inventories
@@ -488,7 +489,7 @@ namespace Modules.Inventories
         /// </summary>
         public void OptimizeSpace()
         {
-            throw new NotImplementedException();
+            new StorageOptimizer(this).Optimize();
         }
 
         /// <summary>
@@ -528,7 +529,24 @@ namespace Modules.Inventories
         /// </summary>
         public override string ToString()
         {
-            throw new NotImplementedException();
+            string table = "";
+            for (int x = 0; x < Width; ++x)
+            {
+                for (int y = 0; y < Height; ++y)
+                {
+                    if (storage[x, y] != null)
+                    {
+                        table += $"{storage[x, y].Content.Name},\t";
+                    }
+                    else
+                    {
+                        table += $",\t";
+                    }
+                }
+                table += "\n";
+            }
+
+            return table;
         }
 
         /// <summary>
@@ -619,6 +637,237 @@ namespace Modules.Inventories
                 Content = item;
                 StartX = startX;
                 StartY = startY;
+            }
+        }
+
+        private class StorageOptimizer
+        {
+            private StorageItem[,] optimizedStorage;
+            private Space[] freeSpaces;
+            private Inventory inventory;
+            private int freeSpaceCount;
+
+            public StorageOptimizer(Inventory inventory)
+            {
+                this.inventory = inventory;
+            }
+
+            public void Optimize()
+            {
+                optimizedStorage = new StorageItem[inventory.Width, inventory.Height];
+                Item[] items = inventory.GetItemsArray();
+                if (items.Length == 0)
+                {
+                    return;
+                }
+
+                SortItems(items, (Item a, Item b) =>
+                {
+                    int areaA = a.Size.x * a.Size.y;
+                    int areaB = b.Size.x * b.Size.y;
+                    if (areaA < areaB) return 1;
+                    if (areaA > areaB) return -1;
+                    if (a.Id > b.Id)   return 1;
+                    if (a.Id < b.Id)   return -1;
+                    return 0;
+                });
+
+                freeSpaces = new Space[inventory.Width * inventory.Height];
+                freeSpaces[0] = new Space(0, 0, inventory.Width, inventory.Height);
+                freeSpaceCount = 1;
+
+                for (int i = 0; i < items.Length; ++i)
+                {
+                    Insert(items[i]);
+                }
+
+                inventory.storage = optimizedStorage;
+            }
+
+            private void Insert(Item item)
+            {
+                int freeSpaceIndex = FindBestSpaceIndex(item);
+                if (freeSpaceIndex == -1)
+                {
+                    return;
+                }
+
+                Space freeSpace = freeSpaces[freeSpaceIndex];
+                StorageItem storageItem = new StorageItem(item, freeSpace.x, freeSpace.y);
+                inventory.IterateItemPositions(
+                item,
+                freeSpace.x,
+                freeSpace.y,
+                (position) =>
+                {
+                    optimizedStorage[position.x, position.y] = storageItem;
+                });
+
+                SplitSpace(item, freeSpace.x, freeSpace.y);
+            }
+
+            private int FindBestSpaceIndex(Item item)
+            {
+                int bestX = int.MaxValue;
+                int bestY = int.MaxValue;
+                int bestSpaceIndex = -1;
+
+                for (int i = 0; i < freeSpaceCount; ++i)
+                {
+                    Space freeSpace = freeSpaces[i];
+                    if (item.Size.x <= freeSpace.width &&
+                        item.Size.y <= freeSpace.height)
+                    {
+                        if (freeSpace.y < bestY || freeSpace.y == bestY && freeSpace.x < bestX)
+                        {
+                            bestY = freeSpace.y;
+                            bestX = freeSpace.x;
+                            bestSpaceIndex = i;
+                        }
+                    }
+                }
+
+                return bestSpaceIndex;
+            }
+
+            private void SplitSpace(Item item, int x, int y)
+            {
+                int count = freeSpaceCount;
+                for (int i = 0; i < count; ++i) {
+                    Space space = freeSpaces[i];
+                    if (!IsIntersecting(new Space(x, y, item.Size.x, item.Size.y), space))
+                    {
+                        continue;
+                    }
+
+                    AddFreeSpace(new Space(space.x, space.y, x - space.x, space.height));
+                    AddFreeSpace(new Space(x + item.Size.x, space.y, space.x + space.width - (x + item.Size.x), space.height));
+                    AddFreeSpace(new Space(space.x, space.y, space.width, y - space.y));
+                    AddFreeSpace(new Space(space.x, y + item.Size.y, space.width, space.y + space.height - (y + item.Size.y)));
+                    RemoveFreeAt(i);
+                }
+
+                PruneFreeSpaces();
+            }
+
+            private void AddFreeSpace(Space space)
+            {
+                if (space.width <= 0 || 
+                    space.height <= 0 || 
+                    space.x + space.width > inventory.Width || 
+                    space.y + space.height > inventory.Height)
+                {
+                    return;
+                }
+                freeSpaces[freeSpaceCount] = space;
+                freeSpaceCount++;
+            }
+
+            private void RemoveFreeAt(int index)
+            {
+                if (freeSpaceCount == 0)
+                {
+                    return;
+                }
+
+                freeSpaceCount--;
+                freeSpaces[index] = freeSpaces[freeSpaceCount];
+                freeSpaces[freeSpaceCount] = null;
+            }
+
+            private void PruneFreeSpaces()
+            {
+                for (int i = 0; i < freeSpaceCount; i++)
+                {
+                    for (int j = i + 1; j < freeSpaceCount; j++)
+                    {
+                        if (IsContainedIn(freeSpaces[i], freeSpaces[j]))
+                        {
+                            RemoveFreeAt(i);
+                            i--;
+                            break;
+                        }
+                        if (IsContainedIn(freeSpaces[j], freeSpaces[i]))
+                        {
+                            RemoveFreeAt(j);
+                            j--;
+                        }
+                    }
+                }
+            }
+
+            private bool IsContainedIn(Space a, Space b)
+            {
+                return  a.x >= b.x &&
+                        a.y >= b.y &&
+                        a.x + a.width <= b.x + b.width &&
+                        a.y + a.height <= b.y + b.height;
+            }
+
+            private bool IsIntersecting(Space a, Space b)
+            {
+                return !(a.x + a.height <= b.x ||
+                        a.x >= b.x + b.width ||
+                        a.y + a.height <= b.y ||
+                        a.y >= b.y + b.height);
+            }
+
+            private void SortItems(Item[] items, Func<Item, Item, int> comparer)
+            {
+                SortItems(items, 0, items.Length - 1);
+
+                void SortItems(Item[] items, int left, int right)
+                {
+                    int l = left;
+                    int r = right;
+                    Item pivot = items[l];
+
+                    while (l <= r)
+                    {
+                        while (comparer.Invoke(pivot, items[l]) > 0)
+                        {
+                            ++l;
+                        }
+                        while (comparer.Invoke(pivot, items[r]) < 0)
+                        {
+                            --r;
+                        }
+
+                        if (l <= r)
+                        {
+                            Item temp = items[l];
+                            items[l] = items[r];
+                            items[r] = temp;
+                            ++l;
+                            --r;
+                        }
+                    }
+
+                    if (left < r)
+                    {
+                        SortItems(items, left, r);
+                    }
+                    if (l < right)
+                    {
+                        SortItems(items, l, right);
+                    }
+                }
+            }
+
+            private class Space
+            {
+                public int x;
+                public int y;
+                public int width;
+                public int height;
+
+                public Space(int x, int y, int width, int height)
+                {
+                    this.x = x;
+                    this.y = y;
+                    this.width = width;
+                    this.height = height;
+                }
             }
         }
     }
