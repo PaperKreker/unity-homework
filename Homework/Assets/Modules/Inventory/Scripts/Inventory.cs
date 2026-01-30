@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Modules.Inventories
@@ -15,10 +15,10 @@ namespace Modules.Inventories
 
         public readonly int Width;
         public readonly int Height;
-        public int Count { get => count; private set => count = value; }
+        public int Count { get => itemPositions.Count; }
 
-        private int count;
-        private StorageItem[,] storage;
+        private Item[,] storage;
+        private Dictionary<Item, Vector2Int> itemPositions;
 
         public Inventory(int width, int height)
         {
@@ -30,14 +30,15 @@ namespace Modules.Inventories
             Width = width;
             Height = height;
 
-            storage = new StorageItem[Width, Height];
+            storage = new Item[Width, Height];
+            itemPositions = new Dictionary<Item, Vector2Int>();
         }
 
         public Inventory(
             int width,
             int height,
             params KeyValuePair<Item, Vector2Int>[] items
-        ) : this (width, height)
+        ) : this(width, height)
         {
             if (items == null)
             {
@@ -106,13 +107,8 @@ namespace Modules.Inventories
         /// </summary>
         public Inventory(Inventory inventory) : this(inventory.Width, inventory.Height)
         {
-            for (int x = 0; x < Width; ++x)
-            {
-                for (int y = 0; y < Height; ++y)
-                {
-                    storage[x, y] = inventory.storage[x, y];
-                }
-            }
+            Array.Copy(inventory.storage, storage, inventory.storage.Length);
+            itemPositions = new Dictionary<Item, Vector2Int>(inventory.itemPositions);
         }
 
         /// <summary>
@@ -125,20 +121,11 @@ namespace Modules.Inventories
 
         public bool CanAddItem(Item item, int startX, int startY)
         {
-            if (item == null)
-            {
-                return false;
-            }
-            if (!IsValidItemSize(item))
-            {
-                throw new ArgumentException();
-            }
-            if (!IsValidItemBounds(item, startX, startY) || Contains(item) || !IsFreeSpace(startX, startY, startX + item.Size.x, startY + item.Size.y))
-            {
-                return false;
-            }
-
-            return true;
+            return item != null && (!IsValidItemSize(item)
+                ? throw new ArgumentException()
+                : IsValidItemBounds(item, startX, startY) &&
+                    !Contains(item) &&
+                    IsFreeSpace(startX, startY, startX + item.Size.x, startY + item.Size.y));
         }
 
         /// <summary>
@@ -156,12 +143,15 @@ namespace Modules.Inventories
                 return false;
             }
 
-            StorageItem storageItem = new StorageItem(item, startX, startY);
-            IterateItemPositions(item, startX, startY, (position) =>
+            for (int x = 0; x < item.Size.x; ++x)
             {
-                storage[position.x, position.y] = storageItem;
-            });
-            count++;
+                for (int y = 0; y < item.Size.y; ++y)
+                {
+                    storage[startX + x, startY + y] = item;
+                }
+            }
+
+            itemPositions.Add(item, new Vector2Int(startX, startY));
 
             OnAdded?.Invoke(item, new Vector2Int(startX, startY));
 
@@ -173,8 +163,7 @@ namespace Modules.Inventories
         /// </summary>
         public bool CanAddItem(Item item)
         {
-            FindFreePosition(item, out Vector2Int freePosition);
-            return CanAddItem(item, freePosition.x, freePosition.y);
+            return FindFreePosition(item, out Vector2Int freePosition) && CanAddItem(item, freePosition.x, freePosition.y);
         }
 
         /// <summary>
@@ -182,8 +171,7 @@ namespace Modules.Inventories
         /// </summary>
         public bool AddItem(Item item)
         {
-            FindFreePosition(item, out Vector2Int freePosition);
-            return AddItem(item, freePosition.x, freePosition.y);
+            return FindFreePosition(item, out Vector2Int freePosition) && AddItem(item, freePosition.x, freePosition.y);
         }
 
         /// <summary>
@@ -206,7 +194,7 @@ namespace Modules.Inventories
 
         public bool FindFreePosition(int sizeX, int sizeY, out Vector2Int position)
         {
-            if (sizeX <= 0 ||  sizeY <= 0)
+            if (sizeX <= 0 || sizeY <= 0)
             {
                 throw new ArgumentException();
             }
@@ -248,11 +236,11 @@ namespace Modules.Inventories
         /// </summary>
         public bool Contains(Item item)
         {
-            if (count == 0)
+            if (item == null)
             {
                 return false;
             }
-            return GetStorageItem(item) != null;
+            return itemPositions.ContainsKey(item);
         }
 
         /// <summary>
@@ -263,6 +251,7 @@ namespace Modules.Inventories
             return IsOccupied(position.x, position.y);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool IsOccupied(int x, int y)
         {
             return storage[x, y] != null;
@@ -291,23 +280,22 @@ namespace Modules.Inventories
 
         public bool RemoveItem(Item item, out Vector2Int position)
         {
-            StorageItem storageItem = GetStorageItem(item);
-            if (storageItem == null)
+            if (item == null || !itemPositions.ContainsKey(item))
             {
                 position = Vector2Int.zero;
                 return false;
             }
 
-            IterateItemPositions(
-                item,
-                storageItem.StartX,
-                storageItem.StartY,
-                (position) =>
+            position = itemPositions[item];
+            for (int x = 0; x < item.Size.x; ++x)
+            {
+                for (int y = 0; y < item.Size.y; ++y)
                 {
-                    storage[position.x, position.y] = null;
-                });
-            count--;
-            position = new Vector2Int(storageItem.StartX, storageItem.StartY);
+                    storage[position.x + x, position.y + y] = null;
+                }
+                ;
+            }
+            itemPositions.Remove(item);
 
             OnRemoved?.Invoke(item, position);
 
@@ -324,7 +312,7 @@ namespace Modules.Inventories
 
         public Item GetItem(int x, int y)
         {
-            return storage[x, y]?.Content;
+            return storage[x, y];
         }
 
         public bool TryGetItem(Vector2Int position, out Item item)
@@ -350,43 +338,37 @@ namespace Modules.Inventories
         public Vector2Int[] GetPositions(Item item)
         {
             if (item == null)
-            {
                 throw new NullReferenceException();
-            }
 
-            StorageItem storageItem = GetStorageItem(item);
-            if (storageItem == null)
-            {
+            if (!itemPositions.ContainsKey(item))
                 throw new KeyNotFoundException();
-            }
 
             Vector2Int[] positions = new Vector2Int[item.Size.x * item.Size.y];
+            Vector2Int itemPosition = itemPositions[item];
             int count = 0;
 
-            IterateItemPositions(
-                item, 
-                storageItem.StartX, 
-                storageItem.StartY, 
-                (position) =>
+            for (int x = 0; x < item.Size.x; ++x)
+            {
+                for (int y = 0; y < item.Size.y; ++y)
                 {
-                    positions[count] = new Vector2Int(position.x, position.y);
+                    positions[count] = new Vector2Int(itemPosition.x + x, itemPosition.y + y);
                     count++;
-            });
+                }
+            }
 
             return positions;
         }
 
         public bool TryGetPositions(Item item, out Vector2Int[] positions)
         {
-            try
-            {
-                positions = GetPositions(item);
-            }
-            catch
+            if (item == null || !itemPositions.ContainsKey(item))
             {
                 positions = null;
                 return false;
             }
+
+            positions = GetPositions(item);
+
             return positions != null;
         }
 
@@ -395,19 +377,11 @@ namespace Modules.Inventories
         /// </summary>
         public void Clear()
         {
-            if (count == 0)
-            {
+            if (Count == 0)
                 return;
-            }
 
-            for (int x = 0; x < Width; ++x)
-            {
-                for (int y = 0; y < Height; ++y)
-                {
-                    storage[x, y] = null;
-                }
-            }
-            count = 0;
+            Array.Clear(storage, 0, storage.Length);
+            itemPositions.Clear();
             OnCleared?.Invoke();
         }
 
@@ -416,68 +390,53 @@ namespace Modules.Inventories
         /// </summary>
         public int GetItemCount(string name)
         {
-            float count = 0.0f;
+            int count = 0;
 
-            for (int x = 0; x < Width; ++x)
+            foreach (Item item in itemPositions.Keys)
             {
-                for (int y = 0; y < Height; ++y)
+                if (item.Name == name)
                 {
-                    if (IsFree(x, y))
-                    {
-                        continue;
-                    }
-
-                    Item item = storage[x, y].Content;
-                    if (item.Name == name)
-                    {
-                        count += 1.0f / item.Size.x / item.Size.y;
-                    }
+                    ++count;
                 }
             }
 
-            return Mathf.RoundToInt(count);
+            return count;
         }
 
         public bool MoveItem(Item item, Vector2Int position)
         {
             if (item == null)
-            {
                 throw new ArgumentNullException();
-            }
             if (!Contains(item) || !IsValidItemBounds(item, position.x, position.y))
-            {
                 return false;
-            }
+
             for (int x = position.x; x - position.x < item.Size.x; ++x)
             {
                 for (int y = position.y; y - position.y < item.Size.y; ++y)
                 {
-                    if (IsOccupied(x, y) && storage[x, y].Content != item)
+                    if (IsOccupied(x, y) && !storage[x, y].Equals(item))
                     {
                         return false;
                     }
                 }
             }
 
-            StorageItem storageItem = GetStorageItem(item);
-            StorageItem newStorageItem = new StorageItem(item, position.x, position.y);
-            Vector2Int itemPosition = new Vector2Int(storageItem.StartX, storageItem.StartY);
-            IterateItemPositions(
-                item,
-                itemPosition.x,
-                itemPosition.y,
-                (position) =>
+            Vector2Int itemPosition = itemPositions[item];
+            for (int x = 0; x < item.Size.x; ++x)
+            {
+                for (int y = 0; y < item.Size.y; ++y)
                 {
-                    storage[position.x, position.y] = null;
-                });
-            IterateItemPositions(
-                item,
-                position.x,
-                position.y,
-                (position) =>
+                    storage[itemPosition.x + x, itemPosition.y + y] = null;
+                }
+            }
+            for (int x = 0; x < item.Size.x; ++x)
+            {
+                for (int y = 0; y < item.Size.y; ++y)
                 {
-                    storage[position.x, position.y] = newStorageItem;
-                });
+                    storage[position.x + x, position.y + y] = item;
+                }
+            }
+            itemPositions[item] = position;
 
             OnMoved?.Invoke(item, position);
 
@@ -489,7 +448,46 @@ namespace Modules.Inventories
         /// </summary>
         public void OptimizeSpace()
         {
-            new StorageOptimizer(this).Optimize();
+            if (Count == 0)
+            {
+                return;
+            }
+
+            Array.Clear(storage, 0, storage.Length);
+            List<Item> items = new(itemPositions.Count);
+            foreach (Item item in itemPositions.Keys)
+            {
+                items.Add(item);
+            }
+
+            SortItems(items);
+
+            for (int y = 0; y < Height; ++y)
+            {
+                int l = 0;
+                for (int r = 0; r < Width; ++r)
+                {
+                    l = r;
+                    while (r < Width && !IsOccupied(r, y))
+                    {
+                        ++r;
+                    }
+                    for (; l < r; ++l)
+                    {
+                        if (items.Count == 0)
+                        {
+                            return;
+                        }
+                        int candidateIndex = SearchCandidateIndex(items, r - l);
+                        if (candidateIndex < 0)
+                            break;
+
+                        InsertItem(items[candidateIndex], l, y);
+                        l += items[candidateIndex].Size.x - 1;
+                        items.RemoveAt(candidateIndex);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -497,17 +495,12 @@ namespace Modules.Inventories
         /// </summary>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            Item[] items = GetItemsArray();
-            
-            return items.GetEnumerator();
-
+            return itemPositions.Keys.GetEnumerator();
         }
 
         public IEnumerator<Item> GetEnumerator()
         {
-            Item[] items = GetItemsArray();
-
-            return (IEnumerator<Item>)items.GetEnumerator();
+            return itemPositions.Keys.GetEnumerator();
         }
 
         /// <summary>
@@ -515,13 +508,7 @@ namespace Modules.Inventories
         /// </summary>
         public void CopyTo(Item[,] matrix)
         {
-            for (int x = 0; x < Width; ++x)
-            {
-                for (int y = 0; y < Height; ++y)
-                {
-                    matrix[x, y] = storage[x, y]?.Content;
-                }
-            }
+            Array.Copy(storage, matrix, storage.Length);
         }
 
         /// <summary>
@@ -536,7 +523,7 @@ namespace Modules.Inventories
                 {
                     if (storage[x, y] != null)
                     {
-                        table += $"{storage[x, y].Content.Name},\t";
+                        table += $"{storage[x, y].Name},\t";
                     }
                     else
                     {
@@ -547,38 +534,6 @@ namespace Modules.Inventories
             }
 
             return table;
-        }
-
-        /// <summary>
-        /// Returns storage item if it has specific item
-        /// </summary>
-        private StorageItem GetStorageItem(Item item)
-        {
-            for (int x = 0; x < Width; ++x)
-            {
-                for (int y = 0; y < Height; ++y)
-                {
-                    if (IsOccupied(x, y) && storage[x, y].Content == item)
-                    {
-                        return storage[x, y];
-                    }
-                }
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Iterates throw items positions in storage
-        /// </summary>
-        private void IterateItemPositions(Item item, int startX, int startY, Action<(int x, int y)> OnIteration)
-        {
-            for (int x = 0; x < item.Size.x; ++x)
-            {
-                for (int y = 0; y < item.Size.y; ++y)
-                {
-                    OnIteration.Invoke((startX + x, startY + y));
-                }
-            }
         }
 
         private bool IsValidItemBounds(Item item, int startX, int startY)
@@ -593,281 +548,89 @@ namespace Modules.Inventories
                     item.Size.y > 0;
         }
 
-        private Item[] GetItemsArray()
+        private int SearchCandidateIndex(List<Item> items, int width)
         {
-            Item[] items = new Item[count];
-            int itemsCountInArray = 0;
+            int l = 0;
+            int r = items.Count - 1;
 
-            foreach (StorageItem storageItem in storage)
+            while (l < r)
             {
-                if (storageItem == null)
+                int m = l + (r - l) / 2;
+                if (items[m].Size.x <= width)
                 {
-                    continue;
+                    l = m + 1;
                 }
-
-                Item item = storageItem.Content;
-                bool isInArray = false;
-
-                for (int i = 0; i < itemsCountInArray; ++i)
+                else
                 {
-                    if (items[i] == item)
-                    {
-                        isInArray = true;
-                        break;
-                    }
-                }
-                if (!isInArray)
-                {
-                    items[itemsCountInArray] = item;
-                    ++itemsCountInArray;
+                    r = m;
                 }
             }
-
-            return items;
+            if (items[l].Size.x > width)
+            {
+                return l - 1;
+            }
+            return l;
         }
 
-        private class StorageItem
+        private void InsertItem(Item item, int shiftX, int shiftY)
         {
-            public readonly int StartX;
-            public readonly int StartY;
-            public readonly Item Content;
-
-            public StorageItem(Item item, int startX, int startY)
+            for (int x = 0; x < item.Size.x; ++x)
             {
-                Content = item;
-                StartX = startX;
-                StartY = startY;
+                for (int y = 0; y < item.Size.y; ++y)
+                {
+                    storage[shiftX + x, shiftY + y] = item;
+                }
             }
+            itemPositions[item] = new Vector2Int(shiftX, shiftY);
         }
 
-        private class StorageOptimizer
+        private void SortItems(List<Item> items)
         {
-            private StorageItem[,] optimizedStorage;
-            private Space[] freeSpaces;
-            private Inventory inventory;
-            private int freeSpaceCount;
+            SortItems(items, 0, items.Count - 1);
 
-            public StorageOptimizer(Inventory inventory)
+            void SortItems(List<Item> items, int left, int right)
             {
-                this.inventory = inventory;
-            }
+                int l = left;
+                int r = right;
+                Item pivot = items[l];
 
-            public void Optimize()
-            {
-                optimizedStorage = new StorageItem[inventory.Width, inventory.Height];
-                Item[] items = inventory.GetItemsArray();
-                if (items.Length == 0)
+                while (l <= r)
                 {
-                    return;
-                }
-
-                SortItems(items, (Item a, Item b) =>
-                {
-                    int areaA = a.Size.x * a.Size.y;
-                    int areaB = b.Size.x * b.Size.y;
-                    if (areaA < areaB) return 1;
-                    if (areaA > areaB) return -1;
-                    if (a.Id > b.Id)   return 1;
-                    if (a.Id < b.Id)   return -1;
-                    return 0;
-                });
-
-                freeSpaces = new Space[inventory.Width * inventory.Height];
-                freeSpaces[0] = new Space(0, 0, inventory.Width, inventory.Height);
-                freeSpaceCount = 1;
-
-                for (int i = 0; i < items.Length; ++i)
-                {
-                    Insert(items[i]);
-                }
-
-                inventory.storage = optimizedStorage;
-            }
-
-            private void Insert(Item item)
-            {
-                int freeSpaceIndex = FindBestSpaceIndex(item);
-                if (freeSpaceIndex == -1)
-                {
-                    return;
-                }
-
-                Space freeSpace = freeSpaces[freeSpaceIndex];
-                StorageItem storageItem = new StorageItem(item, freeSpace.x, freeSpace.y);
-                inventory.IterateItemPositions(
-                item,
-                freeSpace.x,
-                freeSpace.y,
-                (position) =>
-                {
-                    optimizedStorage[position.x, position.y] = storageItem;
-                });
-
-                SplitSpace(item, freeSpace.x, freeSpace.y);
-            }
-
-            private int FindBestSpaceIndex(Item item)
-            {
-                int bestX = int.MaxValue;
-                int bestY = int.MaxValue;
-                int bestSpaceIndex = -1;
-
-                for (int i = 0; i < freeSpaceCount; ++i)
-                {
-                    Space freeSpace = freeSpaces[i];
-                    if (item.Size.x <= freeSpace.width &&
-                        item.Size.y <= freeSpace.height)
+                    while (Compare(pivot, items[l]) > 0)
                     {
-                        if (freeSpace.y < bestY || freeSpace.y == bestY && freeSpace.x < bestX)
-                        {
-                            bestY = freeSpace.y;
-                            bestX = freeSpace.x;
-                            bestSpaceIndex = i;
-                        }
+                        ++l;
+                    }
+                    while (Compare(pivot, items[r]) < 0)
+                    {
+                        --r;
+                    }
+
+                    if (l <= r)
+                    {
+                        Item temp = items[l];
+                        items[l] = items[r];
+                        items[r] = temp;
+                        ++l;
+                        --r;
                     }
                 }
 
-                return bestSpaceIndex;
-            }
-
-            private void SplitSpace(Item item, int x, int y)
-            {
-                int count = freeSpaceCount;
-                for (int i = 0; i < count; ++i) {
-                    Space space = freeSpaces[i];
-                    if (!IsIntersecting(new Space(x, y, item.Size.x, item.Size.y), space))
-                    {
-                        continue;
-                    }
-
-                    AddFreeSpace(new Space(space.x, space.y, x - space.x, space.height));
-                    AddFreeSpace(new Space(x + item.Size.x, space.y, space.x + space.width - (x + item.Size.x), space.height));
-                    AddFreeSpace(new Space(space.x, space.y, space.width, y - space.y));
-                    AddFreeSpace(new Space(space.x, y + item.Size.y, space.width, space.y + space.height - (y + item.Size.y)));
-                    RemoveFreeAt(i);
-                }
-
-                PruneFreeSpaces();
-            }
-
-            private void AddFreeSpace(Space space)
-            {
-                if (space.width <= 0 || 
-                    space.height <= 0 || 
-                    space.x + space.width > inventory.Width || 
-                    space.y + space.height > inventory.Height)
+                if (left < r)
                 {
-                    return;
+                    SortItems(items, left, r);
                 }
-                freeSpaces[freeSpaceCount] = space;
-                freeSpaceCount++;
-            }
-
-            private void RemoveFreeAt(int index)
-            {
-                if (freeSpaceCount == 0)
+                if (l < right)
                 {
-                    return;
-                }
-
-                freeSpaceCount--;
-                freeSpaces[index] = freeSpaces[freeSpaceCount];
-                freeSpaces[freeSpaceCount] = null;
-            }
-
-            private void PruneFreeSpaces()
-            {
-                for (int i = 0; i < freeSpaceCount; i++)
-                {
-                    for (int j = i + 1; j < freeSpaceCount; j++)
-                    {
-                        if (IsContainedIn(freeSpaces[i], freeSpaces[j]))
-                        {
-                            RemoveFreeAt(i);
-                            i--;
-                            break;
-                        }
-                        if (IsContainedIn(freeSpaces[j], freeSpaces[i]))
-                        {
-                            RemoveFreeAt(j);
-                            j--;
-                        }
-                    }
+                    SortItems(items, l, right);
                 }
             }
 
-            private bool IsContainedIn(Space a, Space b)
+            int Compare(Item a, Item b)
             {
-                return  a.x >= b.x &&
-                        a.y >= b.y &&
-                        a.x + a.width <= b.x + b.width &&
-                        a.y + a.height <= b.y + b.height;
-            }
-
-            private bool IsIntersecting(Space a, Space b)
-            {
-                return !(a.x + a.height <= b.x ||
-                        a.x >= b.x + b.width ||
-                        a.y + a.height <= b.y ||
-                        a.y >= b.y + b.height);
-            }
-
-            private void SortItems(Item[] items, Func<Item, Item, int> comparer)
-            {
-                SortItems(items, 0, items.Length - 1);
-
-                void SortItems(Item[] items, int left, int right)
-                {
-                    int l = left;
-                    int r = right;
-                    Item pivot = items[l];
-
-                    while (l <= r)
-                    {
-                        while (comparer.Invoke(pivot, items[l]) > 0)
-                        {
-                            ++l;
-                        }
-                        while (comparer.Invoke(pivot, items[r]) < 0)
-                        {
-                            --r;
-                        }
-
-                        if (l <= r)
-                        {
-                            Item temp = items[l];
-                            items[l] = items[r];
-                            items[r] = temp;
-                            ++l;
-                            --r;
-                        }
-                    }
-
-                    if (left < r)
-                    {
-                        SortItems(items, left, r);
-                    }
-                    if (l < right)
-                    {
-                        SortItems(items, l, right);
-                    }
-                }
-            }
-
-            private class Space
-            {
-                public int x;
-                public int y;
-                public int width;
-                public int height;
-
-                public Space(int x, int y, int width, int height)
-                {
-                    this.x = x;
-                    this.y = y;
-                    this.width = width;
-                    this.height = height;
-                }
+                if (a.Size.x != b.Size.x) return a.Size.x - b.Size.x;
+                if (a.Size.y != b.Size.y) return a.Size.y - b.Size.y;
+                if (a.Id != b.Id) return b.Id - a.Id;
+                return 0;
             }
         }
     }
