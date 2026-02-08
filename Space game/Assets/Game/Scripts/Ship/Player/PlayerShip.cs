@@ -24,7 +24,7 @@ namespace Game
         {
             this.OnHealthChanged += health =>
             {
-                _healthView.SetHealth(health, this.config.Health);
+                _healthView.SetHealth(health, this.Config.Health);
                 _cameraShaker.Shake();
             };
             this.OnDead += _gameOverView.Show;
@@ -34,7 +34,7 @@ namespace Game
         {
             this.OnHealthChanged -= health =>
             {
-                _healthView.SetHealth(health, this.config.Health);
+                _healthView.SetHealth(health, this.Config.Health);
                 _cameraShaker.Shake();
             };
             this.OnDead -= _gameOverView.Show;
@@ -47,17 +47,16 @@ namespace Game
 
             float dx = Input.GetAxisRaw("Horizontal");
             float dy = Input.GetAxisRaw("Vertical");
-            this.moveDirection = new Vector2(dx, dy);
+            this.MoveDirection = new Vector2(dx, dy);
 
-            if (this.currentHealth > 0)
+            if (this.CurrentHealth > 0)
             {
-                _motor.MoveStep(this.moveDirection);
+                _motor.MoveStep(this.MoveDirection);
             }
         }
 
-        protected override void LateUpdate()
+        private void LateUpdate()
         {
-            base.LateUpdate();
             this.transform.position = _playerArea.ClampInBounds(this.transform.position);
         }
     }

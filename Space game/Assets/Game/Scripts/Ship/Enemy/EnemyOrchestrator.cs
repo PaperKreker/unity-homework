@@ -68,7 +68,7 @@ namespace Game
         private void FixedUpdate()
         {
             float time = Time.fixedTime;
-            if (time - _spawnTime < _spawnCooldown || _player.currentHealth <= 0)
+            if (time - _spawnTime < _spawnCooldown || _player.CurrentHealth <= 0)
                 return;
             
             if (_pool.TryDequeue(out Enemy enemy))
@@ -76,11 +76,11 @@ namespace Game
             else
                 enemy = Instantiate(_prefab, _container);
 
-            enemy.transform.position = this.NextSpawnPosition();
-            enemy.destination = this.NextDestination();
-            enemy.currentHealth = enemy.config.Health;
+            enemy.Respawn(
+                _player, 
+                this.NextSpawnPosition(), 
+                this.NextDestination());
 
-            enemy.target = _player;
             enemy.SetDespawner(this);
             enemy.OnFire += this.OnFire;
                 
@@ -107,16 +107,16 @@ namespace Game
             _pool.Enqueue(enemy);
         }
         
-        private void OnFire(ShipController enemy)
+        private void OnFire(ShipController enemy, Weapon weapon)
         {
-            Vector2 position = enemy.firePoint.position;
+            Vector2 position = weapon.FirePoint.position;
             Vector2 target = _player.transform.position;
             Vector2 direction = (target - position).normalized;
             _bulletWorld.Spawn(
-                enemy.firePoint.position,
+                weapon.FirePoint.position,
                 direction,
-                enemy.bulletSpeed,
-                enemy.bulletDamage,
+                weapon.BulletSpeed,
+                weapon.BulletDamage,
                 TeamType.Enemy
             );
         }

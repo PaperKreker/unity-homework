@@ -35,6 +35,11 @@ namespace Game
 
         private void FixedUpdate()
         {
+            RefreshBullets();
+        }
+
+        private void RefreshBullets()
+        {
             for (int i = _bullets.Count - 1; i >= 0; i--)
             {
                 BulletData bullet = _bullets[i];
@@ -43,11 +48,7 @@ namespace Game
 
                 if (!_levelBounds.InBounds(bullet.transform.position))
                 {
-                    _bullets.RemoveAt(i);
-
-                    bullet.OnTriggerEntered -= this.OnTriggerEntered;
-                    bullet.gameObject.SetActive(false);
-                    _pool.Push(bullet);
+                    DespawnAt(i);
                 }
             }
         }
@@ -89,6 +90,16 @@ namespace Game
             _bullets.Add(bullet);
         }
 
+        private void DespawnAt(int bulletIndex)
+        {
+            BulletData bullet = _bullets[bulletIndex];
+            _bullets.RemoveAt(bulletIndex);
+
+            bullet.OnTriggerEntered -= this.OnTriggerEntered;
+            bullet.gameObject.SetActive(false);
+            _pool.Push(bullet);
+        }
+
         private void OnTriggerEntered(BulletData bullet, Collider2D other)
         {
             if (!other.TryGetComponent(out ShipController ship)) 
@@ -100,14 +111,7 @@ namespace Game
                 // Deal damage to target:
                 if (bullet.damage > 0)
                 {
-                    ship.currentHealth = Mathf.Clamp(ship.currentHealth - bullet.damage, 0, ship.config.Health);
-                    ship.NotifyAboutHealthChanged(ship.currentHealth);
- 
-                    if (ship.currentHealth <= 0)
-                    {
-                        ship.NotifyAboutDead();
-                        ship.gameObject.SetActive(false);
-                    }
+                    ship.Hit(bullet.damage);
                 }
 
                 bullet.OnTriggerEntered -= this.OnTriggerEntered;

@@ -21,13 +21,13 @@ namespace Game
             _player.OnFire -= this.OnFire;
         }
 
-        private void OnFire(ShipController _)
+        private void OnFire(ShipController _, Weapon weapon)
         {
             _bulletWorld.Spawn(
-                _player.firePoint.position,
-                _player.firePoint.up,
-                _player.bulletSpeed,
-                _player.bulletDamage,
+                weapon.FirePoint.position,
+                weapon.FirePoint.up,
+                weapon.BulletSpeed,
+                weapon.BulletDamage,
                 TeamType.Player
             );
         }
