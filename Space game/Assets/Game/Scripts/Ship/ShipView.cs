@@ -4,31 +4,33 @@ using UnityEngine.UIElements;
 
 namespace Game
 {
-    public class ShipVisual : MonoBehaviour
+    public class ShipView : MonoBehaviour
     {
         [SerializeField]
         private ShipController _shipController;
 
         [SerializeField]
+        private ShipControllerViewConfig _viewConfig;
+
+        [Header("Visual effects")]
+        [SerializeField]
         private Transform _viewTransform;
 
         [SerializeField]
-        private AudioSource _audioSource;
-
-        [SerializeField]
-        private ShipControllerViewConfig _viewConfig;
-
-        [SerializeField]
         private ParticleSystem _fireVFX;
+
+        [SerializeField]
+        private Renderer _renderer;
+
+        [Header("Sound effects")]
+        [SerializeField]
+        private AudioSource _audioSource;
 
         [SerializeField]
         private AudioClip _fireSFX;
 
         [SerializeField]
         private AudioClip _damageSFX;
-
-        [SerializeField]
-        private Renderer _renderer;
 
         private Material _material;
         private Tweener _damageAnimation;

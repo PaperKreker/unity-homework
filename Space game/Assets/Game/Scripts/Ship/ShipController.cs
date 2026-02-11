@@ -8,10 +8,10 @@ namespace Game
     // +
     public abstract class ShipController : MonoBehaviour
     {
+        public event Action<ShipController, Weapon> OnFire;
         public event Action<int> OnHealthChanged;
         public event Action OnDamage;
         public event Action OnDead;
-        public event Action<ShipController, Weapon> OnFire;
         public ShipControllerSO Config { get => _config; }
 
         public int CurrentHealth { get; protected set; }

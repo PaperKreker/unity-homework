@@ -6,18 +6,18 @@ namespace Game
     [Serializable]
     public class Weapon
     {
-        public Transform FirePoint { get => firePoint; }
-        public float BulletSpeed { get => bulletSpeed; }
-        public int BulletDamage { get => bulletDamage; }
+        public Transform FirePoint { get => _firePoint; }
+        public float BulletSpeed { get => _bulletSpeed; }
+        public int BulletDamage { get => _bulletDamage; }
 
         [SerializeField]
-        private Transform firePoint;
+        private Transform _firePoint;
 
         [SerializeField]
-        private float bulletSpeed;
+        private float _bulletSpeed;
 
         [SerializeField]
-        private int bulletDamage;
+        private int _bulletDamage;
 
         private float _fireTime;
 

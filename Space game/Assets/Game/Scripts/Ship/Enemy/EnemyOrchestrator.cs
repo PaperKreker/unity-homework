@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Modules.UI;
@@ -10,81 +11,46 @@ namespace Game
     // +
     public sealed class EnemyOrchestrator : MonoBehaviour, IEnemyDespawner
     {
+        public Action<EnemyShip, int> OnEnemyDestroyed;
+        public Action<EnemyShip> OnEnemySpawned;
+
         [Header("Spawn")]
         [SerializeField]
         private float _minSpawnCooldown = 2;
 
         [SerializeField]
         private float _maxSpawnCooldown = 3;
+
+        [SerializeField]
+        private ObjectPool _enemyPool;
         
         private float _spawnCooldown;
         private float _spawnTime;
-        
-        [Header("Pool")]
-        [SerializeField]
-        private Enemy _prefab;
-
-        [SerializeField]
-        private Transform _container;
-        
-        private readonly Queue<Enemy> _pool = new();
 
         [Header("Target")]
         [SerializeField]
         private ShipController _player;
-        
+
         [Header("Points")]
         [SerializeField]
-        private Transform[] _spawnPositions;
-        
+        private PositionRandomizer _spawnPositions;
+
         [SerializeField]
-        private Transform[] _attackPositions;
-        
-        private int _spawnIndex;
-        private int _attackIndex;
-        
-        [Header("Bullets")]
-        [SerializeField]
-        private BulletWorldGO _bulletWorld;
-        
-        [Header("UI")]
-        [SerializeField]
-        private ScoreView _scoreView;
+        private PositionRandomizer _attackPositions;
         
         private int _destroyedEnemies;
         
-        private void Awake()
-        {
-            _spawnPositions.Shuffle();
-            _attackPositions.Shuffle();
-            _scoreView.SetValue(_destroyedEnemies);
-        }
-        
         private void Start()
         {
+            _spawnPositions.Shaffle();
+            _attackPositions.Shaffle();
+
             this.ResetSpawnCooldown();
         }
 
         private void FixedUpdate()
         {
-            float time = Time.fixedTime;
-            if (time - _spawnTime < _spawnCooldown || _player.CurrentHealth <= 0)
-                return;
-            
-            if (_pool.TryDequeue(out Enemy enemy))
-                enemy.gameObject.SetActive(true);
-            else
-                enemy = Instantiate(_prefab, _container);
-
-            enemy.Respawn(
-                _player, 
-                this.NextSpawnPosition(), 
-                this.NextDestination());
-
-            enemy.SetDespawner(this);
-            enemy.OnFire += this.OnFire;
-                
-            this.ResetSpawnCooldown();
+            TrySpawn();
         }
 
         private void ResetSpawnCooldown()
@@ -93,54 +59,36 @@ namespace Game
             _spawnTime = Time.fixedTime;
         }
 
-        public void Despawn(Enemy enemy)
+        private bool TrySpawn()
+        {
+            float time = Time.fixedTime;
+            if (time - _spawnTime < _spawnCooldown || _player.CurrentHealth <= 0)
+                return false;
+
+            EnemyShip enemy = _enemyPool.Spawn() as EnemyShip;
+            enemy.Respawn(
+                _player,
+                _spawnPositions.Next(),
+                _attackPositions.Next());
+
+            enemy.SetDespawner(this);
+            OnEnemySpawned?.Invoke(enemy);
+
+            this.ResetSpawnCooldown();
+            return true;
+        }
+
+        public void Despawn(EnemyShip enemy)
         {
             _destroyedEnemies++;
-            _scoreView.SetValue(_destroyedEnemies);
+            OnEnemyDestroyed?.Invoke(enemy, _destroyedEnemies);
             this.StartCoroutine(DespawnInNextFrame(enemy));
         }
 
-        private IEnumerator DespawnInNextFrame(Enemy enemy)
+        private IEnumerator DespawnInNextFrame(EnemyShip enemy)
         {
             yield return null;
-            enemy.gameObject.SetActive(false);
-            _pool.Enqueue(enemy);
-        }
-        
-        private void OnFire(ShipController enemy, Weapon weapon)
-        {
-            Vector2 position = weapon.FirePoint.position;
-            Vector2 target = _player.transform.position;
-            Vector2 direction = (target - position).normalized;
-            _bulletWorld.Spawn(
-                weapon.FirePoint.position,
-                direction,
-                weapon.BulletSpeed,
-                weapon.BulletDamage,
-                TeamType.Enemy
-            );
-        }
-        
-        private Vector3 NextSpawnPosition()
-        {
-            if (_spawnIndex >= _spawnPositions.Length)
-            {
-                _spawnPositions.Shuffle();
-                _spawnIndex = 0;
-            }
-
-            return _spawnPositions[_spawnIndex++].position;
-        }
-
-        private Vector3 NextDestination()
-        {
-            if (_attackIndex >= _attackPositions.Length)
-            {
-                _attackPositions.Shuffle();
-                _attackIndex = 0;
-            }
-
-            return _attackPositions[_attackIndex++].position;
+            _enemyPool.Despawn(enemy);
         }
     }
 }

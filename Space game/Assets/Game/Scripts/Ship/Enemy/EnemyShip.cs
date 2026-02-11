@@ -3,15 +3,15 @@ using UnityEngine;
 namespace Game
 {
     // +
-    public sealed class Enemy : ShipController
+    public sealed class EnemyShip : ShipController
     {
         [Header("Enemy")]
+        public ShipController Target { get; private set; }
 
         [SerializeField]
         private float _stoppingDistance = 0.25f;
 
         private IEnemyDespawner _despawner;
-        private ShipController _target;
         private Vector2 _destination;
 
         public void SetDespawner(IEnemyDespawner despawner) => _despawner = despawner;
@@ -26,7 +26,7 @@ namespace Game
         {
             transform.position = spawnPosition;
             _destination = destination;
-            _target = target;
+            Target = target;
             ResetHealth();
         }
 
@@ -34,7 +34,7 @@ namespace Game
         {
             base.FixedUpdate();
 
-            if (this.CurrentHealth <= 0 || this._target == null || this._target.CurrentHealth <= 0)
+            if (this.CurrentHealth <= 0 || this.Target == null || this.Target.CurrentHealth <= 0)
                 return;
 
             if (!TryMove())
