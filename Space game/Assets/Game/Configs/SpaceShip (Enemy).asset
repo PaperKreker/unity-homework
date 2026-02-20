@@ -15,3 +15,5 @@ MonoBehaviour:
   _health: 2
   _moveSpeed: 2
   _fireCooldown: 1.25
+  _bulletSpeed: 3
+  _bulletDamage: 1

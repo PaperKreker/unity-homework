@@ -1,4 +1,3 @@
-using Modules.Utils;
 using System;
 using UnityEngine;
 
@@ -7,13 +6,12 @@ namespace Game
     // +
     public sealed class BulletController : MonoBehaviour
     {
+        public event Action<BulletController> OnDestroy;
         public event Action OnRespawn;
         public event Action OnHit;
-        public event Action<BulletController> OnDestroy;
 
         public TeamType Team { get; private set; }
 
-        private TransformBounds _levelBounds;
         private Vector2 _direction;
         private float _speed;
         private int _damage;
@@ -21,7 +19,30 @@ namespace Game
         private void FixedUpdate()
         {
             Move();
-            CheckBounds();
+        }
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            TryHit(other);
+        }
+
+        public void Respawn(RespawnArgs respawnArgs)
+        {
+            _direction = respawnArgs.Direction;
+            _damage = respawnArgs.Damage;
+            _speed = respawnArgs.Speed;
+            Team = respawnArgs.Team;
+
+            transform.position = respawnArgs.Position;
+            transform.rotation = Quaternion.LookRotation(_direction, Vector3.forward);
+            gameObject.layer = Team switch
+            {
+                TeamType.None   => LayerMask.NameToLayer("Default"),
+                TeamType.Player => LayerMask.NameToLayer("PlayerBullet"),
+                TeamType.Enemy  => LayerMask.NameToLayer("EnemyBullet"),
+                _ => throw new ArgumentOutOfRangeException(nameof(Team), Team, null)
+            };
+
+            OnRespawn?.Invoke();
         }
 
         private void Move()
@@ -30,21 +51,12 @@ namespace Game
             transform.position += moveStep;
         }
 
-        private void CheckBounds()
-        {
-            if (!_levelBounds.InBounds(transform.position))
-            {
-                OnDestroy?.Invoke(this);
-            }
-        }
-
-        private void OnTriggerEnter2D(Collider2D other)
+        private bool TryHit(Collider2D other)
         {
             if (!other.TryGetComponent(out ShipController ship))
-                return;
+                return false;
 
-            if (Team == TeamType.Player && ship is EnemyShip ||
-                Team == TeamType.Enemy && ship is PlayerShip)
+            if (Team != TeamType.None && Team != ship.Team)
             {
                 // Deal damage to target:
                 if (_damage > 0)
@@ -54,28 +66,19 @@ namespace Game
 
                 OnHit?.Invoke();
                 OnDestroy?.Invoke(this);
+                return true;
             }
+
+            return false;
         }
 
-        public void Respawn(TransformBounds levelBounds, Vector2 position, TeamType team, Vector2 direction, float speed, int damage)
+        public struct RespawnArgs
         {
-            _levelBounds = levelBounds;
-            _direction = direction;
-            _damage = damage;
-            _speed = speed;
-            Team = team;
-
-            transform.position = position;
-            transform.rotation = Quaternion.LookRotation(_direction, Vector3.forward);
-            gameObject.layer = Team switch
-            {
-                TeamType.None => LayerMask.NameToLayer("Default"),
-                TeamType.Player => LayerMask.NameToLayer("PlayerBullet"),
-                TeamType.Enemy => LayerMask.NameToLayer("EnemyBullet"),
-                _ => throw new ArgumentOutOfRangeException(nameof(Team), Team, null)
-            };
-
-            OnRespawn?.Invoke();
+            public Vector2 Direction;
+            public Vector2 Position; 
+            public TeamType Team;
+            public float Speed;
+            public int Damage;
         }
     }
 }

@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game
@@ -5,56 +7,77 @@ namespace Game
     // +
     public sealed class EnemyShip : ShipController
     {
-        [Header("Enemy")]
+        public override TeamType Team { get => TeamType.Enemy; }
         public ShipController Target { get; private set; }
 
-        [SerializeField]
-        private float _stoppingDistance = 0.25f;
+        public event Action<RespawnArgs> OnRespawn;
+        public event Action<EnemyShip> OnDead;
 
-        private IEnemyDespawner _despawner;
-        private Vector2 _destination;
+        [Header("Enemy")]
+        private Dictionary<State, Action> _stateActions = new Dictionary<State, Action>();
+        private State _state;
 
-        public void SetDespawner(IEnemyDespawner despawner) => _despawner = despawner;
 
-        private void OnEnable() => this.OnDead += this.OnCharacterDead;
-
-        private void OnDisable() => this.OnDead -= this.OnCharacterDead;
-
-        private void OnCharacterDead() => _despawner.Despawn(this);
-
-        public void Respawn(ShipController target, Vector3 spawnPosition, Vector2 destination)
+        private void Start()
         {
-            transform.position = spawnPosition;
-            _destination = destination;
-            Target = target;
-            ResetHealth();
+            _stateActions.Add(State.Moving, Move);
+            _stateActions.Add(State.Firing, TryFire);
+
+            ResetState();
         }
 
-        protected override void FixedUpdate()
+        private void OnEnable()
         {
-            base.FixedUpdate();
+            Health.OnDead += Dead;
+        }
 
-            if (this.CurrentHealth <= 0 || this.Target == null || this.Target.CurrentHealth <= 0)
-                return;
+        private void OnDisable()
+        {
+            Health.OnDead -= Dead;
+        }
 
-            if (!TryMove())
+        public void Respawn(RespawnArgs respawnArgs)
+        {
+            transform.position = respawnArgs.spawnPosition;
+            Target = respawnArgs.target;
+            ResetState();
+            Health.ResetHealth();
+            OnRespawn?.Invoke(respawnArgs);
+        }
+
+        private void FixedUpdate()
+        {
+            if (Health.IsAlive() && Target != null && Target.Health.IsAlive())
             {
-                this.Fire();
+                _stateActions[_state]();
             }
         }
 
-        private bool TryMove()
+        public void ChangeState(State newState)
         {
-            Vector2 distance = _destination - (Vector2)this.transform.position;
-            bool isNotReached = distance.sqrMagnitude > _stoppingDistance * _stoppingDistance;
+            _state = newState;
+        }
 
-            MoveDirection = isNotReached ? distance.normalized : Vector3.zero;
+        private void ResetState()
+        {
+            _state = State.Moving;
+        }
 
-            if (isNotReached)
-            {
-                _motor.MoveStep(distance.normalized);
-            }
-            return isNotReached;
+        private void Dead()
+        {
+            OnDead?.Invoke(this);
+        }
+
+        public struct RespawnArgs
+        {
+            public ShipController target;
+            public Vector3 spawnPosition;
+            public Vector2 destination;
+        }
+        public enum State
+        {
+            Moving,
+            Firing,
         }
     }
 }

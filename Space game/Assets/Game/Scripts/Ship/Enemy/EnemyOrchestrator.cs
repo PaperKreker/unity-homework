@@ -1,10 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Modules.UI;
-using Modules.Utils;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Game
 {
@@ -22,7 +18,10 @@ namespace Game
         private float _maxSpawnCooldown = 3;
 
         [SerializeField]
-        private ObjectPool _enemyPool;
+        private EnemyPool _enemyPool;
+
+        [SerializeField]
+        private BulletManager _bulletManager;
         
         private float _spawnCooldown;
         private float _spawnTime;
@@ -33,19 +32,19 @@ namespace Game
 
         [Header("Points")]
         [SerializeField]
-        private PositionRandomizer _spawnPositions;
+        private PositionIterator _spawnPositions;
 
         [SerializeField]
-        private PositionRandomizer _attackPositions;
+        private PositionIterator _attackPositions;
         
         private int _destroyedEnemies;
         
         private void Start()
         {
-            _spawnPositions.Shaffle();
-            _attackPositions.Shaffle();
+            _spawnPositions.Shuffle();
+            _attackPositions.Shuffle();
 
-            this.ResetSpawnCooldown();
+            ResetSpawnCooldown();
         }
 
         private void FixedUpdate()
@@ -55,34 +54,37 @@ namespace Game
 
         private void ResetSpawnCooldown()
         {
-            _spawnCooldown = Random.Range(_minSpawnCooldown, _maxSpawnCooldown);
+            _spawnCooldown = UnityEngine.Random.Range(_minSpawnCooldown, _maxSpawnCooldown);
             _spawnTime = Time.fixedTime;
         }
 
         private bool TrySpawn()
         {
             float time = Time.fixedTime;
-            if (time - _spawnTime < _spawnCooldown || _player.CurrentHealth <= 0)
+            if (time - _spawnTime < _spawnCooldown || ! _player.Health.IsAlive())
                 return false;
 
-            EnemyShip enemy = _enemyPool.Spawn() as EnemyShip;
-            enemy.Respawn(
-                _player,
-                _spawnPositions.Next(),
-                _attackPositions.Next());
+            EnemyShip enemy = _enemyPool.Spawn();
+            enemy.Respawn( new EnemyShip.RespawnArgs {
+                target = _player,
+                spawnPosition = _spawnPositions.Next(),
+                destination = _attackPositions.Next() 
+            });
+            enemy.Weapon.SetBulletManager(_bulletManager);
 
-            enemy.SetDespawner(this);
+            enemy.OnDead += Despawn;
             OnEnemySpawned?.Invoke(enemy);
 
-            this.ResetSpawnCooldown();
+            ResetSpawnCooldown();
             return true;
         }
 
         public void Despawn(EnemyShip enemy)
         {
             _destroyedEnemies++;
+            enemy.OnDead -= Despawn;
             OnEnemyDestroyed?.Invoke(enemy, _destroyedEnemies);
-            this.StartCoroutine(DespawnInNextFrame(enemy));
+            StartCoroutine(DespawnInNextFrame(enemy));
         }
 
         private IEnumerator DespawnInNextFrame(EnemyShip enemy)

@@ -1,46 +1,52 @@
-using Game;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game
 {
-    public class ObjectPool : MonoBehaviour
+    public abstract class ObjectPool<T> : MonoBehaviour where T : Object
     {
         [SerializeField]
         private int _initialCapacity = 0;
+
         [SerializeField]
         private Transform _container;
-        [SerializeField]
-        private MonoBehaviour _prefab;
 
-        private readonly Queue<MonoBehaviour> _pool = new();
+        [SerializeField]
+        private T _prefab;
+
+        private readonly Queue<T> _pool = new();
 
         private void Awake()
         {
             for (int i = 0; i < _initialCapacity; i++)
             {
-                MonoBehaviour poolObject = Instantiate(_prefab, _container);
+                T poolObject = Instantiate(_prefab, _container);
 
-                poolObject.gameObject.SetActive(false);
+                DisableObject(poolObject);
                 _pool.Enqueue(poolObject);
             }
         }
 
-        public MonoBehaviour Spawn()
+        public T Spawn()
         {
-            if (_pool.TryDequeue(out MonoBehaviour spawnObject))
-            {
-                spawnObject.gameObject.SetActive(true);
-                return spawnObject;
-            }
+            T spawnObject;
 
-            return Instantiate(_prefab, _container);
+            if (!_pool.TryDequeue(out spawnObject))
+            {
+                spawnObject = Instantiate(_prefab, _container);
+            }
+            EnableObject(spawnObject);
+
+            return spawnObject;
         }
 
-        public void Despawn(MonoBehaviour objectToDespawn)
+        public void Despawn(T objectToDespawn)
         {
-            objectToDespawn.gameObject.SetActive(false);
+            DisableObject(objectToDespawn);
             _pool.Enqueue(objectToDespawn);
         }
+
+        protected abstract void EnableObject(T objectToEnable);
+        protected abstract void DisableObject(T objectToDisable);
     }
 }

@@ -9,7 +9,7 @@ namespace Game
         private EnemyOrchestrator _enemyOrchestrator;
 
         [SerializeField]
-        private ShipController _shipController;
+        private ShipHealth _shipHealth;
 
         [Header("UI views")]
         [SerializeField] 
@@ -29,19 +29,19 @@ namespace Game
         private void OnEnable()
         {
             _enemyOrchestrator.OnEnemyDestroyed += SetScore;
-            _shipController.OnHealthChanged += SetHealth;
-            _shipController.OnDead += _gameOverView.Show;
+            _shipHealth.OnHealthChanged += SetHealth;
+            _shipHealth.OnDead += _gameOverView.Show;
         }
         private void OnDisable()
         {
             _enemyOrchestrator.OnEnemyDestroyed -= SetScore;
-            _shipController.OnHealthChanged -= SetHealth;
-            _shipController.OnDead -= _gameOverView.Show;
+            _shipHealth.OnHealthChanged -= SetHealth;
+            _shipHealth.OnDead -= _gameOverView.Show;
         }
 
         private void SetHealth(int health)
         {
-            _healthView.SetHealth(health, _shipController.Config.Health);
+            _healthView.SetHealth(health, _shipHealth.Config.Health);
         }
 
         private void SetScore(EnemyShip _, int score)

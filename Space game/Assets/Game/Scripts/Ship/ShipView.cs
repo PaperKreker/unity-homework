@@ -7,7 +7,13 @@ namespace Game
     public class ShipView : MonoBehaviour
     {
         [SerializeField]
-        private ShipController _shipController;
+        private ShipHealth _shipHealth;
+
+        [SerializeField]
+        private ShipMovementBase _shipMovement;
+
+        [SerializeField]
+        private ShipWeapon _shipWeapon;
 
         [SerializeField]
         private ShipControllerViewConfig _viewConfig;
@@ -43,21 +49,21 @@ namespace Game
 
         private void OnEnable()
         {
-            _shipController.OnDamage += AnimateDamage;
-            _shipController.OnDead += AnimateDead;
-            _shipController.OnFire += AnimateFire;
+            _shipHealth.OnDamage += AnimateDamage;
+            _shipHealth.OnDead += AnimateDead;
+            _shipWeapon.OnFire += AnimateFire;
         }
 
         private void OnDisable()
         {
-            _shipController.OnDamage -= AnimateDamage;
-            _shipController.OnDead -= AnimateDead;
-            _shipController.OnFire -= AnimateFire;
+            _shipHealth.OnDamage -= AnimateDamage;
+            _shipHealth.OnDead -= AnimateDead;
+            _shipWeapon.OnFire -= AnimateFire;
         }
 
         private void LateUpdate()
         {
-            AnimateMovement(Time.deltaTime, _shipController.MoveDirection);
+            AnimateMovement(Time.deltaTime, _shipMovement.Direction);
         }
 
         private void AnimateMovement(float deltaTime, Vector3 moveDirection)
@@ -88,7 +94,7 @@ namespace Game
             ).SetLink(_renderer.gameObject);
         }
 
-        private void AnimateFire(ShipController _, Weapon weapon)
+        private void AnimateFire(ShipController _, Transform firePoint)
         {
             if (_fireSFX)
                 _audioSource.PlayOneShot(_fireSFX);

@@ -6,19 +6,19 @@ namespace Game
     public class CameraController : MonoBehaviour
     {
         [SerializeField]
-        private PlayerShip _playerShip;
+        private ShipHealth _playerHealth;
 
         [SerializeField]
         private CameraShaker _cameraShaker;
 
         private void OnEnable()
         {
-            _playerShip.OnHealthChanged += ShakeCamera;
+            _playerHealth.OnHealthChanged += ShakeCamera;
         }
 
         private void OnDisable()
         {
-            _playerShip.OnHealthChanged -= ShakeCamera;
+            _playerHealth.OnHealthChanged -= ShakeCamera;
         }
 
         private void ShakeCamera(int _)

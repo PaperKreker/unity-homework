@@ -519,7 +519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game::Game.UIController
   _enemyOrchestrator: {fileID: 562298205}
-  _shipController: {fileID: 4414282821800802410}
+  _shipHealth: {fileID: 4414282821800802418}
   _gameOverView: {fileID: 1375492023}
   _healthView: {fileID: 1243470931}
   _scoreView: {fileID: 895558708}
@@ -565,6 +565,7 @@ GameObject:
   - component: {fileID: 363245576}
   - component: {fileID: 363245577}
   - component: {fileID: 363245578}
+  - component: {fileID: 363245579}
   m_Layer: 0
   m_Name: <BulletSystem>
   m_TagString: Untagged
@@ -596,10 +597,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 363245575}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37bd15923a144ffbab0333dc6e74e641, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b2a31e8fbc72a94a86168f3927447cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelBounds: {fileID: 2572952653776768186}
   _bulletPool: {fileID: 363245578}
 --- !u!114 &363245578
 MonoBehaviour:
@@ -610,12 +610,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 363245575}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50c932bbc61f62248a41a867c5e8d556, type: 3}
+  m_Script: {fileID: 11500000, guid: 2da70215ebcc7a84ebda7becb543484a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Game::ObjectPool
+  m_EditorClassIdentifier: Game::Game.BulletPool
   _initialCapacity: 10
   _container: {fileID: 363245576}
   _prefab: {fileID: 201757604187811891, guid: 5fe72886874b4e445b06cf777ca4920d, type: 3}
+--- !u!114 &363245579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363245575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1160a558b526a69488654231feec386e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.BulletBoundChecker
+  _bulletManager: {fileID: 363245577}
+  _levelBounds: {fileID: 2572952653776768186}
 --- !u!1 &404085825
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,7 +873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72692dfdc6c729c41afdda8236b3e2e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.CameraController
-  _playerShip: {fileID: 4414282821800802410}
+  _playerHealth: {fileID: 4414282821800802418}
   _cameraShaker: {fileID: 519420034}
 --- !u!1 &522898773
 GameObject:
@@ -995,8 +1009,7 @@ GameObject:
   m_Component:
   - component: {fileID: 562298204}
   - component: {fileID: 562298205}
-  - component: {fileID: 562298206}
-  - component: {fileID: 562298207}
+  - component: {fileID: 562298208}
   m_Layer: 0
   m_Name: <EnemySystem>
   m_TagString: Untagged
@@ -1035,7 +1048,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minSpawnCooldown: 2
   _maxSpawnCooldown: 3
-  _enemyPool: {fileID: 562298206}
+  _enemyPool: {fileID: 562298208}
+  _bulletManager: {fileID: 363245577}
   _player: {fileID: 4414282821800802410}
   _spawnPositions:
     _points:
@@ -1056,7 +1070,7 @@ MonoBehaviour:
     - {fileID: 1549378007}
     - {fileID: 78117031}
     - {fileID: 883274640}
---- !u!114 &562298206
+--- !u!114 &562298208
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1065,26 +1079,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 562298203}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50c932bbc61f62248a41a867c5e8d556, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fa95096ab6a12849a7233166ea6fc41, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Game::ObjectPool
+  m_EditorClassIdentifier: Game::Game.EnemyPool
   _initialCapacity: 0
   _container: {fileID: 1052031097}
   _prefab: {fileID: 102605417607457000, guid: 87fe189881a524806800482ac8eaaa83, type: 3}
---- !u!114 &562298207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 562298203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5e0b45228c4bdd41a57f15a90481042, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.EnemyBulletInstantiator
-  _enemyOrchestrator: {fileID: 562298205}
-  _bulletWorld: {fileID: 363245577}
 --- !u!1 &574514311
 GameObject:
   m_ObjectHideFlags: 0
@@ -2580,7 +2580,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1879759789}
-  - component: {fileID: 1879759790}
   m_Layer: 0
   m_Name: <PlayerSystem>
   m_TagString: Untagged
@@ -2604,20 +2603,6 @@ Transform:
   - {fileID: 1498479407}
   m_Father: {fileID: 739865810}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1879759790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1879759788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0d8a2134b32408a9ccae5fde8a74223, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.PlayerBulletInstantiator
-  _bulletWorld: {fileID: 363245577}
-  _player: {fileID: 4414282821800802410}
 --- !u!1 &1954893900
 GameObject:
   m_ObjectHideFlags: 0
@@ -3215,6 +3200,10 @@ PrefabInstance:
       propertyPath: _gameOverView
       value: 
       objectReference: {fileID: 1375492023}
+    - target: {fileID: 3017696316128706287, guid: 0446acb84a7c9424d841676cef3b1d04, type: 3}
+      propertyPath: _bulletManager
+      value: 
+      objectReference: {fileID: 363245577}
     - target: {fileID: 4109394316656653739, guid: 0446acb84a7c9424d841676cef3b1d04, type: 3}
       propertyPath: m_Name
       value: <Player>
@@ -3259,7 +3248,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 278050541245109616, guid: 0446acb84a7c9424d841676cef3b1d04, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -3327,6 +3317,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab487c3ce89407b8153f9c2ff593bc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.PlayerShip
+--- !u!114 &4414282821800802418 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6652683214297158391, guid: 0446acb84a7c9424d841676cef3b1d04, type: 3}
+  m_PrefabInstance: {fileID: 3559832809919233303}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8266dad04d022489542c218d02b050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.ShipHealth
 --- !u!1 &4788406047096451828
 GameObject:
   m_ObjectHideFlags: 0

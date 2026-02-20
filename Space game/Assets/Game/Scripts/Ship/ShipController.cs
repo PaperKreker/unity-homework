@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
 
 namespace Game
@@ -8,66 +6,38 @@ namespace Game
     // +
     public abstract class ShipController : MonoBehaviour
     {
-        public event Action<ShipController, Weapon> OnFire;
-        public event Action<int> OnHealthChanged;
-        public event Action OnDamage;
-        public event Action OnDead;
+        public event Action OnMove;
+        
         public ShipControllerSO Config { get => _config; }
 
-        public int CurrentHealth { get; protected set; }
-        public Vector3 MoveDirection { get; protected set; }
+        public abstract TeamType Team { get; }
+
+        [field: SerializeField]
+        public ShipWeapon Weapon { get; private set; }
+
+        [field: SerializeField]
+        public ShipHealth Health { get; private set; }
 
         [SerializeField]
         private ShipControllerSO _config;
 
-        [SerializeField]
-        private Weapon _weapon;
 
-        [SerializeField]
-        protected Motor _motor;
-
-        
-
-        private void Awake()
+        protected void TryFire()
         {
-            ResetHealth();
-            _motor.SetSpeed(Config.MoveSpeed);
-        }
-
-        protected virtual void FixedUpdate() => _motor.FixedUpdate();
-
-        protected void Fire()
-        {
-            if (this.CurrentHealth > 0 && _weapon.TryFire(Config.FireCooldown))
+            if (Health.IsAlive())
             {
-                this.OnFire?.Invoke(this, _weapon);
+                Weapon.TryFire(this);
             }
         }
 
         public void Hit(int damage)
         {
-            CurrentHealth = Mathf.Clamp(CurrentHealth - damage, 0, Config.Health);
-
-            this.OnHealthChanged?.Invoke(CurrentHealth);
-            if (CurrentHealth > 0)
-            {
-                this.OnDamage?.Invoke();
-            }
-            else
-            {
-                this.Dead();
-            }
+            Health.Hit(damage);
         }
 
-        public void Dead()
+        protected void Move()
         {
-            this.OnDead?.Invoke();
-            gameObject.SetActive(false);
-        }
-
-        protected void ResetHealth()
-        {
-            this.CurrentHealth = Config.Health;
+            OnMove?.Invoke();
         }
     }
 }

@@ -5,14 +5,14 @@ using UnityEngine;
 namespace Game
 {
     [Serializable]
-    public class PositionRandomizer
+    public class PositionIterator
     {
         [SerializeField] 
         private Transform[] _points;
 
         private int _index;
 
-        public void Shaffle() 
+        public void Shuffle() 
         {
             _points?.Shuffle();
         }
