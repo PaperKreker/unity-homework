@@ -1,19 +1,12 @@
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Game
 {
     public class ShipView : MonoBehaviour
     {
         [SerializeField]
-        private ShipHealth _shipHealth;
-
-        [SerializeField]
-        private ShipMovementBase _shipMovement;
-
-        [SerializeField]
-        private ShipWeapon _shipWeapon;
+        private Ship _ship;
 
         [SerializeField]
         private ShipControllerViewConfig _viewConfig;
@@ -49,21 +42,21 @@ namespace Game
 
         private void OnEnable()
         {
-            _shipHealth.OnDamage += AnimateDamage;
-            _shipHealth.OnDead += AnimateDead;
-            _shipWeapon.OnFire += AnimateFire;
+            _ship.OnDamage += AnimateDamage;
+            _ship.OnDead += AnimateDead;
+            _ship.OnFire += AnimateFire;
         }
 
         private void OnDisable()
         {
-            _shipHealth.OnDamage -= AnimateDamage;
-            _shipHealth.OnDead -= AnimateDead;
-            _shipWeapon.OnFire -= AnimateFire;
+            _ship.OnDamage -= AnimateDamage;
+            _ship.OnDead -= AnimateDead;
+            _ship.OnFire -= AnimateFire;
         }
 
         private void LateUpdate()
         {
-            AnimateMovement(Time.deltaTime, _shipMovement.Direction);
+            AnimateMovement(Time.deltaTime, _ship.Direction);
         }
 
         private void AnimateMovement(float deltaTime, Vector3 moveDirection)
@@ -94,7 +87,7 @@ namespace Game
             ).SetLink(_renderer.gameObject);
         }
 
-        private void AnimateFire(ShipController _, Transform firePoint)
+        private void AnimateFire(Transform firePoint)
         {
             if (_fireSFX)
                 _audioSource.PlayOneShot(_fireSFX);

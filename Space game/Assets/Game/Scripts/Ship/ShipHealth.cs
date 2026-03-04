@@ -3,28 +3,30 @@ using UnityEngine;
 
 namespace Game
 {
-    public class ShipHealth : MonoBehaviour
+    [Serializable]
+    public class ShipHealth
     {
-        public event Action<int> OnHealthChanged;
+        public event Action<int, int> OnHealthChanged;
         public event Action OnDamage;
         public event Action OnDead;
 
-        [field: SerializeField]
-        public ShipControllerSO Config { get; private set; }
-        public int CurrentHealth { get; private set; }
+        private ShipConfig _config;
+        private GameObject _gameObject;
+        private int _currentHealth;
 
-
-        private void Awake()
+        public void Initialize(ShipConfig config, GameObject gameObject)
         {
+            _gameObject = gameObject;
+            _config = config;
             ResetHealth();
         }
 
         public void Hit(int damage)
         {
-            CurrentHealth = Mathf.Clamp(CurrentHealth - damage, 0, Config.Health);
+            _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, _config.Health);
 
-            OnHealthChanged?.Invoke(CurrentHealth);
-            if (CurrentHealth > 0)
+            OnHealthChanged?.Invoke(_currentHealth, _config.Health);
+            if (_currentHealth > 0)
             {
                 OnDamage?.Invoke();
             }
@@ -35,18 +37,18 @@ namespace Game
         }
         public void ResetHealth()
         {
-            CurrentHealth = Config.Health;
+            _currentHealth = _config.Health;
         }
 
-        protected virtual void Dead()
+        private void Dead()
         {
             OnDead?.Invoke();
-            gameObject.SetActive(false);
+            _gameObject.SetActive(false);
         }
 
         public bool IsAlive()
         {
-            return CurrentHealth > 0;
+            return _currentHealth > 0;
         }
     }
 }

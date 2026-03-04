@@ -1,28 +1,26 @@
+using System;
 using UnityEngine;
 
 namespace Game
 {
-    public abstract class ShipMovement<T_ShipController> : ShipMovementBase where T_ShipController : ShipController
+    [Serializable]
+    public class ShipMovement
     {
-        [SerializeField]
-        protected T_ShipController _shipController;
+        public Vector2 Direction { get; private set; }
 
         [SerializeField]
         private Rigidbody2D _rigidbody;
 
-        protected virtual void OnEnable()
+        private ShipConfig _config;
+
+        public void Initialize(ShipConfig config)
         {
-            _shipController.OnMove += Move;
+            _config = config;
         }
 
-        protected virtual void OnDisable()
+        public void MoveStep(Vector2 direction)
         {
-            _shipController.OnMove -= Move;
-        }
-
-        protected void MoveStep(Vector2 direction)
-        {
-            float speed = _shipController.Config.MoveSpeed * Time.fixedDeltaTime;
+            float speed = _config.MoveSpeed * Time.fixedDeltaTime;
             Vector2 newPosition = _rigidbody.position + direction * speed;
             _rigidbody.MovePosition(newPosition);
             Direction = direction;

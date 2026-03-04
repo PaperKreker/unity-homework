@@ -519,7 +519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game::Game.UIController
   _enemyOrchestrator: {fileID: 562298205}
-  _ship: {fileID: 4414282821800802410}
+  _shipHealth: {fileID: 4414282821800802418}
   _gameOverView: {fileID: 1375492023}
   _healthView: {fileID: 1243470931}
   _scoreView: {fileID: 895558708}
@@ -859,6 +859,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72692dfdc6c729c41afdda8236b3e2e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.CameraController
+  _playerHealth: {fileID: 4414282821800802418}
   _cameraShaker: {fileID: 519420034}
 --- !u!1 &522898773
 GameObject:
@@ -995,8 +996,6 @@ GameObject:
   - component: {fileID: 562298204}
   - component: {fileID: 562298205}
   - component: {fileID: 562298208}
-  - component: {fileID: 562298210}
-  - component: {fileID: 562298209}
   m_Layer: 0
   m_Name: <EnemySystem>
   m_TagString: Untagged
@@ -1033,38 +1032,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32dae85f8264479bac19d85418d92392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _minSpawnCooldown: 2
+  _maxSpawnCooldown: 3
   _enemyPool: {fileID: 562298208}
-  _enemyTimer: {fileID: 562298210}
-  _enemyPosition: {fileID: 562298209}
   _player: {fileID: 4414282821800802410}
---- !u!114 &562298208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 562298203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fa95096ab6a12849a7233166ea6fc41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.EnemyPool
-  _initialCapacity: 0
-  _container: {fileID: 1052031097}
-  _prefab: {fileID: 9427244144651515, guid: 87fe189881a524806800482ac8eaaa83, type: 3}
-  _bulletManager: {fileID: 363245577}
---- !u!114 &562298209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 562298203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 205916d653084b44b80f926f2d4099ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::EnemyPosition
   _spawnPositions:
     _points:
     - {fileID: 5098186055898699330}
@@ -1084,7 +1055,7 @@ MonoBehaviour:
     - {fileID: 1549378007}
     - {fileID: 78117031}
     - {fileID: 883274640}
---- !u!114 &562298210
+--- !u!114 &562298208
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1093,11 +1064,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 562298203}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8514fcc05797a264e89c68fecbde63bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fa95096ab6a12849a7233166ea6fc41, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Game::Game.Timer
-  _minCooldown: 2
-  _maxCooldown: 3
+  m_EditorClassIdentifier: Game::Game.EnemyPool
+  _initialCapacity: 0
+  _container: {fileID: 1052031097}
+  _prefab: {fileID: 102605417607457000, guid: 87fe189881a524806800482ac8eaaa83, type: 3}
+  _bulletManager: {fileID: 363245577}
 --- !u!1 &574514311
 GameObject:
   m_ObjectHideFlags: 0
@@ -3213,10 +3186,6 @@ PrefabInstance:
       propertyPath: _gameOverView
       value: 
       objectReference: {fileID: 1375492023}
-    - target: {fileID: 328849090417711829, guid: 0446acb84a7c9424d841676cef3b1d04, type: 3}
-      propertyPath: _weapon._bulletManager
-      value: 
-      objectReference: {fileID: 363245577}
     - target: {fileID: 3017696316128706287, guid: 0446acb84a7c9424d841676cef3b1d04, type: 3}
       propertyPath: _bulletManager
       value: 
@@ -3265,10 +3234,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6637113552775377002, guid: 0446acb84a7c9424d841676cef3b1d04, type: 3}
-      propertyPath: _area
-      value: 
-      objectReference: {fileID: 1498479408}
     m_RemovedComponents:
     - {fileID: 278050541245109616, guid: 0446acb84a7c9424d841676cef3b1d04, type: 3}
     m_RemovedGameObjects: []
@@ -3335,9 +3300,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11e697375396cf94fabf1f35b437f22d, type: 3}
+  m_Script: {fileID: 11500000, guid: aab487c3ce89407b8153f9c2ff593bc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.PlayerShip
+--- !u!114 &4414282821800802418 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6652683214297158391, guid: 0446acb84a7c9424d841676cef3b1d04, type: 3}
+  m_PrefabInstance: {fileID: 3559832809919233303}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8266dad04d022489542c218d02b050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.ShipHealth
 --- !u!1 &4788406047096451828
 GameObject:
   m_ObjectHideFlags: 0

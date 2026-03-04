@@ -20,7 +20,7 @@ namespace Game
         {
             for (int i = 0; i < _initialCapacity; i++)
             {
-                T poolObject = Instantiate(_prefab, _container);
+                T poolObject = CreateObject();
 
                 DisableObject(poolObject);
                 _pool.Enqueue(poolObject);
@@ -33,7 +33,7 @@ namespace Game
 
             if (!_pool.TryDequeue(out spawnObject))
             {
-                spawnObject = Instantiate(_prefab, _container);
+                spawnObject = CreateObject();
             }
             EnableObject(spawnObject);
 
@@ -46,6 +46,10 @@ namespace Game
             _pool.Enqueue(objectToDespawn);
         }
 
+        protected virtual T CreateObject() 
+        {
+            return Instantiate(_prefab, _container);
+        }
         protected abstract void EnableObject(T objectToEnable);
         protected abstract void DisableObject(T objectToDisable);
     }

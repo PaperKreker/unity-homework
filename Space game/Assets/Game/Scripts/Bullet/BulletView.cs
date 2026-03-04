@@ -5,7 +5,7 @@ namespace Game
     public class BulletView : MonoBehaviour
     {
         [SerializeField]
-        private BulletController bulletController;
+        private Bullet bulletController;
 
         [SerializeField]
         private BulletViewConfig _configView;

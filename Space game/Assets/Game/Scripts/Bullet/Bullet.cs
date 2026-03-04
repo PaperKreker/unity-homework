@@ -4,35 +4,28 @@ using UnityEngine;
 namespace Game
 {
     // +
-    public sealed class BulletController : MonoBehaviour
+    public sealed class Bullet : MonoBehaviour
     {
-        public event Action<BulletController> OnDestroy;
+        public event Action<Bullet> OnDestroy;
         public event Action OnRespawn;
         public event Action OnHit;
 
-        public TeamType Team { get; private set; }
+        public TeamType Team { get => _config.Team; }
 
+        private ShipConfig _config;
         private Vector2 _direction;
-        private float _speed;
-        private int _damage;
 
-        private void FixedUpdate()
-        {
-            Move();
-        }
         private void OnTriggerEnter2D(Collider2D other)
         {
             TryHit(other);
         }
 
-        public void Respawn(RespawnArgs respawnArgs)
+        public void Respawn(Vector2 direction, Vector2 position, ShipConfig config)
         {
-            _direction = respawnArgs.Direction;
-            _damage = respawnArgs.Damage;
-            _speed = respawnArgs.Speed;
-            Team = respawnArgs.Team;
+            _direction = direction;
+            _config = config;
 
-            transform.position = respawnArgs.Position;
+            transform.position = position;
             transform.rotation = Quaternion.LookRotation(_direction, Vector3.forward);
             gameObject.layer = Team switch
             {
@@ -45,23 +38,23 @@ namespace Game
             OnRespawn?.Invoke();
         }
 
-        private void Move()
+        public void Move()
         {
-            Vector3 moveStep = _direction * _speed * Time.fixedDeltaTime;
+            Vector3 moveStep = _direction * _config.BulletSpeed * Time.fixedDeltaTime;
             transform.position += moveStep;
         }
 
         private bool TryHit(Collider2D other)
         {
-            if (!other.TryGetComponent(out ShipController ship))
+            if (!other.TryGetComponent(out Ship ship))
                 return false;
 
             if (Team != TeamType.None && Team != ship.Team)
             {
                 // Deal damage to target:
-                if (_damage > 0)
+                if (_config.BulletDamage > 0)
                 {
-                    ship.Hit(_damage);
+                    ship.Hit(_config.BulletDamage);
                 }
 
                 OnHit?.Invoke();
@@ -70,15 +63,6 @@ namespace Game
             }
 
             return false;
-        }
-
-        public struct RespawnArgs
-        {
-            public Vector2 Direction;
-            public Vector2 Position; 
-            public TeamType Team;
-            public float Speed;
-            public int Damage;
         }
     }
 }

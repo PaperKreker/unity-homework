@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 072d2ba2b8554d2f9cee8304b9932c09, type: 3}
+  m_Script: {fileID: 11500000, guid: c2c9c828983deb8458a9da8b0f89f7ea, type: 3}
   m_Name: SpaceShip (Enemy)
   m_EditorClassIdentifier: 
-  _health: 2
-  _moveSpeed: 2
-  _fireCooldown: 1.25
-  _bulletSpeed: 3
-  _bulletDamage: 1
+  <Health>k__BackingField: 2
+  <MoveSpeed>k__BackingField: 2
+  <Team>k__BackingField: 2
+  <FireCooldown>k__BackingField: 0.75
+  <BulletSpeed>k__BackingField: 3
+  <BulletDamage>k__BackingField: 1

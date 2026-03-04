@@ -6,10 +6,10 @@ namespace Game
     public class UIController : MonoBehaviour
     {
         [SerializeField]
-        private EnemyOrchestrator _enemyOrchestrator;
+        private EnemySpawner _enemyOrchestrator;
 
         [SerializeField]
-        private ShipHealth _shipHealth;
+        private Ship _ship;
 
         [Header("UI views")]
         [SerializeField] 
@@ -29,22 +29,22 @@ namespace Game
         private void OnEnable()
         {
             _enemyOrchestrator.OnEnemyDestroyed += SetScore;
-            _shipHealth.OnHealthChanged += SetHealth;
-            _shipHealth.OnDead += _gameOverView.Show;
+            _ship.OnHealthChanged += SetHealth;
+            _ship.OnDead += _gameOverView.Show;
         }
         private void OnDisable()
         {
             _enemyOrchestrator.OnEnemyDestroyed -= SetScore;
-            _shipHealth.OnHealthChanged -= SetHealth;
-            _shipHealth.OnDead -= _gameOverView.Show;
+            _ship.OnHealthChanged -= SetHealth;
+            _ship.OnDead -= _gameOverView.Show;
         }
 
-        private void SetHealth(int health)
+        private void SetHealth(int currentHealth, int maxHealth)
         {
-            _healthView.SetHealth(health, _shipHealth.Config.Health);
+            _healthView.SetHealth(currentHealth, maxHealth);
         }
 
-        private void SetScore(EnemyShip _, int score)
+        private void SetScore(EnemyBehaviour _, int score)
         {
             _scoreView.SetValue(score);
         }

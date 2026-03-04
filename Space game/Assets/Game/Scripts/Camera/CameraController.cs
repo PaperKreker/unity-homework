@@ -21,7 +21,7 @@ namespace Game
             _playerHealth.OnHealthChanged -= ShakeCamera;
         }
 
-        private void ShakeCamera(int _)
+        private void ShakeCamera(int _, int __)
         {
             _cameraShaker.Shake();
         }
