@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 10
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -42,8 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
-  m_GIWorkflowMode: 1
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -66,9 +66,6 @@ LightmapSettings:
     m_LightmapParameters: {fileID: 0}
     m_LightmapsBakeMode: 1
     m_TextureCompression: 1
-    m_FinalGather: 0
-    m_FinalGatherFiltering: 1
-    m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 2
     m_BakeBackend: 0
@@ -204,7 +201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1226517422905731925, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -25
+      value: -24.99997
       objectReference: {fileID: 0}
     - target: {fileID: 1226517422905731925, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -266,6 +263,10 @@ PrefabInstance:
       propertyPath: speed
       value: -3
       objectReference: {fileID: 0}
+    - target: {fileID: 5611663213032405892, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
+      propertyPath: _planetName
+      value: Planet #2
+      objectReference: {fileID: 0}
     - target: {fileID: 6217485614801709033, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -288,6 +289,72 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1226517422905731925, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
   m_PrefabInstance: {fileID: 52783606}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &159774768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 159774769}
+  - component: {fileID: 159774770}
+  - component: {fileID: 159774771}
+  m_Layer: 5
+  m_Name: CoinParticles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &159774769
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159774768}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1465214279}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &159774770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159774768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 046cdd3a9f5d40c594a69c76aa9e8ad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UIComponents::Modules.UI.ParticleAnimator
+  _particlePrefab: {fileID: 8463490587080572799, guid: 38d7f5045319aa547904a82ff3c91ebb, type: 3}
+  _parent: {fileID: 159774769}
+--- !u!114 &159774771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159774768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d63b707a132fb64da2fcb13647abce2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Views::Game.Views.CoinView
+  _moveDuration: 1
+  _target: {fileID: 1129981330}
+  _coinAnimator: {fileID: 159774770}
 --- !u!224 &188265542 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8460962601618271506, guid: 922a3fcd633baa0498344270e9eabd2a, type: 3}
@@ -449,6 +516,10 @@ PrefabInstance:
       propertyPath: speed
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5611663213032405892, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
+      propertyPath: _planetName
+      value: Planet #9
+      objectReference: {fileID: 0}
     - target: {fileID: 6217485614801709033, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -471,6 +542,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1226517422905731925, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
   m_PrefabInstance: {fileID: 249258343}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &249258345 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5611663213032405892, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
+  m_PrefabInstance: {fileID: 249258343}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d0b7eb73201aa4cbfd12b0e7a4a515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Views::PlanetView
 --- !u!1001 &470088492
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -614,6 +696,10 @@ PrefabInstance:
     - target: {fileID: 5553639715843108117, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
       propertyPath: speed
       value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5611663213032405892, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
+      propertyPath: _planetName
+      value: Planet #4
       objectReference: {fileID: 0}
     - target: {fileID: 6217485614801709033, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
       propertyPath: m_Sprite
@@ -857,6 +943,11 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -878,6 +969,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -1035,6 +1127,10 @@ PrefabInstance:
     - target: {fileID: 5553639715843108117, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
       propertyPath: speed
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5611663213032405892, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
+      propertyPath: _planetName
+      value: Planet #5
       objectReference: {fileID: 0}
     - target: {fileID: 6217485614801709033, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
       propertyPath: m_Sprite
@@ -1202,6 +1298,10 @@ PrefabInstance:
       propertyPath: speed
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5611663213032405892, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
+      propertyPath: _planetName
+      value: Planet #3
+      objectReference: {fileID: 0}
     - target: {fileID: 6217485614801709033, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1338,6 +1438,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddf1abd95338489aa5e953f001a270a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _planetPopupView: {fileID: 1802329538}
+  _planetView:
+  - {fileID: 7237256081421283247}
+  - {fileID: 1717321342}
+  - {fileID: 1630960136}
+  - {fileID: 1554284252}
+  - {fileID: 1029388103}
+  - {fileID: 1918786894}
+  - {fileID: 1247079642}
+  - {fileID: 1244366340}
+  - {fileID: 249258345}
+  _moneyView: {fileID: 6121086404576301248}
+  _coinView: {fileID: 159774771}
 --- !u!1 &974007725
 GameObject:
   m_ObjectHideFlags: 0
@@ -1526,6 +1639,10 @@ PrefabInstance:
       propertyPath: speed
       value: -5
       objectReference: {fileID: 0}
+    - target: {fileID: 5611663213032405892, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
+      propertyPath: _planetName
+      value: Planet #8
+      objectReference: {fileID: 0}
     - target: {fileID: 6217485614801709033, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1548,6 +1665,33 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1226517422905731925, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
   m_PrefabInstance: {fileID: 1000499686}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1029388103 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5611663213032405892, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
+  m_PrefabInstance: {fileID: 680929136}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d0b7eb73201aa4cbfd12b0e7a4a515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Views::PlanetView
+--- !u!224 &1129981330 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6204055655084186918, guid: 922a3fcd633baa0498344270e9eabd2a, type: 3}
+  m_PrefabInstance: {fileID: 6121086404576301247}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1244366340 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5611663213032405892, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
+  m_PrefabInstance: {fileID: 1000499686}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d0b7eb73201aa4cbfd12b0e7a4a515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Views::PlanetView
 --- !u!1001 &1247079640
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1692,6 +1836,10 @@ PrefabInstance:
       propertyPath: speed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5611663213032405892, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
+      propertyPath: _planetName
+      value: Planet #7
+      objectReference: {fileID: 0}
     - target: {fileID: 6217485614801709033, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1714,6 +1862,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1226517422905731925, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
   m_PrefabInstance: {fileID: 1247079640}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1247079642 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5611663213032405892, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
+  m_PrefabInstance: {fileID: 1247079640}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d0b7eb73201aa4cbfd12b0e7a4a515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Views::PlanetView
 --- !u!1 &1465214278
 GameObject:
   m_ObjectHideFlags: 0
@@ -1745,6 +1904,7 @@ RectTransform:
   m_Children:
   - {fileID: 188265542}
   - {fileID: 974007726}
+  - {fileID: 159774769}
   m_Father: {fileID: 1886819932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1766,6 +1926,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particlePrefab: {fileID: 8463490587080572799, guid: 38d7f5045319aa547904a82ff3c91ebb, type: 3}
   _parent: {fileID: 1465214279}
+--- !u!114 &1554284252 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5611663213032405892, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
+  m_PrefabInstance: {fileID: 470088492}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d0b7eb73201aa4cbfd12b0e7a4a515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Views::PlanetView
 --- !u!1 &1556955875
 GameObject:
   m_ObjectHideFlags: 0
@@ -1798,11 +1969,44 @@ Transform:
   - {fileID: 641865333}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1630960136 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5611663213032405892, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
+  m_PrefabInstance: {fileID: 734240810}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d0b7eb73201aa4cbfd12b0e7a4a515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Views::PlanetView
+--- !u!114 &1717321342 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5611663213032405892, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
+  m_PrefabInstance: {fileID: 52783606}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d0b7eb73201aa4cbfd12b0e7a4a515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Views::PlanetView
 --- !u!224 &1802329536 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5364966909751367753, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
   m_PrefabInstance: {fileID: 1052078977217180737}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1802329538 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2411600016977771773, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
+  m_PrefabInstance: {fileID: 1052078977217180737}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bd4143b0098a4e4f969571088f90140, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Views::PlanetPopupView
 --- !u!1 &1886819928
 GameObject:
   m_ObjectHideFlags: 0
@@ -2050,6 +2254,10 @@ PrefabInstance:
       propertyPath: speed
       value: -2
       objectReference: {fileID: 0}
+    - target: {fileID: 5611663213032405892, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
+      propertyPath: _planetName
+      value: Planet #6
+      objectReference: {fileID: 0}
     - target: {fileID: 6217485614801709033, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -2072,6 +2280,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1226517422905731925, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
   m_PrefabInstance: {fileID: 1918786892}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1918786894 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5611663213032405892, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
+  m_PrefabInstance: {fileID: 1918786892}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d0b7eb73201aa4cbfd12b0e7a4a515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Views::PlanetView
 --- !u!1001 &1052078977217180737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2084,29 +2303,61 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlanetPopup
       objectReference: {fileID: 0}
+    - target: {fileID: 860805340701978150, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1545834567372503321, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1545834567372503321, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1545834567372503321, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 100.46998
       objectReference: {fileID: 0}
     - target: {fileID: 1545834567372503321, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 105.23498
       objectReference: {fileID: 0}
     - target: {fileID: 1545834567372503321, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: -25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1849719361140464407, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2035488777015414868, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2035488777015414868, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2035488777015414868, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2035488777015414868, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2035488777015414868, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835106435704041574, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4047992451227309323, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -624.53
       objectReference: {fileID: 0}
     - target: {fileID: 5364966909751367753, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
       propertyPath: m_Pivot.x
@@ -2190,21 +2441,41 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6181788182618639097, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6181788182618639097, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6181788182618639097, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 44.99999
       objectReference: {fileID: 0}
     - target: {fileID: 6181788182618639097, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 22.499994
       objectReference: {fileID: 0}
     - target: {fileID: 6181788182618639097, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334248408342174532, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334248408342174532, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334248408342174532, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334248408342174532, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334248408342174532, guid: c6f3aabda10ed1841ba1c1a8999ef4ba, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
@@ -2305,17 +2576,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7832056747382589570, guid: 922a3fcd633baa0498344270e9eabd2a, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 922a3fcd633baa0498344270e9eabd2a, type: 3}
+--- !u!114 &6121086404576301248 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5252673953679649167, guid: 922a3fcd633baa0498344270e9eabd2a, type: 3}
+  m_PrefabInstance: {fileID: 6121086404576301247}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2947adf1ccc3594584f0b138ca034b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Views::Game.Views.MoneyView
 --- !u!224 &7237256081421283246 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1226517422905731925, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
   m_PrefabInstance: {fileID: 7566780103441064638}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7237256081421283247 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5611663213032405892, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
+  m_PrefabInstance: {fileID: 7566780103441064638}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d0b7eb73201aa4cbfd12b0e7a4a515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Views::PlanetView
 --- !u!1001 &7566780103441064638
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2455,6 +2747,10 @@ PrefabInstance:
     - target: {fileID: 5553639715843108117, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
       propertyPath: speed
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5611663213032405892, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
+      propertyPath: _planetName
+      value: Planet #1
       objectReference: {fileID: 0}
     - target: {fileID: 8801953262427805897, guid: 368c7b958afaee34caa5e1b9338e5e65, type: 3}
       propertyPath: _name
