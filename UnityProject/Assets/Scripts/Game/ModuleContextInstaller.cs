@@ -6,9 +6,6 @@ using Zenject;
 public sealed class ModuleContextInstaller : MonoInstaller
 {
     [SerializeField]
-    private DifficultyConfig difficultyConfig;
-
-    [SerializeField]
     private WorldBounds worldBounds;
 
     [SerializeField]
@@ -19,13 +16,6 @@ public sealed class ModuleContextInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
-        Container
-            .Bind<IDifficulty>()
-            .To<Difficulty>()
-            .FromNew()
-            .AsSingle()
-            .WithArguments(difficultyConfig.MaxDifficulty);
-
         Container
             .Bind<IScore>()
             .To<Score>()

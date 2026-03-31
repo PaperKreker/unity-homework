@@ -1,49 +1,33 @@
 using Modules;
-using SnakeGame;
 using System;
-using UnityEngine;
 using Zenject;
 
 public class SnakeController : IInitializable, IDisposable, ITickable
 {
-    private GameOverDetector gameOverDetector;
-    private IWorldBounds worldBounds;
+    private GameCycle gameCycle;
     private ISnake snake;
 
     private PlayerInput playerInput = new ();
 
     [Inject]
-    public SnakeController(ISnake snake, IWorldBounds worldBounds, GameOverDetector gameOverDetector)
+    public SnakeController(GameCycle gameCycle, ISnake snake)
     {
-        this.gameOverDetector = gameOverDetector;
-        this.worldBounds = worldBounds;
+        this.gameCycle = gameCycle;
         this.snake = snake;
     }
 
     public void Initialize()
     {
-        playerInput.OnRight += TurnRight;
-        playerInput.OnLeft += TurnLeft;
-        playerInput.OnDown += TurnDown;
-        playerInput.OnUp += TurnUp;
-
-        snake.OnSelfCollided += StopGame;
-        snake.OnMoved += CheckBounds;
-
-        gameOverDetector.OnGameOver += StopSnake;
+        gameCycle.OnLevelUp += ChangeSnakeSpeed;
+        gameCycle.OnGameOver += StopSnake;
+        playerInput.OnRotate += TurnSnake;
     }
 
     public void Dispose()
     {
-        playerInput.OnRight -= TurnRight;
-        playerInput.OnLeft -= TurnLeft;
-        playerInput.OnDown -= TurnDown;
-        playerInput.OnUp -= TurnUp;
-
-        snake.OnSelfCollided -= StopGame;
-        snake.OnMoved -= CheckBounds;
-
-        gameOverDetector.OnGameOver -= StopSnake;
+        gameCycle.OnLevelUp -= ChangeSnakeSpeed;
+        gameCycle.OnGameOver -= StopSnake;
+        playerInput.OnRotate -= TurnSnake;
     }
 
     public void Tick()
@@ -51,37 +35,14 @@ public class SnakeController : IInitializable, IDisposable, ITickable
         playerInput.Update();
     }
 
-    private void TurnLeft()
+    private void TurnSnake(SnakeDirection direction)
     {
-        snake.Turn(SnakeDirection.LEFT);
+        snake.Turn(direction);
     }
 
-    private void TurnUp()
+    private void ChangeSnakeSpeed(int speed)
     {
-        snake.Turn(SnakeDirection.UP);
-    }
-
-    private void TurnRight()
-    {
-        snake.Turn(SnakeDirection.RIGHT);
-    }
-
-    private void TurnDown()
-    {
-        snake.Turn(SnakeDirection.DOWN);
-    }
-
-    private void CheckBounds(Vector2Int position)
-    {
-        if (!worldBounds.IsInBounds(position))
-        {
-            StopGame();
-        }
-    }
-
-    private void StopGame()
-    {
-        gameOverDetector.Lose();
+        snake.SetSpeed(speed);
     }
 
     private void StopSnake(bool _)

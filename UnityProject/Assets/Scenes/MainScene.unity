@@ -235,6 +235,8 @@ GameObject:
   - component: {fileID: 285649169}
   - component: {fileID: 285649171}
   - component: {fileID: 285649170}
+  - component: {fileID: 285649173}
+  - component: {fileID: 285649172}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -272,8 +274,9 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 285649171}
-  - {fileID: 285649169}
   - {fileID: 285649170}
+  - {fileID: 285649173}
+  - {fileID: 285649169}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -329,10 +332,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24de107cc60b56b4d9239558fed0f723, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ModuleContextInstaller
-  difficultyConfig: {fileID: 11400000, guid: 052e16d5cd0f8b147a3adccf0801e289, type: 2}
   worldBounds: {fileID: 1431199845}
   gameUI: {fileID: 1764093826}
   snake: {fileID: 1446817787}
+--- !u!114 &285649172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285649166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f59ab110665755844a3a52867a218a9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameBootstrap
+--- !u!114 &285649173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285649166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 573e20d008916cb4aaa072cd34ad0e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DifficultyContextInstaller
+  difficultyConfig: {fileID: 11400000, guid: 052e16d5cd0f8b147a3adccf0801e289, type: 2}
 --- !u!1 &342545967
 GameObject:
   m_ObjectHideFlags: 0

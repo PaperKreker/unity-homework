@@ -13,13 +13,23 @@ public class CoinInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container
-            .BindFactory<Coin, CoinSpawner.Factory>()
+            .BindMemoryPool<Coin, CoinSpawner.Pool>()
             .FromComponentInNewPrefab(coinPrefab)
             .UnderTransform(container)
             .AsSingle();
 
         Container
-            .BindInterfacesAndSelfTo<CoinSpawner>()
+            .Bind<CoinSpawner>()
+            .FromNew()
+            .AsSingle();
+
+        Container
+            .Bind<CoinController>()
+            .FromNew()
+            .AsSingle();
+
+        Container
+            .BindInterfacesAndSelfTo<CoinApplier>()
             .FromNew()
             .AsSingle();
     }

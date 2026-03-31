@@ -6,15 +6,15 @@ using Zenject;
 
 public class UIController : IInitializable, IDisposable
 {
-    private GameOverDetector gameOverDetector;
+    private GameCycle gameCycle;
     private IDifficulty difficulty;
     private IGameUI gameUI;
     private IScore score;
 
     [Inject]
-    public UIController(GameOverDetector gameOverDetector, IDifficulty difficulty, IGameUI gameUI, IScore score)
+    public UIController(GameCycle gameOverDetector, IDifficulty difficulty, IGameUI gameUI, IScore score)
     {
-        this.gameOverDetector = gameOverDetector;
+        this.gameCycle = gameOverDetector;
         this.difficulty = difficulty;
         this.gameUI = gameUI;
         this.score = score;
@@ -23,7 +23,7 @@ public class UIController : IInitializable, IDisposable
     public void Initialize()
     {
         difficulty.OnStateChanged += RefreshDifficulty;
-        gameOverDetector.OnGameOver += GameOver;
+        gameCycle.OnGameOver += GameOver;
         score.OnStateChanged += RefreshScore;
 
         RefreshScore();
@@ -33,7 +33,7 @@ public class UIController : IInitializable, IDisposable
     public void Dispose()
     {
         difficulty.OnStateChanged -= RefreshDifficulty;
-        gameOverDetector.OnGameOver -= GameOver;
+        gameCycle.OnGameOver -= GameOver;
         score.OnStateChanged -= RefreshScore;
     }
 

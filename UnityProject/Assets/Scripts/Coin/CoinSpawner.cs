@@ -1,72 +1,57 @@
 using Modules;
 using SnakeGame;
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class CoinSpawner : IInitializable, IDisposable
+public class CoinSpawner
 {
-    public event Action<Coin> OnSpawn;
-
-    private Factory coinFactory;
-    private IDifficulty difficulty;
+    private Pool coinFactory;
 
     [Inject]
-    public CoinSpawner(IDifficulty difficulty, Factory coinFactory)
+    public CoinSpawner(Pool coinFactory)
     {
         this.coinFactory = coinFactory;
-        this.difficulty = difficulty;
     }
 
-    public void Initialize()
+    public Coin SpawnCoin()
     {
-        difficulty.OnStateChanged += SpawnCoins;
-    }
-
-    public void Dispose()
-    {
-        difficulty.OnStateChanged -= SpawnCoins;
-    }
-
-    public void SpawnCoins()
-    {
-        int coinsCount = difficulty.Current;
-
-        for (int i = 0; i < coinsCount; i++)
-        {
-            SpawnCoin();
-        }
-    }
-
-    private void SpawnCoin()
-    {
-        Coin coin = coinFactory.Create();
-        OnSpawn?.Invoke(coin);
+        return coinFactory.Create();
     }
 
     public void DespawnCoin(Coin coin)
     {
-        GameObject.Destroy(coin.gameObject);
+        coinFactory.Destroy(coin);
     }
 
-    public sealed class Factory : PlaceholderFactory<Coin>
+    public sealed class Pool : MonoMemoryPool<Coin>
     {
+        private List<Vector2Int> occupiedPositions = new();
         private IWorldBounds worldBounds;
 
         [Inject]
-        public Factory(IWorldBounds worldBounds) 
+        public Pool(IWorldBounds worldBounds) 
         {
             this.worldBounds = worldBounds;
         }
 
-        public override Coin Create()
+        public Coin Create()
         {
-            Vector2Int position = worldBounds.GetRandomPosition();
+            Vector2Int position;
+            do
+            {
+                position = worldBounds.GetRandomPosition();
+            } while (occupiedPositions.Contains(position));
 
-            Coin coin = base.Create();
+            Coin coin = Spawn();
             coin.Position = position;
             coin.Generate();
             return coin;
+        }
+
+        public void Destroy(Coin coin)
+        {
+            Despawn(coin);
         }
     }
 }
