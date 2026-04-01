@@ -1,3 +1,5 @@
+using Game.Views;
+using Modules.Planets;
 using UnityEngine;
 using Zenject;
 
@@ -17,7 +19,10 @@ namespace Game.Presenters
                 AsSingle();
 
             Container.
-                BindInterfacesAndSelfTo<PlanetPresenterInstaller>().
+                BindFactory<Planet, PlanetView, PlanetPresenter, PlanetPresenter.Factory>();
+
+            Container.
+                BindInterfacesAndSelfTo<PlanetPresentersInitializer>().
                 FromNew().
                 AsSingle();
 

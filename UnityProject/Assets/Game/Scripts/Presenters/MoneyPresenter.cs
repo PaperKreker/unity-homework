@@ -17,10 +17,10 @@ namespace Game.Presenters
         [Inject]
         public MoneyPresenter(IMoneyStorage moneyStorage, MoneyView moneyView, CoinPresenter coinPresenter, PlanetView[] planetViews)
         {
-            _moneyStorage = moneyStorage;
-            _moneyView = moneyView;
             _coinPresenter = coinPresenter;
+            _moneyStorage = moneyStorage;
             _planetViews = planetViews;
+            _moneyView = moneyView;
         }
 
         public void Initialize()
@@ -51,7 +51,7 @@ namespace Game.Presenters
             }
             else
             {
-                _coinPresenter.SpawnCoin(_gatherPosition.Value, () => RefreshMoney(newValue, prevValue));
+                _coinPresenter.SpawnCoin(_gatherPosition.Value, () => _moneyView.SetMoney(newValue, prevValue));
                 _gatherPosition = null;
             }
         }

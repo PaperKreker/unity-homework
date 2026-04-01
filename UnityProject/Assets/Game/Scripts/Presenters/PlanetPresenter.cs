@@ -32,9 +32,9 @@ namespace Game.Presenters
             _planetView.OnPlanetClicked += Interact;
             _planetView.OnPlanetHold += OpenPopup;
 
-            _planet.OnUnlocked += RefreshLocked;
             _planet.OnIncomeTimeChanged += RefreshIncomeTime;
             _planet.OnIncomeReady += RefreshIncomeReady;
+            _planet.OnUnlocked += RefreshLocked;
 
             RefreshLocked();
             RefreshPrice();
@@ -45,9 +45,9 @@ namespace Game.Presenters
             _planetView.OnPlanetClicked -= Interact;
             _planetView.OnPlanetHold -= OpenPopup;
 
-            _planet.OnUnlocked -= RefreshLocked;
             _planet.OnIncomeTimeChanged -= RefreshIncomeTime;
             _planet.OnIncomeReady -= RefreshIncomeReady;
+            _planet.OnUnlocked -= RefreshLocked;
         }
 
         public void OpenPopup()
@@ -96,12 +96,12 @@ namespace Game.Presenters
 
         private void RefreshIncomeTime(float remainingTime)
         {
-            string remainingText;
+            string remainingTimeText;
 
             int clampedTime = Mathf.Max(Mathf.CeilToInt(remainingTime), 0);
-            remainingText = $"{clampedTime / 60}m:{clampedTime % 60}s";
+            remainingTimeText = $"{clampedTime / 60}m:{clampedTime % 60}s";
 
-            _planetView.SetIncomeTime(remainingText);
+            _planetView.SetIncomeTime(remainingTimeText);
         }
 
         private void RefreshIncomeReady(bool isReady)
@@ -112,6 +112,20 @@ namespace Game.Presenters
         private void RefreshPrice()
         {
             _planetView.SetPrice(_planet.Price.ToString());
+        }
+
+        public class Factory : PlaceholderFactory<Planet, PlanetView, PlanetPresenter>
+        {
+            [Inject]
+            public Factory(PlanetView[] planetViews, Planet[] planets)
+            {
+
+            }
+
+            public override PlanetPresenter Create(Planet planet, PlanetView planetView)
+            {
+                return base.Create(planet, planetView);
+            }
         }
     }
 }

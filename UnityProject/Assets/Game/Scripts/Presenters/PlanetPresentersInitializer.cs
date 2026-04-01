@@ -6,19 +6,23 @@ using Zenject;
 
 namespace Game.Presenters
 {
-    public class PlanetPresenterInstaller : IInitializable, IDisposable
+    public class PlanetPresentersInitializer : IInitializable, IDisposable
     {
         private readonly Dictionary<string, Planet> _planetsByNames = new();
-        private readonly PlanetView[] _planetViews;
-        private readonly DiContainer _container;
-        private readonly Planet[] _planets;
         private readonly List<PlanetPresenter> planetPresenters = new ();
 
+        private readonly PlanetPresenter.Factory _presenterFactory;
+        private readonly PlanetView[] _planetViews;
+        private readonly Planet[] _planets;
+
         [Inject]
-        public PlanetPresenterInstaller(DiContainer container, PlanetView[] planetViews, Planet[] planets)
+        public PlanetPresentersInitializer(
+            PlanetPresenter.Factory presenterFactory, 
+            PlanetView[] planetViews, 
+            Planet[] planets)
         {
+            _presenterFactory = presenterFactory;
             _planetViews = planetViews;
-            _container = container;
             _planets = planets;
         }
 
@@ -31,9 +35,10 @@ namespace Game.Presenters
 
             foreach (PlanetView planetView in _planetViews)
             {
-                PlanetPresenter planetPresenter = _container.Instantiate<PlanetPresenter>(new object[] {
-                    _planetsByNames[planetView.GetName()],
-                    planetView});
+                Planet planet = _planetsByNames[planetView.GetName()];
+                PlanetPresenter planetPresenter = _presenterFactory.Create(
+                    planet,
+                    planetView);
 
                 planetPresenter.Initialize();
                 planetPresenters.Add(planetPresenter);
