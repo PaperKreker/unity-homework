@@ -1,9 +1,11 @@
+using SampleGame.Gameplay.Serializers;
+using SampleGame.SaveSystem;
 using UnityEngine;
 
 namespace SampleGame.Gameplay
 {
     //Can be extended
-    public sealed class Health : MonoBehaviour
+    public sealed class Health : MonoBehaviour, ISaveable
     {
         ///Variable
         [field: SerializeField]
@@ -12,5 +14,7 @@ namespace SampleGame.Gameplay
         ///Const
         [field: SerializeField]
         public int Max { get; private set; } = 100;
+
+        public ISaveSerializer Serializer => new HealthSerializer(this);
     }
 }

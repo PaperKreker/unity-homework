@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using Modules.Entities;
+using SampleGame.Gameplay.Serializers;
+using SampleGame.SaveSystem;
 using UnityEngine;
+using Zenject;
 
 namespace SampleGame.Gameplay
 {
     //Can be extended
-    public sealed class ProductionOrder : MonoBehaviour
+    public sealed class ProductionOrder : MonoBehaviour, ISaveable
     {
         ///Variable
         [SerializeField]
@@ -16,5 +19,7 @@ namespace SampleGame.Gameplay
             get { return _queue; }
             set { _queue = new List<EntityConfig>(value); }
         }
+        
+        public ISaveSerializer Serializer => new ProductionOrderSerializer(this);
     }
 }
