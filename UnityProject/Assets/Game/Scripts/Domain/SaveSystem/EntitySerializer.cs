@@ -25,35 +25,41 @@ namespace SampleGame.SaveSystem
         public EntityContainer Serialize()
         {
             var entities = _entityWorld.GetAll();
-            EntityData[] entityDatas = new EntityData[entities.Count];
+            return SerializeEntities(entities);
+        }
+        
+        public void Deserialize(EntityContainer entityContainer)
+        {
+            _entityWorld.DestroyAll();
+            SpawnEntities(entityContainer, out var spawnedEntities);
+            DeserializeEntities(spawnedEntities);
+        }
 
+        private EntityContainer SerializeEntities(IReadOnlyCollection<Entity> entities)
+        {
+            EntityData[] entityDatas = new EntityData[entities.Count];
             int i = 0;
+            
             foreach (Entity entity in entities)
             {
-                entityDatas[i] = GetEntityData(entity);
+                ISaveable[] saveables = entity.GetComponents<ISaveable>();
+                entityDatas[i] = new EntityData()
+                {
+                    Name = entity.Name,
+                    Position = entity.transform.position,
+                    Rotation = entity.transform.rotation,
+                    Data = SerializeEntity(saveables),
+                };
                 ++i;
             }
-
+            
             return new EntityContainer()
             {
                 Entities = entityDatas,
             };
         }
 
-        private EntityData GetEntityData(Entity entity)
-        {
-            ISaveable[] saveables = entity.GetComponents<ISaveable>();
-            
-            return new EntityData()
-            {
-                Name = entity.Name,
-                Position = entity.transform.position,
-                Rotation = entity.transform.rotation,
-                Data = GetSerializeData(saveables),
-            };
-        }
-
-        private JObject GetSerializeData(ISaveable[] saveables)
+        private JObject SerializeEntity(ISaveable[] saveables)
         {
             JObject data = new ();
             for (int j = 0; j < saveables.Length; ++j)
@@ -64,11 +70,10 @@ namespace SampleGame.SaveSystem
 
             return data;
         }
-
-        public void Deserialize(EntityContainer entityContainer)
+        
+        private void SpawnEntities(EntityContainer entityContainer, out Dictionary<EntityData, Entity> spawnedEntities)
         {
-            _entityWorld.DestroyAll();
-            Dictionary<EntityData, Entity> spawnedEntities = new();
+            spawnedEntities = new();
             foreach (EntityData entityData in entityContainer.Entities)
             {
                 if (!_entityCatalog.FindConfig(entityData.Name, out EntityConfig entityConfig))
@@ -77,7 +82,10 @@ namespace SampleGame.SaveSystem
                 Entity entity = _entityWorld.Spawn(entityConfig.Name, entityData.Position, entityData.Rotation);
                 spawnedEntities.Add(entityData, entity);
             }
-            
+        }
+
+        private void DeserializeEntities(Dictionary<EntityData, Entity> spawnedEntities)
+        {
             foreach (EntityData data in spawnedEntities.Keys)
             {
                 Entity entity = spawnedEntities[data];
@@ -106,8 +114,8 @@ namespace SampleGame.SaveSystem
         public struct EntityData
         {
             public string Name;
-            public SerializableVector3 Position;
-            public SerializableQuaternion Rotation;
+            public SerializedVector3 Position;
+            public SerializedVector3 Rotation;
             public JObject Data;
         }
     }

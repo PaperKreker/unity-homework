@@ -16,18 +16,18 @@ namespace Game.Gameplay
         
         public void Save(Action<bool, int> callback)
         {
-            _saveManager.Save();
+            _saveManager.Save(callback).Forget();
         }
 
         public void Load(string version, Action<bool, int> callback)
         {
             if (int.TryParse(version, out int versionIndex))
             {
-                _saveManager.Load(versionIndex);
+                _saveManager.Load(callback, versionIndex).Forget();
             }
             else
             {
-                _saveManager.LoadLatest();
+                _saveManager.Load(callback).Forget();
             }
         }
     }

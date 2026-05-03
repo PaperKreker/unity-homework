@@ -25,7 +25,7 @@ namespace SampleGame.Gameplay.Serializers
         
         public struct Snapshot
         {
-            public SerializableVector3 Value;
+            public SerializedVector3 Value;
 
             public Snapshot(DestinationPoint destinationPoint)
             {
