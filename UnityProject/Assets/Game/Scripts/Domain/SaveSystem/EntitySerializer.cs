@@ -61,10 +61,10 @@ namespace SampleGame.SaveSystem
 
         private JObject SerializeEntity(ISaveable[] saveables)
         {
-            JObject data = new ();
-            for (int j = 0; j < saveables.Length; ++j)
+            JObject data = new();
+            foreach (ISaveable saveable in saveables)
             {
-                ISaveSerializer serializer = saveables[j].Serializer;
+                ISaveSerializer serializer = saveable.Serializer;
                 data.Add(serializer.Key, serializer.Serialize());
             }
 
@@ -111,6 +111,7 @@ namespace SampleGame.SaveSystem
         {
             public EntityData[] Entities;
         }
+        
         public struct EntityData
         {
             public string Name;
