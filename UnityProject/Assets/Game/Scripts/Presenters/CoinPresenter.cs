@@ -9,7 +9,6 @@ namespace Game.Presenters
     {
         private readonly CoinView _coinView;
 
-        [Inject]
         public CoinPresenter(CoinView coinView)
         {
             _coinView = coinView;

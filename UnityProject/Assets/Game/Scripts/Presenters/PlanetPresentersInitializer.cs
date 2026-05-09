@@ -8,14 +8,12 @@ namespace Game.Presenters
 {
     public class PlanetPresentersInitializer : IInitializable, IDisposable
     {
-        private readonly Dictionary<string, Planet> _planetsByNames = new();
         private readonly List<PlanetPresenter> planetPresenters = new ();
 
         private readonly PlanetPresenter.Factory _presenterFactory;
         private readonly PlanetView[] _planetViews;
         private readonly Planet[] _planets;
 
-        [Inject]
         public PlanetPresentersInitializer(
             PlanetPresenter.Factory presenterFactory, 
             PlanetView[] planetViews, 
@@ -28,14 +26,16 @@ namespace Game.Presenters
 
         public void Initialize()
         {
+            Dictionary<string, Planet> planetsByNames = new();
+            
             foreach (Planet planet in _planets)
             {
-                _planetsByNames[planet.Name] = planet;
+                planetsByNames[planet.Name] = planet;
             }
 
             foreach (PlanetView planetView in _planetViews)
             {
-                Planet planet = _planetsByNames[planetView.GetName()];
+                Planet planet = planetsByNames[planetView.GetName()];
                 PlanetPresenter planetPresenter = _presenterFactory.Create(
                     planet,
                     planetView);

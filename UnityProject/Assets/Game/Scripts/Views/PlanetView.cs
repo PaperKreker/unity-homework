@@ -18,7 +18,6 @@ namespace Game.Views
             add => _planetButton.OnHold += value;
             remove => _planetButton.OnHold -= value;
         }
-        public event Action<Vector2> OnGather;
 
         [SerializeField]
         private string _planetName;
@@ -54,7 +53,7 @@ namespace Game.Views
 
         public void SetIncomeTime(string time) => _incomeTime.text = time;
 
-        public void SetIncomeProgressValue(int value) => _incomeProgressBar.fillAmount = value;
+        public void SetIncomeProgressValue(float value) => _incomeProgressBar.fillAmount = value;
 
         public void SetPrice(string price) => _priceText.text = price;
 
@@ -69,15 +68,20 @@ namespace Game.Views
             _icon.sprite = icon;
         }
 
+        public void HideIncomeIcon()
+        {
+            _incomeIcon.SetActive(false);
+        }
+
         public void SetIncomeReady(bool isReady)
         {
             _incomeIcon.SetActive(isReady);
             _incomeProgress.SetActive(!isReady);
         }
 
-        public void GatherIncome()
+        public Vector2 GetGatherPoint()
         {
-            OnGather?.Invoke(_incomeIcon.transform.position);
+            return _incomeIcon.transform.position;
         }
     }
 }

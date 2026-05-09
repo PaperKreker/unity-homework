@@ -12,7 +12,6 @@ namespace Game.Presenters
         private readonly PlanetPopupView _planetPopupView;
         private Planet _targetPlanet;
 
-        [Inject]
         public PlanetPopupPresenter(PlanetPopupView planetPopupView, IMoneyAdapter moneyAdapter)
         {
             _planetPopupView = planetPopupView;
