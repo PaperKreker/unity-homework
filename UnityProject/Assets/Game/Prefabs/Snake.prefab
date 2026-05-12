@@ -42,6 +42,8 @@ GameObject:
   - component: {fileID: 709611253861642833}
   - component: {fileID: 1963976196817166939}
   - component: {fileID: 5141366192756041615}
+  - component: {fileID: 1515236976429288660}
+  - component: {fileID: 7563218891350458927}
   m_Layer: 8
   m_Name: Snake
   m_TagString: Untagged
@@ -130,6 +132,36 @@ CapsuleCollider2D:
   m_Offset: {x: -0.6335461, y: 0.7340662}
   m_Size: {x: 3.8148298, y: 1.5181584}
   m_Direction: 1
+--- !u!114 &1515236976429288660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6976110413071386817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4cad602bb9441aaa73680e09fbc234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.StandingPlatformComponent
+  _groundedComponent: {fileID: 7563218891350458927}
+--- !u!114 &7563218891350458927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6976110413071386817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef560812c9a1483c8053064d68926d69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.GroundedComponent
+  _feet: {fileID: 709611253861642833}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  _groundDistance: 0.15
 --- !u!1 &7657161599582532624
 GameObject:
   m_ObjectHideFlags: 0

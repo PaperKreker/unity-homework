@@ -11,6 +11,15 @@ GameObject:
   - component: {fileID: 5742867724401082830}
   - component: {fileID: 1948404990201771869}
   - component: {fileID: 813020282347325881}
+  - component: {fileID: 6798817471389159771}
+  - component: {fileID: 997413612846703902}
+  - component: {fileID: 8889694590819722140}
+  - component: {fileID: 560513194725951222}
+  - component: {fileID: 3292918997910578687}
+  - component: {fileID: 7818122535574202065}
+  - component: {fileID: 9032278543556517436}
+  - component: {fileID: 507615772195080138}
+  - component: {fileID: 4015483290177404260}
   m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
@@ -98,6 +107,132 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0040880893, y: 0.3745281}
   m_Size: {x: 1.6880507, y: 0.79905957}
   m_Direction: 1
+--- !u!114 &6798817471389159771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473927760801157524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8fb510ca59e02748a394d8ee512da0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Spider
+--- !u!114 &997413612846703902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473927760801157524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44b4c715012943db9fdf26735a9e7876, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.MoveTransformComponent
+  _speed: 1
+--- !u!114 &8889694590819722140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473927760801157524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f06bef48ec754dcc8b9fafb96d7a44a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.PatrolComponent
+  _wayPoints:
+  - {fileID: 330482538772977516}
+  - {fileID: 5737562046146701280}
+  _changeDistance: 0.1
+--- !u!114 &560513194725951222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473927760801157524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7246bdb0d9af44fa945f8bed8138ba95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.HealthComponent
+  _maxHealth: 1
+--- !u!114 &3292918997910578687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473927760801157524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef560812c9a1483c8053064d68926d69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.GroundedComponent
+  _feet: {fileID: 5742867724401082830}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  _groundDistance: 0.15
+--- !u!114 &7818122535574202065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473927760801157524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8e9c6873c214b3e9c13ab1f9fb92d07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.ExtraGravityComponent
+  _gravity: -7
+--- !u!114 &9032278543556517436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473927760801157524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec72e870482da5488151c5f16a469d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.HitComponent
+  _collision: {fileID: 507615772195080138}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 896
+  _damage: 1
+--- !u!114 &507615772195080138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473927760801157524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16615f4fd9aa496686de7e8755045b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.CollisionComponent
+--- !u!114 &4015483290177404260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473927760801157524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4cad602bb9441aaa73680e09fbc234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.StandingPlatformComponent
+  _groundedComponent: {fileID: 3292918997910578687}
 --- !u!1 &802556461432274881
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,6 +274,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5755018170686827275}
   - component: {fileID: 2061278704937212490}
+  - component: {fileID: 724244709973084424}
+  - component: {fileID: 5533095349552121137}
   m_Layer: 0
   m_Name: <View>
   m_TagString: Untagged
@@ -196,6 +333,32 @@ MonoBehaviour:
   _damagedColor: {r: 1, g: 0.4669811, b: 0.47610965, a: 1}
   _frequency: 0.2
   _loops: 3
+--- !u!114 &724244709973084424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918590281638522552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8b50b37e7914dbb9fbfb85f54041e22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.SpiderView
+  _animator: {fileID: 8580863070391731972}
+  _spider: {fileID: 6798817471389159771}
+--- !u!114 &5533095349552121137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918590281638522552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd8ed7bbf274eea99360b8b879f3cb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.LookComponent
 --- !u!1 &8708105963922309212
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,6 +585,11 @@ SpriteRenderer:
 --- !u!212 &7856286445572714766 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 5324924913121918271, guid: f7bc0bf025fb34cb4ac2bd9999e51ce6, type: 3}
+  m_PrefabInstance: {fileID: 2657911147315956785}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8580863070391731972 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6050468885363559221, guid: f7bc0bf025fb34cb4ac2bd9999e51ce6, type: 3}
   m_PrefabInstance: {fileID: 2657911147315956785}
   m_PrefabAsset: {fileID: 0}
 --- !u!212 &8693304493879650142 stripped
