@@ -44,6 +44,15 @@ GameObject:
   - component: {fileID: 5141366192756041615}
   - component: {fileID: 1515236976429288660}
   - component: {fileID: 7563218891350458927}
+  - component: {fileID: 1903303514919687074}
+  - component: {fileID: 4593977224255976946}
+  - component: {fileID: 6601197406248461698}
+  - component: {fileID: 6384440878264458694}
+  - component: {fileID: 1175681408312534620}
+  - component: {fileID: 3882517900611148716}
+  - component: {fileID: 8536209200808443876}
+  - component: {fileID: 3907174874795257871}
+  - component: {fileID: 3777341944883217373}
   m_Layer: 8
   m_Name: Snake
   m_TagString: Untagged
@@ -162,6 +171,139 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   _groundDistance: 0.15
+--- !u!114 &1903303514919687074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6976110413071386817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44b4c715012943db9fdf26735a9e7876, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.MoveTransformComponent
+  _speed: 2
+--- !u!114 &4593977224255976946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6976110413071386817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ad34cda6ec744a3ac1e6f0bf62e54ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.TargetFinderComponent
+  _ignoreBody: {fileID: 1963976196817166939}
+  _contactFilter:
+    useTriggers: 0
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 512
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  _radius: 5
+--- !u!114 &6601197406248461698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6976110413071386817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 885fd0f9a4c35f84ea2e66047033f8f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Snake
+--- !u!114 &6384440878264458694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6976110413071386817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0969694fac285c4c8a263bf7ef4edca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.PushComponent
+  _force: {x: 3, y: 10}
+--- !u!114 &1175681408312534620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6976110413071386817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7246bdb0d9af44fa945f8bed8138ba95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.HealthComponent
+  _maxHealth: 2
+--- !u!114 &3882517900611148716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6976110413071386817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd8ed7bbf274eea99360b8b879f3cb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.LookComponent
+--- !u!114 &8536209200808443876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6976110413071386817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec72e870482da5488151c5f16a469d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.HitComponent
+  _damage: {fileID: 3777341944883217373}
+  _collision: {fileID: 3907174874795257871}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 896
+--- !u!114 &3907174874795257871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6976110413071386817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16615f4fd9aa496686de7e8755045b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.CollisionComponent
+--- !u!114 &3777341944883217373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6976110413071386817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a6889d7bc345349b836fa133a3ba6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.DamageComponent
+  _damage: 1
 --- !u!1 &7657161599582532624
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,6 +314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2727309797074780815}
   - component: {fileID: 630110330272591730}
+  - component: {fileID: 8226749383313273171}
   m_Layer: 0
   m_Name: <View>
   m_TagString: Untagged
@@ -223,6 +366,20 @@ MonoBehaviour:
   _damagedColor: {r: 1, g: 0.4009434, b: 0.4009434, a: 1}
   _frequency: 0.2
   _loops: 3
+--- !u!114 &8226749383313273171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7657161599582532624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe8ebdbab9204a87b0a7bc83ab584700, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.SnakeView
+  _animator: {fileID: 3241670944889348004}
+  _snake: {fileID: 6601197406248461698}
 --- !u!1001 &7455896218475742918
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -319,6 +476,11 @@ SpriteRenderer:
 --- !u!212 &2102793927632775082 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 8815292643585728876, guid: 8de6c8196ff844187a9cfad369c6a805, type: 3}
+  m_PrefabInstance: {fileID: 7455896218475742918}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3241670944889348004 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5441492490709981538, guid: 8de6c8196ff844187a9cfad369c6a805, type: 3}
   m_PrefabInstance: {fileID: 7455896218475742918}
   m_PrefabAsset: {fileID: 0}
 --- !u!212 &3449857208236993421 stripped

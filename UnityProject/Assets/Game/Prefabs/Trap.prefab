@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: 6939562652304487454}
   - component: {fileID: 4566654743935024383}
   - component: {fileID: 6031280964706666884}
+  - component: {fileID: 6318574086403809308}
   m_Layer: 8
   m_Name: Trap
   m_TagString: Untagged
@@ -227,11 +228,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ec72e870482da5488151c5f16a469d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.HitComponent
+  _damage: {fileID: 6318574086403809308}
   _collision: {fileID: 8594986407984916646}
   _layerMask:
     serializedVersion: 2
     m_Bits: 896
-  _damage: 1
 --- !u!114 &8594986407984916646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,3 +288,16 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   _groundDistance: 0.5
+--- !u!114 &6318574086403809308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8940468643134046639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a6889d7bc345349b836fa133a3ba6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.DamageComponent
+  _damage: 1

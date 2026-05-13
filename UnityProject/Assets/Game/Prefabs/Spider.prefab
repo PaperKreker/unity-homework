@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 9032278543556517436}
   - component: {fileID: 507615772195080138}
   - component: {fileID: 4015483290177404260}
+  - component: {fileID: 8999689718699575724}
   m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
@@ -203,11 +204,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ec72e870482da5488151c5f16a469d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.HitComponent
+  _damage: {fileID: 8999689718699575724}
   _collision: {fileID: 507615772195080138}
   _layerMask:
     serializedVersion: 2
     m_Bits: 896
-  _damage: 1
 --- !u!114 &507615772195080138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,6 +234,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.StandingPlatformComponent
   _groundedComponent: {fileID: 3292918997910578687}
+--- !u!114 &8999689718699575724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473927760801157524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a6889d7bc345349b836fa133a3ba6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.DamageComponent
+  _damage: 1
 --- !u!1 &802556461432274881
 GameObject:
   m_ObjectHideFlags: 0

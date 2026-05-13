@@ -1,35 +1,44 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Game
 {
     public class TargetFinderComponent : MonoBehaviour
     {
-        public GameObject Target => _target;
+        public Rigidbody2D Target => _targets.Count > 0 ? _targets[0] : null;
+        public IReadOnlyList<Rigidbody2D> Targets => _targets;
         
         [SerializeField] 
-        private TriggerComponent _trigger;
+        private Rigidbody2D _ignoreBody;
         
         [SerializeField] 
-        private LayerMask _layerMask;
+        private ContactFilter2D _contactFilter;
+        
+        [SerializeField] 
+        private float _radius;
+        
+        private readonly List<Rigidbody2D> _targets = new();
 
-        private GameObject _target;
-        
-        private void OnEnable()
+        private void FixedUpdate()
         {
-            _trigger.OnEntered += SelectTarget;
+            SelectTargets();
         }
-        
-        private void OnDisable()
-        {
-            _trigger.OnEntered -= SelectTarget;
-        }
-        
-        private void SelectTarget(Collider2D otherCollider)
-        {
-            if ((_layerMask.value & (1 << otherCollider.gameObject.layer)) == 0)
-                return;
 
-            _target = otherCollider.gameObject;
+        private void SelectTargets()
+        {
+            List<Collider2D> colliders = new ();
+            Physics2D.OverlapCircle(transform.position, _radius, _contactFilter, colliders);
+            
+            _targets.Clear();
+            for (int i = 0; i < colliders.Count; ++i)
+            {
+                if (colliders[i].attachedRigidbody != null && 
+                    colliders[i].attachedRigidbody != _ignoreBody &&
+                    !_targets.Contains(colliders[i].attachedRigidbody))
+                {
+                    _targets.Add(colliders[i].attachedRigidbody);
+                }
+            }
         }
     }
 }

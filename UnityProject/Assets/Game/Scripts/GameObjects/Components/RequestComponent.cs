@@ -17,7 +17,7 @@ namespace Game
             _delay = GetComponent<DelayComponent>();
             if (_delay != null)
             {
-                _delay.OnExpire += Act;
+                _delay.OnExpire += TryAct;
             }
         }
 
@@ -46,6 +46,14 @@ namespace Game
             _required = false;
         }
 
+        private void TryAct()
+        {
+            if (_condition == null || _condition.Invoke())
+            {
+                Act();
+            }
+        }
+        
         private void Act()
         {
             _action?.Invoke();

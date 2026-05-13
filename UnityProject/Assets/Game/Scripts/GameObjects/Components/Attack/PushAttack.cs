@@ -11,6 +11,9 @@ namespace Game
         [SerializeField] 
         private Transform _firePoint;
         
+        [SerializeField] 
+        private HealthComponent _health;
+        
         private CooldownComponent _cooldown;
         private RequestComponent _request;
         private RaycastComponent _raycast;
@@ -22,8 +25,8 @@ namespace Game
             _raycast = GetComponent<RaycastComponent>();
             _request = GetComponent<RequestComponent>();
             _push = GetComponent<PushComponent>();
-            
-            _request.SetCondition(() => _cooldown.IsExpired);
+
+            _request.SetCondition(() => _health.CurrentHealth > 0 && _cooldown.IsExpired);
             _request.SetAction(() =>
             {
                 _cooldown.Reset();

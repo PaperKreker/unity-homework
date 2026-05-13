@@ -1,86 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &546330217477709223
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2248309396944083687}
-  - component: {fileID: 6480747394887336316}
-  - component: {fileID: 2810001830101881789}
-  m_Layer: 8
-  m_Name: TargetTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2248309396944083687
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 546330217477709223}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6915912117526977926}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &6480747394887336316
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 546330217477709223}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 7
---- !u!114 &2810001830101881789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 546330217477709223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53bd3481cde748c6a96e2417a23b6532, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Game.TriggerComponent
 --- !u!1 &2084178272520813888
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,6 +23,7 @@ GameObject:
   - component: {fileID: 1838487222285154473}
   - component: {fileID: 3825777910932898126}
   - component: {fileID: 7684512027203952363}
+  - component: {fileID: 9045146153163605508}
   m_Layer: 8
   m_Name: Monkey
   m_TagString: Untagged
@@ -125,7 +45,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8502224344827965514}
-  - {fileID: 2248309396944083687}
   - {fileID: 4206768822587737979}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -267,11 +186,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ec72e870482da5488151c5f16a469d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.HitComponent
+  _damage: {fileID: 9045146153163605508}
   _collision: {fileID: 6673980903437347129}
   _layerMask:
     serializedVersion: 2
     m_Bits: 896
-  _damage: 10
 --- !u!114 &6673980903437347129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -364,6 +283,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.CooldownComponent
   _duration: 0.5
+--- !u!114 &9045146153163605508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2084178272520813888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a6889d7bc345349b836fa133a3ba6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.DamageComponent
+  _damage: 10
 --- !u!1 &3667686093434619927
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,10 +373,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ad34cda6ec744a3ac1e6f0bf62e54ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.TargetFinderComponent
-  _trigger: {fileID: 2810001830101881789}
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 896
+  _ignoreBody: {fileID: 4964224926931193953}
+  _contactFilter:
+    useTriggers: 0
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 896
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  _radius: 7
 --- !u!114 &8854941340374976443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,7 +460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3255cd327504d31b151c8bdfb2cadd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.ZonePushComponent
-  _triggerComponent: {fileID: 2810001830101881789}
+  _targetFinder: {fileID: 1751730269912735546}
   _push: {fileID: 3632500381200022458}
 --- !u!114 &3632500381200022458
 MonoBehaviour:

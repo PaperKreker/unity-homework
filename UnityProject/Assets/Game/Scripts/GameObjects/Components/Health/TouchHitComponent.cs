@@ -3,18 +3,16 @@ using UnityEngine;
 
 namespace Game
 {
-    public class HitComponent : MonoBehaviour
+    public class TouchHitComponent : MonoBehaviour
     {
-        public event Action OnHit;
+        [SerializeField]
+        private DamageComponent _damage;
         
         [SerializeField]
         private CollisionComponent _collision;
         
         [SerializeField]
         private LayerMask _layerMask;
-        
-        [SerializeField]
-        private float _damage;
 
         private void OnEnable() => _collision.OnEntered += OnCollisionEntered;
 
@@ -24,13 +22,8 @@ namespace Game
         {
             if ((_layerMask.value & (1 << col.gameObject.layer)) == 0)
                  return;
-            
-            HealthComponent health = col.transform.GetComponentInParent<HealthComponent>();
-            if (health != null)
-            {
-                health.TakeDamage(_damage);
-                OnHit?.Invoke();
-            }
+
+            _damage.Hit(col.gameObject);
         }
     }
 }

@@ -1,29 +1,36 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Game
 {
     [RequireComponent(typeof(HealthComponent))]
-    [RequireComponent(typeof(HitComponent))]
+    [RequireComponent(typeof(TouchHitComponent))]
     public class Trap : MonoBehaviour
     {
         private HealthComponent _health;
-        private HitComponent _hit;
+        private DamageComponent _damage;
         
         private void Awake()
         {
             _health = GetComponent<HealthComponent>();
-            _hit = GetComponent<HitComponent>();
+            _damage = GetComponent<DamageComponent>();
 
-            _hit.OnHit += () =>
+            _damage.OnHit += () =>
             {
                 _health.SetZero();
             };
 
             _health.OnDied += () =>
             {
-                Destroy(gameObject);
+                StartCoroutine(DestroyNextFixedUpdate());
             };
+        }
+
+        IEnumerator DestroyNextFixedUpdate()
+        {
+            yield return new WaitForFixedUpdate();
+            Destroy(gameObject);
         }
     }
 }
