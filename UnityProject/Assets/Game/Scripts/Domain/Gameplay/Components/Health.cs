@@ -1,11 +1,11 @@
-using SampleGame.Gameplay.Serializers;
+using Newtonsoft.Json.Linq;
 using SampleGame.SaveSystem;
 using UnityEngine;
 
 namespace SampleGame.Gameplay
 {
     //Can be extended
-    public sealed class Health : MonoBehaviour, ISaveable
+    public sealed class Health : MonoBehaviour, ISerializableEntity
     {
         ///Variable
         [field: SerializeField]
@@ -15,6 +15,8 @@ namespace SampleGame.Gameplay
         [field: SerializeField]
         public int Max { get; private set; } = 100;
 
-        public ISaveSerializer Serializer => new HealthSerializer(this);
+        public string Key => "Health";
+        public JToken Serialize(IEntitySerializer serializer) => serializer.Serialize(this);
+        public void Deserialize(IEntitySerializer serializer, JToken token) => serializer.Deserialize(this, token);
     }
 }

@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using SampleGame.Gameplay.Serializers;
 using SampleGame.SaveSystem;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 namespace SampleGame.Gameplay
 {
     //Can be extended
-    public sealed class Countdown : MonoBehaviour, ISaveable
+    public sealed class Countdown : MonoBehaviour, ISerializableEntity
     {
         ///Variable
         [field: SerializeField]
@@ -14,7 +15,9 @@ namespace SampleGame.Gameplay
         ///Const
         [field: SerializeField]
         public float Duration { get; private set; }
-        
-        public ISaveSerializer Serializer => new CountdownSerializer(this);
+
+        public string Key => "Countdown";
+        public JToken Serialize(IEntitySerializer serializer) => serializer.Serialize(this);
+        public void Deserialize(IEntitySerializer serializer, JToken token) => serializer.Deserialize(this, token);
     }
 }

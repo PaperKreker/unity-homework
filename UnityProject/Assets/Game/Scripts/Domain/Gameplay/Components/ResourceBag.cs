@@ -1,12 +1,12 @@
+using Newtonsoft.Json.Linq;
 using SampleGame.Common;
-using SampleGame.Gameplay.Serializers;
 using SampleGame.SaveSystem;
 using UnityEngine;
 
 namespace SampleGame.Gameplay
 {
     //Can be extended
-    public sealed class ResourceBag : MonoBehaviour, ISaveable
+    public sealed class ResourceBag : MonoBehaviour, ISerializableEntity
     {
         ///Variable
         [field: SerializeField]
@@ -20,6 +20,8 @@ namespace SampleGame.Gameplay
         [field: SerializeField]
         public int Capacity { get; set; }
         
-        public ISaveSerializer Serializer => new ResourceBagSerializer(this);
+        public string Key => "ResourceBag";
+        public JToken Serialize(IEntitySerializer serializer) => serializer.Serialize(this);
+        public void Deserialize(IEntitySerializer serializer, JToken token) => serializer.Deserialize(this, token);
     }
 }

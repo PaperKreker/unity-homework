@@ -11,34 +11,34 @@ namespace SampleGame.SaveSystem
 {
     public class SaveManager
     {
-        private readonly ISaveSerializer[] _serializers;
+        private readonly ISerializer[] _serializers;
+        private readonly IRepository _repository;
 
-        [Inject]
-        public SaveManager(ISaveSerializer[] serializers)
+        public SaveManager(ISerializer[] serializers, IRepository repository)
         {
             _serializers = serializers;
+            _repository = repository;
         }
         
         public async UniTaskVoid Save(Action<bool, int> callback)
         {
             JObject gameData = new();
-            foreach (ISaveSerializer serializer in _serializers)
+            foreach (ISerializer serializer in _serializers)
             {
                 gameData.Add(serializer.Key, serializer.Serialize());
             }
 
             string raw = gameData.ToString();
-            if (TryGetLatestVersion(out int version))
+            Debug.Log(raw);
+            if (SaveVersion.TryGetLatest(out int version))
             {
                 ++version;
             }
 
-            var result = await WebRepository.UploadSaveFile(version, raw);
-            if (result == UnityWebRequest.Result.Success)
+            bool isSuccess = await _repository.SaveFile(version, raw);
+            if (isSuccess)
             {
-                PlayerPrefs.SetInt("SaveVersion", version);
-                PlayerPrefs.Save();
-
+                SaveVersion.RefreshLatest(version);
                 callback(true, version);
             }
             else
@@ -49,14 +49,14 @@ namespace SampleGame.SaveSystem
         
         public async UniTaskVoid Load(Action<bool, int> callback, int version = 0)
         {
-            if (version == 0 && !TryGetLatestVersion(out version))
+            if (version == 0 && !SaveVersion.TryGetLatest(out version))
             {
                 Debug.Log("No saves found");
                 callback(false, -1);
                 return;
             }
             
-            string raw = await WebRepository.DownloadSaveFile(version);
+            string raw = await _repository.LoadFile(version);
             if (raw == null || raw == "")
             {
                 Debug.LogError($"Save {version} was not found");
@@ -65,7 +65,7 @@ namespace SampleGame.SaveSystem
             }
             
             JObject gameData = JObject.Parse(raw);
-            foreach (ISaveSerializer serializer in _serializers)
+            foreach (ISerializer serializer in _serializers)
             {
                 if (gameData.TryGetValue(serializer.Key, out JToken entityData))
                 {
@@ -73,23 +73,6 @@ namespace SampleGame.SaveSystem
                 }
             }
             callback(true, version);
-        }
-
-        
-
-        public static bool TryGetLatestVersion(out int version)
-        {
-            version = 1;
-            if (!PlayerPrefs.HasKey("SaveVersion")) return false;
-            
-            version = PlayerPrefs.GetInt("SaveVersion");
-            return true;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string GetSaveFileName(int version)
-        {
-            return $"GameData_{version}";
         }
     }
 }

@@ -2,17 +2,17 @@
 
 namespace SampleGame.SaveSystem
 {
-    public interface ISaveSerializer
+    public interface ISerializer
     {
         public string Key { get; }
         public JToken Serialize();
         public void Deserialize(JToken data);
     }
     
-    public interface ISaveSerializer<T> : ISaveSerializer
+    public interface ISerializer<T> : ISerializer
     {
-        JToken ISaveSerializer.Serialize() => JToken.FromObject(this.Serialize());
-        void ISaveSerializer.Deserialize(JToken data) => this.Deserialize(data.ToObject<T>());
+        JToken ISerializer.Serialize() => JToken.FromObject(this.Serialize());
+        void ISerializer.Deserialize(JToken data) => this.Deserialize(data.ToObject<T>());
         
         public new T Serialize();
         public void Deserialize(T data);

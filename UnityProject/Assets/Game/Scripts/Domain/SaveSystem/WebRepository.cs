@@ -5,17 +5,17 @@ using UnityEngine.Networking;
 
 namespace SampleGame.SaveSystem
 {
-    public static class WebRepository
+    public class WebRepository : IRepository
     {
         private const string SERVER_URL = "http://127.0.0.1:8888";
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static async UniTask<string> DownloadSaveFile(int version)
+        public async UniTask<string> LoadFile(int version)
         {
             return await SendGetRequest($"{SERVER_URL}/load?version={version}");
         }
 
-        private static async UniTask<string> SendGetRequest(string url)
+        private async UniTask<string> SendGetRequest(string url)
         {
             using var webRequest = UnityWebRequest.Get(url);
             
@@ -33,12 +33,13 @@ namespace SampleGame.SaveSystem
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static async UniTask<UnityWebRequest.Result> UploadSaveFile(int version, string data)
+        public async UniTask<bool> SaveFile(int version, string data)
         {
-            return await SendPutRequest($"{SERVER_URL}/save?version={version}", data);
+            UnityWebRequest.Result result = await SendPutRequest($"{SERVER_URL}/save?version={version}", data);
+            return result  == UnityWebRequest.Result.Success;
         }
 
-        private static async UniTask<UnityWebRequest.Result> SendPutRequest(string url, string data)
+        private async UniTask<UnityWebRequest.Result> SendPutRequest(string url, string data)
         {
             using var webRequest = UnityWebRequest.Put(url, data);
             webRequest.SetRequestHeader("Content-Type", "application/json");

@@ -1,123 +1,108 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Modules.Entities;
+﻿using Modules.Entities;
 using Newtonsoft.Json.Linq;
 using SampleGame.Common;
-using UnityEngine;
+using SampleGame.Gameplay;
+using SampleGame.Gameplay.Serializers;
 using Zenject;
 
 namespace SampleGame.SaveSystem
 {
-    public class EntitySerializer : ISaveSerializer<EntitySerializer.EntityContainer>
+    public class EntitySerializer : IEntitySerializer
     {
-        public string Key => "Entity";
-        private readonly DiContainer _container;
-        private readonly EntityWorld _entityWorld;
-        private readonly EntityCatalog _entityCatalog;
+        private EntityCatalog _entityCatalog;
+        private EntityWorld _entityWorld;
 
-        public EntitySerializer(DiContainer container, EntityWorld entityWorld, EntityCatalog entityCatalog)
+        public EntitySerializer(EntityCatalog entityCatalog, EntityWorld entityWorld)
         {
-            _container = container;
             _entityCatalog = entityCatalog;
             _entityWorld = entityWorld;
         }
         
-        public EntityContainer Serialize()
+        private JToken Serialize<T>(ISnapshot<T> snapshot)
         {
-            var entities = _entityWorld.GetAll();
-            return SerializeEntities(entities);
+            return JToken.FromObject(snapshot);
         }
         
-        public void Deserialize(EntityContainer entityContainer)
+        private T Deserialize<T>(JToken data)
         {
-            _entityWorld.DestroyAll();
-            SpawnEntities(entityContainer, out var spawnedEntities);
-            DeserializeEntities(spawnedEntities);
-        }
-
-        private EntityContainer SerializeEntities(IReadOnlyCollection<Entity> entities)
-        {
-            EntityData[] entityDatas = new EntityData[entities.Count];
-            int i = 0;
-            
-            foreach (Entity entity in entities)
-            {
-                ISaveable[] saveables = entity.GetComponents<ISaveable>();
-                entityDatas[i] = new EntityData()
-                {
-                    Name = entity.Name,
-                    Position = entity.transform.position,
-                    Rotation = entity.transform.rotation,
-                    Data = SerializeEntity(saveables),
-                };
-                ++i;
-            }
-            
-            return new EntityContainer()
-            {
-                Entities = entityDatas,
-            };
-        }
-
-        private JObject SerializeEntity(ISaveable[] saveables)
-        {
-            JObject data = new();
-            foreach (ISaveable saveable in saveables)
-            {
-                ISaveSerializer serializer = saveable.Serializer;
-                data.Add(serializer.Key, serializer.Serialize());
-            }
-
-            return data;
+            return data.ToObject<T>();
         }
         
-        private void SpawnEntities(EntityContainer entityContainer, out Dictionary<EntityData, Entity> spawnedEntities)
+        public JToken Serialize(Countdown countdown)
         {
-            spawnedEntities = new();
-            foreach (EntityData entityData in entityContainer.Entities)
-            {
-                if (!_entityCatalog.FindConfig(entityData.Name, out EntityConfig entityConfig))
-                    continue;
-                
-                Entity entity = _entityWorld.Spawn(entityConfig.Name, entityData.Position, entityData.Rotation);
-                spawnedEntities.Add(entityData, entity);
-            }
+            CountdownSnapshot snapshot = new();
+            snapshot.Save(countdown);
+            return Serialize(snapshot);
         }
-
-        private void DeserializeEntities(Dictionary<EntityData, Entity> spawnedEntities)
+        public void Deserialize(Countdown countdown, JToken token)
         {
-            foreach (EntityData data in spawnedEntities.Keys)
-            {
-                Entity entity = spawnedEntities[data];
-                ISaveable[] saveables = entity.GetComponents<ISaveable>();
-                DeserializeEntity(data, saveables);
-            }
-        }
-
-        private void DeserializeEntity(EntityData entityData, ISaveable[] saveables)
-        {
-            foreach (ISaveable saveable in saveables)
-            {
-                ISaveSerializer serializer = saveable.Serializer;
-                _container.Inject(serializer);
-                if (entityData.Data.TryGetValue(serializer.Key, out JToken token))
-                {
-                    serializer.Deserialize(token);
-                }
-            }
+            Deserialize<CountdownSnapshot>(token).Restore(countdown);
         }
         
-        public struct EntityContainer
+        public JToken Serialize(DestinationPoint destinationPoint)
         {
-            public EntityData[] Entities;
+            DestinationPointSnapshot snapshot = new();
+            snapshot.Save(destinationPoint);
+            return Serialize(snapshot);
         }
-        
-        public struct EntityData
+        public void Deserialize(DestinationPoint destinationPoint, JToken token)
         {
-            public string Name;
-            public SerializedVector3 Position;
-            public SerializedVector3 Rotation;
-            public JObject Data;
+            Deserialize<DestinationPointSnapshot>(token).Restore(destinationPoint);
+        }
+
+        public JToken Serialize(Health health)
+        {
+            HealthSnapshot snapshot = new();
+            snapshot.Save(health);
+            return Serialize(snapshot);
+        }
+        public void Deserialize(Health health, JToken token)
+        {
+            Deserialize<HealthSnapshot>(token).Restore(health);
+        }
+
+        public JToken Serialize(ProductionOrder productionOrder)
+        {
+            ProductionOrderSnapshot snapshot = new(_entityCatalog);
+            snapshot.Save(productionOrder);
+            return Serialize(snapshot);
+        }
+        public void Deserialize(ProductionOrder productionOrder, JToken token)
+        {
+            Deserialize<ProductionOrderSnapshot>(token).Restore(productionOrder);
+        }
+
+        public JToken Serialize(ResourceBag resourceBag)
+        {
+            ResourceBagSnapshot snapshot = new();
+            snapshot.Save(resourceBag);
+            return Serialize(snapshot);
+        }
+        public void Deserialize(ResourceBag resourceBag, JToken token)
+        {
+            Deserialize<ResourceBagSnapshot>(token).Restore(resourceBag);
+        }
+
+        public JToken Serialize(TargetObject targetObject)
+        {
+            TargetObjectSnapshot snapshot = new(_entityWorld);
+            snapshot.Save(targetObject);
+            return Serialize(snapshot);
+        }
+        public void Deserialize(TargetObject targetObject, JToken token)
+        {
+            Deserialize<TargetObjectSnapshot>(token).Restore(targetObject);
+        }
+
+        public JToken Serialize(Team team)
+        {
+            TeamSnapshot snapshot = new();
+            snapshot.Save(team);
+            return Serialize(snapshot);
+        }
+        public void Deserialize(Team team, JToken token)
+        {
+            Deserialize<TeamSnapshot>(token).Restore(team);
         }
     }
 }

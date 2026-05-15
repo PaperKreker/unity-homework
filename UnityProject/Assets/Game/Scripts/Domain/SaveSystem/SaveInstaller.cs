@@ -12,10 +12,22 @@ namespace SampleGame.SaveSystem
                 .AsSingle();
 
             Container
-                .Bind<ISaveSerializer>()
-                .To<EntitySerializer>()
+                .Bind<ISerializer>()
+                .To<EntityWorldSerializer>()
                 .FromNew()
                 .AsCached();
+            
+            Container
+                .Bind<IRepository>()
+                .To<WebRepository>()
+                .FromNew()
+                .AsSingle();
+
+            Container
+                .Bind<IEntitySerializer>()
+                .To<EntitySerializer>()
+                .FromNew()
+                .AsSingle();
         }
     }
 }
