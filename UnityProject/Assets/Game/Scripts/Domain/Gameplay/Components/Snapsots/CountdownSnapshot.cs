@@ -1,9 +1,7 @@
-﻿using SampleGame.SaveSystem;
-
-namespace SampleGame.Gameplay.Serializers
+﻿namespace SampleGame.Gameplay.Snapshots
 {
     [System.Serializable]
-    public class CountdownSnapshot : ISnapshot<Countdown>
+    public class CountdownSnapshot
     {
         public float Current;
 

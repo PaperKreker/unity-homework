@@ -1,19 +1,12 @@
 ﻿using System.Collections.Generic;
 using Modules.Entities;
-using SampleGame.SaveSystem;
 
-namespace SampleGame.Gameplay.Serializers
+namespace SampleGame.Gameplay.Snapshots
 {
     [System.Serializable]
-    public class ProductionOrderSnapshot : ISnapshot<ProductionOrder>
+    public class ProductionOrderSnapshot
     {
         public string[] Queue;
-        private EntityCatalog _catalog;
-
-        public ProductionOrderSnapshot(EntityCatalog catalog)
-        {
-            _catalog = catalog;
-        }
         
         public void Save(ProductionOrder productionOrder)
         {
@@ -24,13 +17,13 @@ namespace SampleGame.Gameplay.Serializers
             }
         }
 
-        public void Restore(ProductionOrder productionOrder)
+        public void Restore(ProductionOrder productionOrder, EntityCatalog catalog)
         {
             List<EntityConfig> configs = new();
                 
             foreach (string key in Queue)
             {
-                if (_catalog.FindConfig(key, out EntityConfig entityConfig))
+                if (catalog.FindConfig(key, out EntityConfig entityConfig))
                 {
                     configs.Add(entityConfig);
                 }

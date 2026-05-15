@@ -1,10 +1,9 @@
 ﻿using SampleGame.Common;
-using SampleGame.SaveSystem;
 
-namespace SampleGame.Gameplay.Serializers
+namespace SampleGame.Gameplay.Snapshots
 {
     [System.Serializable]
-    public class TeamSnapshot : ISnapshot<Team>
+    public class TeamSnapshot
     {
         public TeamType Team;
 

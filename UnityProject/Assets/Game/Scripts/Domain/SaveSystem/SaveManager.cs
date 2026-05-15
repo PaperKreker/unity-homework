@@ -27,14 +27,9 @@ namespace SampleGame.SaveSystem
             {
                 gameData.Add(serializer.Key, serializer.Serialize());
             }
-
+            
             string raw = gameData.ToString();
-            Debug.Log(raw);
-            if (SaveVersion.TryGetLatest(out int version))
-            {
-                ++version;
-            }
-
+            int version = SaveVersion.GetNext();
             bool isSuccess = await _repository.SaveFile(version, raw);
             if (isSuccess)
             {

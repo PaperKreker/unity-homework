@@ -1,10 +1,9 @@
 ﻿using SampleGame.Common;
-using SampleGame.SaveSystem;
 
-namespace SampleGame.Gameplay.Serializers
+namespace SampleGame.Gameplay.Snapshots
 {
     [System.Serializable]
-    public class ResourceBagSnapshot : ISnapshot<ResourceBag>
+    public class ResourceBagSnapshot
     {
         public ResourceType Type;
         public int Current;

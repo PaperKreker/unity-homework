@@ -17,7 +17,7 @@ namespace SampleGame.SaveSystem
 
         private async UniTask<string> SendGetRequest(string url)
         {
-            using var webRequest = UnityWebRequest.Get(url);
+            using UnityWebRequest webRequest = UnityWebRequest.Get(url);
             
             try
             {
@@ -41,7 +41,7 @@ namespace SampleGame.SaveSystem
 
         private async UniTask<UnityWebRequest.Result> SendPutRequest(string url, string data)
         {
-            using var webRequest = UnityWebRequest.Put(url, data);
+            using UnityWebRequest webRequest = UnityWebRequest.Put(url, data);
             webRequest.SetRequestHeader("Content-Type", "application/json");
             try
             {

@@ -14,6 +14,16 @@ namespace SampleGame.SaveSystem
             version = PlayerPrefs.GetInt(VERSION_KEY);
             return true;
         }
+        
+        public static int GetNext()
+        {
+            if (TryGetLatest(out int version))
+            {
+                return version + 1;
+            }
+
+            return version;
+        }
 
         public static void RefreshLatest(int newVersion)
         {

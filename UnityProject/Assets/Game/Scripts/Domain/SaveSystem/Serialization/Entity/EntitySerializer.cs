@@ -1,16 +1,14 @@
 ﻿using Modules.Entities;
 using Newtonsoft.Json.Linq;
-using SampleGame.Common;
 using SampleGame.Gameplay;
-using SampleGame.Gameplay.Serializers;
-using Zenject;
+using SampleGame.Gameplay.Snapshots;
 
 namespace SampleGame.SaveSystem
 {
     public class EntitySerializer : IEntitySerializer
     {
-        private EntityCatalog _entityCatalog;
-        private EntityWorld _entityWorld;
+        private readonly EntityCatalog _entityCatalog;
+        private readonly EntityWorld _entityWorld;
 
         public EntitySerializer(EntityCatalog entityCatalog, EntityWorld entityWorld)
         {
@@ -18,7 +16,7 @@ namespace SampleGame.SaveSystem
             _entityWorld = entityWorld;
         }
         
-        private JToken Serialize<T>(ISnapshot<T> snapshot)
+        private JToken Serialize<T>(T snapshot)
         {
             return JToken.FromObject(snapshot);
         }
@@ -36,7 +34,8 @@ namespace SampleGame.SaveSystem
         }
         public void Deserialize(Countdown countdown, JToken token)
         {
-            Deserialize<CountdownSnapshot>(token).Restore(countdown);
+            Deserialize<CountdownSnapshot>(token)
+                .Restore(countdown);
         }
         
         public JToken Serialize(DestinationPoint destinationPoint)
@@ -47,7 +46,8 @@ namespace SampleGame.SaveSystem
         }
         public void Deserialize(DestinationPoint destinationPoint, JToken token)
         {
-            Deserialize<DestinationPointSnapshot>(token).Restore(destinationPoint);
+            Deserialize<DestinationPointSnapshot>(token)
+                .Restore(destinationPoint);
         }
 
         public JToken Serialize(Health health)
@@ -58,18 +58,20 @@ namespace SampleGame.SaveSystem
         }
         public void Deserialize(Health health, JToken token)
         {
-            Deserialize<HealthSnapshot>(token).Restore(health);
+            Deserialize<HealthSnapshot>(token)
+                .Restore(health);
         }
 
         public JToken Serialize(ProductionOrder productionOrder)
         {
-            ProductionOrderSnapshot snapshot = new(_entityCatalog);
+            ProductionOrderSnapshot snapshot = new();
             snapshot.Save(productionOrder);
             return Serialize(snapshot);
         }
         public void Deserialize(ProductionOrder productionOrder, JToken token)
         {
-            Deserialize<ProductionOrderSnapshot>(token).Restore(productionOrder);
+            Deserialize<ProductionOrderSnapshot>(token)
+                .Restore(productionOrder, _entityCatalog);
         }
 
         public JToken Serialize(ResourceBag resourceBag)
@@ -80,18 +82,20 @@ namespace SampleGame.SaveSystem
         }
         public void Deserialize(ResourceBag resourceBag, JToken token)
         {
-            Deserialize<ResourceBagSnapshot>(token).Restore(resourceBag);
+            Deserialize<ResourceBagSnapshot>(token)
+                .Restore(resourceBag);
         }
 
         public JToken Serialize(TargetObject targetObject)
         {
-            TargetObjectSnapshot snapshot = new(_entityWorld);
+            TargetObjectSnapshot snapshot = new();
             snapshot.Save(targetObject);
             return Serialize(snapshot);
         }
         public void Deserialize(TargetObject targetObject, JToken token)
         {
-            Deserialize<TargetObjectSnapshot>(token).Restore(targetObject);
+            Deserialize<TargetObjectSnapshot>(token)
+                .Restore(targetObject, _entityWorld);
         }
 
         public JToken Serialize(Team team)
@@ -102,7 +106,8 @@ namespace SampleGame.SaveSystem
         }
         public void Deserialize(Team team, JToken token)
         {
-            Deserialize<TeamSnapshot>(token).Restore(team);
+            Deserialize<TeamSnapshot>(token)
+                .Restore(team);
         }
     }
 }

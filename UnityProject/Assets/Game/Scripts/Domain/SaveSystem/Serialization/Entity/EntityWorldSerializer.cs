@@ -8,7 +8,7 @@ using Zenject;
 
 namespace SampleGame.SaveSystem
 {
-    public class EntityWorldSerializer : ISerializer<EntityWorldSerializer.EntityContainer>
+    public class EntityWorldSerializer : ISerializer<EntityWorldSerializer.EntityData[]>
     {
         public string Key => "Entity";
         private readonly IEntitySerializer _entitySerializer;
@@ -25,58 +25,55 @@ namespace SampleGame.SaveSystem
             _entityWorld = entityWorld;
         }
         
-        public EntityContainer Serialize()
+        public EntityData[] Serialize()
         {
             var entities = _entityWorld.GetAll();
             return SerializeEntities(entities);
         }
         
-        public void Deserialize(EntityContainer entityContainer)
+        public void Deserialize(EntityData[] entityContainer)
         {
             _entityWorld.DestroyAll();
             SpawnEntities(entityContainer, out var spawnedEntities);
             DeserializeEntities(spawnedEntities);
         }
 
-        private EntityContainer SerializeEntities(IReadOnlyCollection<Entity> entities)
+        private EntityData[] SerializeEntities(IReadOnlyCollection<Entity> entities)
         {
-            EntityData[] entityDatas = new EntityData[entities.Count];
+            var entityDatas = new EntityData[entities.Count];
             int i = 0;
             
             foreach (Entity entity in entities)
             {
-                ISerializableEntity[] saveables = entity.GetComponents<ISerializableEntity>();
+                ISerializableEntity[] serializables = entity.GetComponents<ISerializableEntity>();
                 entityDatas[i] = new EntityData()
                 {
                     Name = entity.Name,
                     Position = entity.transform.position,
                     Rotation = entity.transform.rotation,
-                    Data = SerializeEntity(saveables),
+                    Data = SerializeEntity(serializables),
                 };
                 ++i;
             }
             
-            return new EntityContainer()
-            {
-                Entities = entityDatas,
-            };
+            return entityDatas;
         }
 
-        private JObject SerializeEntity(ISerializableEntity[] saveables)
+        private JObject SerializeEntity(ISerializableEntity[] serializables)
         {
             JObject data = new();
-            foreach (ISerializableEntity saveable in saveables)
+            foreach (ISerializableEntity serializable in serializables)
             {
-                data.Add(saveable.Key, saveable.Serialize(_entitySerializer));
+                data.Add(serializable.Key, serializable.Serialize(_entitySerializer));
             }
 
             return data;
         }
         
-        private void SpawnEntities(EntityContainer entityContainer, out Dictionary<EntityData, Entity> spawnedEntities)
+        private void SpawnEntities(EntityData[] entityDatas, out Dictionary<EntityData, Entity> spawnedEntities)
         {
             spawnedEntities = new();
-            foreach (EntityData entityData in entityContainer.Entities)
+            foreach (EntityData entityData in entityDatas)
             {
                 if (!_entityCatalog.FindConfig(entityData.Name, out EntityConfig entityConfig))
                     continue;
@@ -91,25 +88,20 @@ namespace SampleGame.SaveSystem
             foreach (EntityData data in spawnedEntities.Keys)
             {
                 Entity entity = spawnedEntities[data];
-                ISerializableEntity[] saveables = entity.GetComponents<ISerializableEntity>();
-                DeserializeEntity(data, saveables);
+                ISerializableEntity[] serializables = entity.GetComponents<ISerializableEntity>();
+                DeserializeEntity(data, serializables);
             }
         }
 
-        private void DeserializeEntity(EntityData entityData, ISerializableEntity[] saveables)
+        private void DeserializeEntity(EntityData entityData, ISerializableEntity[] serializables)
         {
-            foreach (ISerializableEntity saveable in saveables)
+            foreach (ISerializableEntity serializable in serializables)
             {
-                if (entityData.Data.TryGetValue(saveable.Key, out JToken token))
+                if (entityData.Data.TryGetValue(serializable.Key, out JToken token))
                 {
-                    saveable.Deserialize(_entitySerializer, token);
+                    serializable.Deserialize(_entitySerializer, token);
                 }
             }
-        }
-        
-        public struct EntityContainer
-        {
-            public EntityData[] Entities;
         }
         
         public struct EntityData

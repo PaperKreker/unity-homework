@@ -1,10 +1,9 @@
 ﻿using SampleGame.Common;
-using SampleGame.SaveSystem;
 
-namespace SampleGame.Gameplay.Serializers
+namespace SampleGame.Gameplay.Snapshots
 {
     [System.Serializable]
-    public class DestinationPointSnapshot : ISnapshot<DestinationPoint>
+    public class DestinationPointSnapshot
     {
         public SerializedVector3 Value;
 
