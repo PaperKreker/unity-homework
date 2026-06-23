@@ -1,3 +1,4 @@
+using SampleGame.Ai;
 using UnityEngine;
 
 namespace SampleGame
@@ -16,11 +17,11 @@ namespace SampleGame
             {
                 if (context.target != null && context.target != _character)
                 {
-                    // TODO: Move to target
+                    _character.GetComponent<CharacterAI>().MoveTo(context.target);
                 }
                 else if (context.point != null)
                 {
-                    // TODO: Move to point
+                    _character.GetComponent<CharacterAI>().Move(context.point.Value);
                 }
             }
             else if (_next) 

@@ -1,3 +1,4 @@
+using SampleGame.Ai;
 using UnityEngine;
 
 namespace SampleGame
@@ -17,7 +18,7 @@ namespace SampleGame
         {
             if (Input.GetKeyDown(_keyCode))
             {
-                // TODO: Stop
+                _character.GetComponent<CharacterAI>().Stop();
             }
             else if (_next)
                 _next.Handle(ref context);
