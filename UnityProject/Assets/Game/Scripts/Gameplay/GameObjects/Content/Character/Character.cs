@@ -48,7 +48,7 @@ namespace SampleGame
 
         private void OnDisable()
         {
-            _healthComponent.OnDeath += this.OnDeath;
+            _healthComponent.OnDeath -= this.OnDeath;
         }
 
         private void OnDeath()

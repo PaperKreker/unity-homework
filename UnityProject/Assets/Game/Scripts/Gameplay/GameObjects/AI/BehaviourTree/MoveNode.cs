@@ -11,8 +11,7 @@ namespace SampleGame.Ai
         {
             if (!_blackboard.TryGetValue(BlackBoardAPI.TargetPosition, out Vector3 targetPosition) ||
                 !_blackboard.TryGetValue(BlackBoardAPI.StoppingDistance, out float stoppingDistance) ||
-                !_blackboard.TryGetValue(BlackBoardAPI.Character, out GameObject character) ||
-                character == null)
+                !_blackboard.TryGetValue(BlackBoardAPI.Character, out GameObject character))
             {
                 return BehaviourResult.Failure;
             }

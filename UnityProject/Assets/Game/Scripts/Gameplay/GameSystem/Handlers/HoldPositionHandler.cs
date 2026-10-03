@@ -1,3 +1,4 @@
+using SampleGame.Ai;
 using UnityEngine;
 
 namespace SampleGame
@@ -18,7 +19,7 @@ namespace SampleGame
             if (Input.GetKeyDown(_keyCode))
             {
                 Debug.Log($"<color=green>[Input]</color> Hold position");
-                // TODO: Hold Position
+                _character.GetComponent<CharacterAI>().HoldPosition();
 
             }
             else if (_next) 

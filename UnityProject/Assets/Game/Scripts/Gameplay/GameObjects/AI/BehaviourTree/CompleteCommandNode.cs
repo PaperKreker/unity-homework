@@ -3,17 +3,17 @@ using UnityEngine;
 
 namespace SampleGame.Ai
 {
-    public sealed class ResetTargetNode : BehaviourNode
+    public sealed class CompleteCommandNode : BehaviourNode
     {
         [SerializeField] private Blackboard _blackboard;
 
         protected override BehaviourResult OnUpdate(float deltaTime)
         {
-            if (!_blackboard.TryGetValue(BlackBoardAPI.Target, out GameObject _) || 
-                !_blackboard.TryGetValue(BlackBoardAPI.Character, out GameObject character))
+            if (!_blackboard.TryGetValue(BlackBoardAPI.Character, out GameObject character) ||
+                !character.TryGetComponent(out CharacterAI characterAI))
                 return BehaviourResult.Failure;
 
-            _blackboard.SetReferenceValue(BlackBoardAPI.Target, character);
+            characterAI.CompleteCommand();
             return BehaviourResult.Success;
         }
     }

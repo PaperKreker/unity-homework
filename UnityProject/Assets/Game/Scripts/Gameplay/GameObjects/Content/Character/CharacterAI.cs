@@ -12,79 +12,78 @@ namespace SampleGame.Ai
         
         [SerializeField] private UnitRadiusComponent _stoppingRadius;
         [SerializeField] private UnitRadiusComponent _shootingRadius;
+        [SerializeField] private UnitRadiusComponent _searchingRadius;
         [SerializeField] private TargetFinderComponent _targetFinder;
 
         private void Awake()
         {
             _blackboard.SetPrimitiveValue(BlackBoardAPI.StoppingDistance, _stoppingRadius.Value);
             _blackboard.SetPrimitiveValue(BlackBoardAPI.ShootingDistance, _shootingRadius.Value);
-            ResetTargetPosition();
-        }
-
-        private void FixedUpdate()
-        {
-            GameObject target = _targetFinder.FindTarget(targetTeam);
-            if (!target)
-            {
-                target = _character.gameObject;
-            }
-            //_blackboard.SetReferenceValue(BlackBoardAPI.Target, target);
+            _blackboard.SetPrimitiveValue(BlackBoardAPI.SearchingDistance, _searchingRadius.Value);
+            ResetPositions();
         }
 
         public void Stop()
         {
-            ResetFollowTarget();
-            ResetTargetPosition();
-            _blackboard.SetPrimitiveValue(BlackBoardAPI.IsForceAttack, true);
-            _blackboard.SetPrimitiveValue(BlackBoardAPI.IsFollow, false);
+            SetCommand(BlackBoardAPI.CommandType.None);
         }
         
         public void Move(Vector3 position)
         {
-            ResetFollowTarget();
+            SetCommand(BlackBoardAPI.CommandType.Move);
+            ResetTarget();
             _blackboard.SetPrimitiveValue(BlackBoardAPI.TargetPosition, position);
-            _blackboard.SetPrimitiveValue(BlackBoardAPI.IsForceAttack, false);
         }
         
         public void MoveToTarget(GameObject target)
         {
             if (!target)
-            {
-                target = _character.gameObject;
-            }
+                return;
+            SetCommand(BlackBoardAPI.CommandType.Move);
             _blackboard.SetReferenceValue(BlackBoardAPI.Target, target);
-            _blackboard.SetPrimitiveValue(BlackBoardAPI.IsForceAttack, false);
-            _blackboard.SetPrimitiveValue(BlackBoardAPI.IsFollow, false);
         }
         
         public void FollowTarget(GameObject target)
         {
-            if (!target)
-            {
-                target = _character.gameObject;
-            }
+            if (!target) 
+                return;
+            SetCommand(BlackBoardAPI.CommandType.Follow);
             _blackboard.SetReferenceValue(BlackBoardAPI.Target, target);
-            _blackboard.SetPrimitiveValue(BlackBoardAPI.IsForceAttack, false);
-            _blackboard.SetPrimitiveValue(BlackBoardAPI.IsFollow, true);
         }
         
         public void AttackTarget(GameObject target)
         {
             if (!target)
-            {
-                target = _character.gameObject;
-            }
+                return;
+            SetCommand(BlackBoardAPI.CommandType.Attack);
             _blackboard.SetReferenceValue(BlackBoardAPI.Target, target);
-            _blackboard.SetPrimitiveValue(BlackBoardAPI.IsForceAttack, true);
+        }
+        
+        public void HoldPosition()
+        {
+            SetCommand(BlackBoardAPI.CommandType.Hold);
+        }
+        
+        public void CompleteCommand()
+        {
+            _blackboard.SetPrimitiveValue(BlackBoardAPI.Command, (int)BlackBoardAPI.CommandType.None);
+            ResetTarget();
+            ResetPositions();
         }
 
-        private void ResetFollowTarget()
+        private void ResetTarget()
         {
             _blackboard.SetReferenceValue(BlackBoardAPI.Target, _character.gameObject);
         }
-        private void ResetTargetPosition()
+        private void ResetPositions()
         {
             _blackboard.SetPrimitiveValue(BlackBoardAPI.TargetPosition, _character.transform.position);
+            _blackboard.SetPrimitiveValue(BlackBoardAPI.HomePosition, _character.transform.position);
+        }
+
+        private void SetCommand(BlackBoardAPI.CommandType command)
+        {
+            _blackboard.SetPrimitiveValue(BlackBoardAPI.Command, (int)command);
         }
     }
 }

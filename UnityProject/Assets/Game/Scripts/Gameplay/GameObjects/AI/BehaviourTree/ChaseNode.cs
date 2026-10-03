@@ -12,8 +12,6 @@ namespace SampleGame.Ai
             if (!_blackboard.TryGetValue(BlackBoardAPI.Target, out GameObject followTarget) ||
                 !_blackboard.TryGetValue(BlackBoardAPI.Character, out GameObject character) ||
                 !_blackboard.TryGetValue(BlackBoardAPI.TargetPosition, out _) ||
-                !character ||
-                !followTarget ||
                 followTarget.Equals(character))
             {
                 return BehaviourResult.Failure;

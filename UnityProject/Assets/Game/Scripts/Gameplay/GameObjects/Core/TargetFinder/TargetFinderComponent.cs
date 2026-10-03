@@ -15,14 +15,14 @@ namespace SampleGame
             _unitRadius = GetComponent<UnitRadiusComponent>();
         }
 
-        public GameObject FindTarget(TeamType team = TeamType.Neutral)
+        public GameObject FindTarget(TeamComponent teamComponent)
         {
             GameObject newTarget = null;
             int size = Physics.OverlapSphereNonAlloc(transform.position, _unitRadius.Value, _overlapResult);
             
             for (int i = 0; i < size; ++i)
             {
-                if (CanBeTarget(_overlapResult[i], team))
+                if (CanBeTarget(_overlapResult[i], teamComponent))
                 {
                     newTarget = _overlapResult[i].gameObject;
                 }
@@ -39,11 +39,10 @@ namespace SampleGame
             return Target;
         }
 
-        private bool CanBeTarget(Collider targetCollider, TeamType team)
+        private bool CanBeTarget(Collider targetCollider, TeamComponent teamComponent)
         {
             return targetCollider &&
-                targetCollider.TryGetComponent(out TeamComponent teamComponent) &&
-                teamComponent.Team == team &&
+                teamComponent.IsEnemy(targetCollider.gameObject) &&
                 targetCollider.TryGetComponent(out HealthComponent healthComponent) &&
                 healthComponent.IsAlive;
         }
