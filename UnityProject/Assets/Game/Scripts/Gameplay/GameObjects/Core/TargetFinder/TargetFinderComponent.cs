@@ -22,12 +22,17 @@ namespace SampleGame
             
             for (int i = 0; i < size; ++i)
             {
-                if (CanBeTarget(_overlapResult[i], teamComponent))
+                GameObject overlapObject = _overlapResult[i].gameObject;
+                if (CanBeTarget(overlapObject, teamComponent))
                 {
-                    newTarget = _overlapResult[i].gameObject;
+                    newTarget = overlapObject;
                 }
             }
 
+            if (!CanBeTarget(Target, teamComponent))
+            {
+                Target = null;
+            }
             if (!newTarget)
             {
                 Target = null;
@@ -39,12 +44,12 @@ namespace SampleGame
             return Target;
         }
 
-        private bool CanBeTarget(Collider targetCollider, TeamComponent teamComponent)
+        private bool CanBeTarget(GameObject targetCandidate, TeamComponent teamComponent)
         {
-            return targetCollider &&
-                teamComponent.IsEnemy(targetCollider.gameObject) &&
-                targetCollider.TryGetComponent(out HealthComponent healthComponent) &&
-                healthComponent.IsAlive;
+            return targetCandidate &&
+                   teamComponent.IsEnemy(targetCandidate.gameObject) &&
+                   targetCandidate.TryGetComponent(out HealthComponent healthComponent) &&
+                   healthComponent.IsAlive;
         }
     }
 }
