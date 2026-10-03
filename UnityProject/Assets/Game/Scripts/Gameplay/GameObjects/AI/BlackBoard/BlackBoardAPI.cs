@@ -6,7 +6,7 @@ namespace SampleGame.Ai
     [BlackboardAPI]
     public class BlackBoardAPI
     {
-        public enum CommandType { None, Hold, Move, Patrol, Attack, Follow }
+        public enum CommandType { None, Hold, Move, Patrol, AttackTarget, Follow, AttackPoint }
         
         
         public static readonly BlackboardValueKey<int> Command = new(nameof(Command));

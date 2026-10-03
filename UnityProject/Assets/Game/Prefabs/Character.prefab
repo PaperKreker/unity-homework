@@ -156,6 +156,66 @@ MonoBehaviour:
   _nodes:
   - {fileID: 5830493184764909923}
   - {fileID: 8437483729855723463}
+--- !u!1 &304344712698775678
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2591185184501731282}
+  - component: {fileID: 1761123635837862357}
+  m_Layer: 0
+  m_Name: CanNotSeeTargetCondition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2591185184501731282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304344712698775678}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 549547338796383776}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1761123635837862357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304344712698775678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 365f2751daa942308a17ddd12c2ee8d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeCondition
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _condition:
+    rid: 7326149404830728511
+  references:
+    version: 2
+    RefIds:
+    - rid: 7326149404830728511
+      type: {class: NotCondition, ns: Modules.AI, asm: Modules.AI.Elements}
+      data:
+        condition:
+          rid: 7326149404830728512
+    - rid: 7326149404830728512
+      type: {class: CanSeeTargetCondition, ns: SampleGame, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &363575435463747356
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,6 +403,165 @@ MonoBehaviour:
       data:
         _blackboard: {fileID: 1635509206525104464}
         _command: 1
+--- !u!1 &707514574622008012
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3520183597944584523}
+  - component: {fileID: 7401140894119832502}
+  m_Layer: 0
+  m_Name: ResetTargetNode
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3520183597944584523
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707514574622008012}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1298495187167625032}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7401140894119832502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707514574622008012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee2bd2376e1a75419cd87c984082e42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.RemoveTargetNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &793480477918233857
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1337958744884890945}
+  - component: {fileID: 6052721653832953653}
+  m_Layer: 0
+  m_Name: AttackParallel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1337958744884890945
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793480477918233857}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2145819260679979317}
+  - {fileID: 5585813147906204672}
+  - {fileID: 5581680487511946654}
+  - {fileID: 3646410810653550976}
+  m_Father: {fileID: 6508157227414657865}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6052721653832953653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793480477918233857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47ac6a8124c64a76bd4b74ff69f1b1fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeParallel
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _nodes:
+  - {fileID: 6620030035926500864}
+  - {fileID: 6113249951025789448}
+  - {fileID: 3456203412120079210}
+  - {fileID: 1845154527874203517}
+--- !u!1 &870925963488305855
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2830745838436097048}
+  - component: {fileID: 2952508122704134788}
+  m_Layer: 0
+  m_Name: WhileCanSeeTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2830745838436097048
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870925963488305855}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4457905559522112545}
+  m_Father: {fileID: 8886543173401707243}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2952508122704134788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870925963488305855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5aac40b1864451b1b5db36a1e61854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeWhile
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _condition:
+    rid: 7326149404830728508
+  _child: {fileID: 54310924365604847}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7326149404830728508
+      type: {class: CanSeeTargetCondition, ns: SampleGame, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &878468366025136267
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,6 +723,63 @@ MonoBehaviour:
   _audioSource: {fileID: 6551568866104090170}
   _takeDamageComponent: {fileID: 8686341370957588940}
   _audioClip: {fileID: 8300000, guid: 9d3eb7466db37493ea798163778d02c3, type: 3}
+--- !u!1 &933996618589662734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1366131096028812255}
+  - component: {fileID: 6513716044179818727}
+  m_Layer: 0
+  m_Name: WhileCanAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1366131096028812255
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933996618589662734}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5164218374793677730}
+  m_Father: {fileID: 2774532336322811463}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6513716044179818727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933996618589662734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5aac40b1864451b1b5db36a1e61854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeWhile
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _condition:
+    rid: 7326149404830728438
+  _child: {fileID: 2536524903339086046}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7326149404830728438
+      type: {class: CanAttackCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &1451867298202740440
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,6 +888,106 @@ MonoBehaviour:
       type: {class: CanAttackCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
       data:
         _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &1505262041151534793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1208600426628386562}
+  - component: {fileID: 5360956747403478905}
+  m_Layer: 0
+  m_Name: ResetPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1208600426628386562
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505262041151534793}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2162741248668931256}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5360956747403478905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505262041151534793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1794b0c88a2a2ce4c8c8db571b45da97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.ResetPositionNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &1519245898643642287
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2162741248668931256}
+  - component: {fileID: 4991180727130876293}
+  m_Layer: 0
+  m_Name: CanNotSeeTargetSequence
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2162741248668931256
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519245898643642287}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3404697658090818392}
+  - {fileID: 929220939094460307}
+  - {fileID: 1208600426628386562}
+  m_Father: {fileID: 7553193276852602456}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4991180727130876293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519245898643642287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f753cb2311846db8a2cd50ae5dd6cf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeSequence
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _nodes:
+  - {fileID: 5359475291984405096}
+  - {fileID: 4501592323706865008}
+  - {fileID: 5360956747403478905}
 --- !u!1 &1611147603245319831
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,6 +1081,120 @@ Transform:
   - {fileID: 3848556593468302437}
   m_Father: {fileID: 4473757027215454236}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1692732384059162710
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7102569627896255378}
+  - component: {fileID: 8566389153295066166}
+  m_Layer: 0
+  m_Name: AttackLoop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7102569627896255378
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692732384059162710}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2774532336322811463}
+  m_Father: {fileID: 5581680487511946654}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8566389153295066166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692732384059162710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5aac40b1864451b1b5db36a1e61854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeWhile
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _condition:
+    rid: 7326149404830728465
+  _child: {fileID: 6162329466676377727}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7326149404830728465
+      type: {class: AndCondition, ns: Modules.AI, asm: Modules.AI.Elements}
+      data:
+        conditions:
+        - rid: 7326149404830728466
+        - rid: 7326149404830728467
+    - rid: 7326149404830728466
+      type: {class: HasTargetCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
+    - rid: 7326149404830728467
+      type: {class: IsTargetAliveCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &1743215155447288212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8545815081488286518}
+  - component: {fileID: 7588211850558332213}
+  m_Layer: 0
+  m_Name: Move
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8545815081488286518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743215155447288212}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5476231284919230343}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7588211850558332213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743215155447288212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27c5a1ed0fbec964ea5f0138f5456062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.MoveNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &1750931038249537916
 GameObject:
   m_ObjectHideFlags: 0
@@ -765,7 +1255,7 @@ GameObject:
   - component: {fileID: 6261995406650304756}
   - component: {fileID: 1293345736322317495}
   m_Layer: 0
-  m_Name: WhileAttack
+  m_Name: WhileAttackTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -812,6 +1302,101 @@ MonoBehaviour:
       data:
         _blackboard: {fileID: 1635509206525104464}
         _command: 4
+--- !u!1 &2025713337368942219
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2145819260679979317}
+  - component: {fileID: 6620030035926500864}
+  m_Layer: 0
+  m_Name: FindTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2145819260679979317
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2025713337368942219}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1337958744884890945}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6620030035926500864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2025713337368942219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b4f955bf2cf12f4ba68251f561d1e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.FindTargetNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _targetFinder: {fileID: 208033051367911725}
+  _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &2058837939857586452
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5164218374793677730}
+  - component: {fileID: 2536524903339086046}
+  m_Layer: 0
+  m_Name: Attack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5164218374793677730
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058837939857586452}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1366131096028812255}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2536524903339086046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058837939857586452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5987ee5ed072e04fb0c99dcd88047a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.AttackNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &2070119970863113296
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,6 +1443,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.CompleteCommandNode
   _useUnityLifecycle: 0
   _updateMode: 0
+  _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &2252840733784808502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8195717627269045859}
+  - component: {fileID: 6778904042406674711}
+  m_Layer: 0
+  m_Name: FindTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8195717627269045859
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2252840733784808502}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5980734661577938759}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6778904042406674711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2252840733784808502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b4f955bf2cf12f4ba68251f561d1e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.FindTargetNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _targetFinder: {fileID: 208033051367911725}
   _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &2294634995859905697
 GameObject:
@@ -916,6 +1549,53 @@ MonoBehaviour:
       type: {class: CanAttackCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
       data:
         _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &2394548582288178005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3673202757650206289}
+  - component: {fileID: 3265966269199508712}
+  m_Layer: 0
+  m_Name: ResetTargetNode
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3673202757650206289
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2394548582288178005}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 549547338796383776}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3265966269199508712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2394548582288178005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee2bd2376e1a75419cd87c984082e42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.RemoveTargetNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &2573290616231824558
 GameObject:
   m_ObjectHideFlags: 0
@@ -949,6 +1629,7 @@ Transform:
   - {fileID: 5183776759324427318}
   - {fileID: 651372405742812166}
   - {fileID: 6261995406650304756}
+  - {fileID: 6508157227414657865}
   - {fileID: 1315126844263826004}
   - {fileID: 8231594548592804906}
   - {fileID: 3808393283618733603}
@@ -973,7 +1654,9 @@ MonoBehaviour:
   - {fileID: 3839639671268132784}
   - {fileID: 6522879765993804781}
   - {fileID: 1293345736322317495}
+  - {fileID: 5056623853873787570}
   - {fileID: 788936007443252401}
+  - {fileID: 7118897681115329717}
 --- !u!1 &2587253409784708626
 GameObject:
   m_ObjectHideFlags: 0
@@ -1073,6 +1756,108 @@ MonoBehaviour:
   _updateMode: 0
   _targetFinder: {fileID: 208033051367911725}
   _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &2860290748313189036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1298495187167625032}
+  - component: {fileID: 2084077325822735906}
+  m_Layer: 0
+  m_Name: ResetSequence
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1298495187167625032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2860290748313189036}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3520183597944584523}
+  - {fileID: 6224717823784111616}
+  m_Father: {fileID: 4915047502605329903}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2084077325822735906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2860290748313189036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f753cb2311846db8a2cd50ae5dd6cf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeSequence
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _nodes:
+  - {fileID: 7401140894119832502}
+  - {fileID: 8688911838376698774}
+--- !u!1 &3027691925263534892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8886543173401707243}
+  - component: {fileID: 7344430688300163318}
+  m_Layer: 0
+  m_Name: MovePositionStrategySelector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8886543173401707243
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3027691925263534892}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2830745838436097048}
+  - {fileID: 549547338796383776}
+  m_Father: {fileID: 1937319629610872274}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7344430688300163318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3027691925263534892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90b38701bdf44658b9e7cb9e1eb0a7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeSelector
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _nodes:
+  - {fileID: 2952508122704134788}
+  - {fileID: 7026587545900076752}
 --- !u!1 &3093306533258035774
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,6 +1909,168 @@ MonoBehaviour:
   _nodes:
   - {fileID: 3760489080814969666}
   - {fileID: 6840818977525576544}
+--- !u!1 &3097059949608182303
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 549547338796383776}
+  - component: {fileID: 7026587545900076752}
+  m_Layer: 0
+  m_Name: CanNotSeeTargetSequence
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &549547338796383776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3097059949608182303}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2591185184501731282}
+  - {fileID: 3673202757650206289}
+  - {fileID: 5644071428551132169}
+  m_Father: {fileID: 8886543173401707243}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7026587545900076752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3097059949608182303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f753cb2311846db8a2cd50ae5dd6cf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeSequence
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _nodes:
+  - {fileID: 1761123635837862357}
+  - {fileID: 3265966269199508712}
+  - {fileID: 167937140808682613}
+--- !u!1 &3223783655882675110
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2742013367541852942}
+  - component: {fileID: 17373973241618379}
+  m_Layer: 0
+  m_Name: UpdateTargetPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2742013367541852942
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3223783655882675110}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3484556804054550766}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &17373973241618379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3223783655882675110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b6f6890c97d49eab436132adc6bcf7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.ChaseNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &3224042570050671004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4105498752131205824}
+  - component: {fileID: 2790102262892141827}
+  m_Layer: 0
+  m_Name: WhileCanNotAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4105498752131205824
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3224042570050671004}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7553193276852602456}
+  m_Father: {fileID: 1119939032705648349}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2790102262892141827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3224042570050671004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5aac40b1864451b1b5db36a1e61854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeWhile
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _condition:
+    rid: 7326149404830728439
+  _child: {fileID: 3043457793901586972}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7326149404830728439
+      type: {class: NotCondition, ns: Modules.AI, asm: Modules.AI.Elements}
+      data:
+        condition:
+          rid: 7326149404830728440
+    - rid: 7326149404830728440
+      type: {class: CanAttackCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &3315229052211417877
 GameObject:
   m_ObjectHideFlags: 0
@@ -1163,6 +2110,104 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3315229052211417877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee2bd2376e1a75419cd87c984082e42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.RemoveTargetNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &3511154646766130570
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2774532336322811463}
+  - component: {fileID: 6162329466676377727}
+  m_Layer: 0
+  m_Name: AttackStrategySelector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2774532336322811463
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3511154646766130570}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1366131096028812255}
+  - {fileID: 1937319629610872274}
+  m_Father: {fileID: 7102569627896255378}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6162329466676377727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3511154646766130570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90b38701bdf44658b9e7cb9e1eb0a7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeSelector
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _nodes:
+  - {fileID: 6513716044179818727}
+  - {fileID: 1092495837973885358}
+--- !u!1 &3569911978589285413
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 929220939094460307}
+  - component: {fileID: 4501592323706865008}
+  m_Layer: 0
+  m_Name: ResetTargetNode
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &929220939094460307
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3569911978589285413}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2162741248668931256}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4501592323706865008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3569911978589285413}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ee2bd2376e1a75419cd87c984082e42, type: 3}
@@ -1273,6 +2318,104 @@ MonoBehaviour:
   _nodes:
   - {fileID: 9047019820299265696}
   - {fileID: 3544704540516624739}
+--- !u!1 &3946964416936517760
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1119939032705648349}
+  - component: {fileID: 6033069312054915524}
+  m_Layer: 0
+  m_Name: AttackStrategySelector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1119939032705648349
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3946964416936517760}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3345490741578801090}
+  - {fileID: 4105498752131205824}
+  m_Father: {fileID: 2077579523073795839}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6033069312054915524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3946964416936517760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90b38701bdf44658b9e7cb9e1eb0a7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeSelector
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _nodes:
+  - {fileID: 5642316642589623779}
+  - {fileID: 2790102262892141827}
+--- !u!1 &3984919651980087098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8208742497809036375}
+  - component: {fileID: 550907511614549607}
+  m_Layer: 0
+  m_Name: ResetPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8208742497809036375
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3984919651980087098}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3350607368547009208}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &550907511614549607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3984919651980087098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1794b0c88a2a2ce4c8c8db571b45da97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.ResetPositionNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &4067193554097935981
 GameObject:
   m_ObjectHideFlags: 0
@@ -1326,6 +2469,68 @@ MonoBehaviour:
     RefIds:
     - rid: 7326149404830728383
       type: {class: CanMoveCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &4211581878153439336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7906579155381141386}
+  - component: {fileID: 8577033467978614110}
+  m_Layer: 0
+  m_Name: WhileTargetAlive
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7906579155381141386
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4211581878153439336}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5511958310417182277}
+  m_Father: {fileID: 2021851688598393284}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8577033467978614110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4211581878153439336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5aac40b1864451b1b5db36a1e61854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeWhile
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _condition:
+    rid: 7326149414874775654
+  _child: {fileID: 6999872120931974674}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7326149414874775654
+      type: {class: NotCondition, ns: Modules.AI, asm: Modules.AI.Elements}
+      data:
+        condition:
+          rid: 7326149414874775655
+    - rid: 7326149414874775655
+      type: {class: IsTargetAliveCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
       data:
         _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &4225192611330163721
@@ -1385,6 +2590,53 @@ MonoBehaviour:
       type: {class: CanSeeTargetCondition, ns: SampleGame, asm: Assembly-CSharp}
       data:
         _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &4243151430139766603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6485591745926783422}
+  - component: {fileID: 5709447958552138424}
+  m_Layer: 0
+  m_Name: CompleteCommand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6485591745926783422
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4243151430139766603}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3646410810653550976}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5709447958552138424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4243151430139766603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8937fe12ade3e640b0ddc1120bd2788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.CompleteCommandNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &4381992292883872785
 GameObject:
   m_ObjectHideFlags: 0
@@ -1471,7 +2723,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5980734661577938759}
   m_Father: {fileID: 3848556593468302437}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7118897681115329717
@@ -1490,7 +2743,7 @@ MonoBehaviour:
   _updateMode: 0
   _condition:
     rid: 7326149404830728411
-  _child: {fileID: 0}
+  _child: {fileID: 4842852738387922584}
   references:
     version: 2
     RefIds:
@@ -1794,6 +3047,124 @@ MonoBehaviour:
   _useUnityLifecycle: 0
   _updateMode: 0
   _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &4829875996036544114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2077579523073795839}
+  - component: {fileID: 7194515089267582324}
+  m_Layer: 0
+  m_Name: AttackLoop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2077579523073795839
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4829875996036544114}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1119939032705648349}
+  m_Father: {fileID: 4915047502605329903}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7194515089267582324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4829875996036544114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5aac40b1864451b1b5db36a1e61854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeWhile
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _condition:
+    rid: 7326149404830728465
+  _child: {fileID: 6033069312054915524}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7326149404830728465
+      type: {class: AndCondition, ns: Modules.AI, asm: Modules.AI.Elements}
+      data:
+        conditions:
+        - rid: 7326149404830728466
+        - rid: 7326149404830728467
+    - rid: 7326149404830728466
+      type: {class: HasTargetCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
+    - rid: 7326149404830728467
+      type: {class: IsTargetAliveCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &4846038281717971146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5581680487511946654}
+  - component: {fileID: 6113249951025789448}
+  m_Layer: 0
+  m_Name: AttackSelector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5581680487511946654
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4846038281717971146}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7102569627896255378}
+  - {fileID: 3350607368547009208}
+  m_Father: {fileID: 1337958744884890945}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6113249951025789448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4846038281717971146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90b38701bdf44658b9e7cb9e1eb0a7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeSelector
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _nodes:
+  - {fileID: 8566389153295066166}
+  - {fileID: 2376077792150277917}
 --- !u!1 &5032566643010677148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1905,6 +3276,57 @@ MonoBehaviour:
       type: {class: CanSeeTargetCondition, ns: SampleGame, asm: Assembly-CSharp}
       data:
         _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &5103941806740194391
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3350607368547009208}
+  - component: {fileID: 2376077792150277917}
+  m_Layer: 0
+  m_Name: ResetSequence
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3350607368547009208
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5103941806740194391}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2308672425915881837}
+  - {fileID: 8208742497809036375}
+  m_Father: {fileID: 5581680487511946654}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2376077792150277917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5103941806740194391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f753cb2311846db8a2cd50ae5dd6cf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeSequence
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _nodes:
+  - {fileID: 8925571727440581199}
+  - {fileID: 550907511614549607}
 --- !u!1 &5110511202820687062
 GameObject:
   m_ObjectHideFlags: 0
@@ -1965,6 +3387,53 @@ MonoBehaviour:
       type: {class: CanMoveCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
       data:
         _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &5132066875967034607
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6224717823784111616}
+  - component: {fileID: 8688911838376698774}
+  m_Layer: 0
+  m_Name: ResetPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6224717823784111616
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5132066875967034607}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1298495187167625032}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8688911838376698774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5132066875967034607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1794b0c88a2a2ce4c8c8db571b45da97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.ResetPositionNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &5147769392469399565
 GameObject:
   m_ObjectHideFlags: 0
@@ -2020,6 +3489,66 @@ MonoBehaviour:
     RefIds:
     - rid: 7326149404830728438
       type: {class: CanAttackCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &5198727670891544621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3404697658090818392}
+  - component: {fileID: 5359475291984405096}
+  m_Layer: 0
+  m_Name: CanNotSeeTargetCondition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3404697658090818392
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5198727670891544621}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2162741248668931256}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5359475291984405096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5198727670891544621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 365f2751daa942308a17ddd12c2ee8d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeCondition
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _condition:
+    rid: 7326149404830728511
+  references:
+    version: 2
+    RefIds:
+    - rid: 7326149404830728511
+      type: {class: NotCondition, ns: Modules.AI, asm: Modules.AI.Elements}
+      data:
+        condition:
+          rid: 7326149404830728512
+    - rid: 7326149404830728512
+      type: {class: CanSeeTargetCondition, ns: SampleGame, asm: Assembly-CSharp}
       data:
         _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &5339135732373409072
@@ -2120,6 +3649,63 @@ MonoBehaviour:
   _nodes:
   - {fileID: 729389838485966791}
   - {fileID: 1564609256910798871}
+--- !u!1 &5519462656165373026
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5980734661577938759}
+  - component: {fileID: 4842852738387922584}
+  m_Layer: 0
+  m_Name: PatrolParallel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5980734661577938759
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5519462656165373026}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 568641057917018583}
+  - {fileID: 8195717627269045859}
+  - {fileID: 4915047502605329903}
+  - {fileID: 5476231284919230343}
+  - {fileID: 4533008855008989913}
+  m_Father: {fileID: 8231594548592804906}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4842852738387922584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5519462656165373026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47ac6a8124c64a76bd4b74ff69f1b1fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeParallel
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _nodes:
+  - {fileID: 2134638350453746708}
+  - {fileID: 6778904042406674711}
+  - {fileID: 5851367825915354810}
+  - {fileID: 394917888452251515}
+  - {fileID: 7366762646532447694}
 --- !u!1 &5552643722796800898
 GameObject:
   m_ObjectHideFlags: 0
@@ -2175,6 +3761,160 @@ MonoBehaviour:
       type: {class: CanMoveCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
       data:
         _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &5577932246481766546
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3646410810653550976}
+  - component: {fileID: 1845154527874203517}
+  m_Layer: 0
+  m_Name: CompleteLoop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3646410810653550976
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5577932246481766546}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6485591745926783422}
+  m_Father: {fileID: 1337958744884890945}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1845154527874203517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5577932246481766546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5aac40b1864451b1b5db36a1e61854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeWhile
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _condition:
+    rid: 7326149414874775677
+  _child: {fileID: 5709447958552138424}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7326149414874775677
+      type: {class: AndCondition, ns: Modules.AI, asm: Modules.AI.Elements}
+      data:
+        conditions:
+        - rid: 7326149414874775678
+        - rid: 7326149414874775679
+    - rid: 7326149414874775678
+      type: {class: NotCondition, ns: Modules.AI, asm: Modules.AI.Elements}
+      data:
+        condition:
+          rid: 7326149414874775680
+    - rid: 7326149414874775679
+      type: {class: NotCondition, ns: Modules.AI, asm: Modules.AI.Elements}
+      data:
+        condition:
+          rid: 7326149414874775681
+    - rid: 7326149414874775680
+      type: {class: CanMoveCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
+    - rid: 7326149414874775681
+      type: {class: CanAttackCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &5636765149359736431
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4533008855008989913}
+  - component: {fileID: 7366762646532447694}
+  m_Layer: 0
+  m_Name: NextPointLoop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4533008855008989913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5636765149359736431}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1692568931541735925}
+  m_Father: {fileID: 5980734661577938759}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7366762646532447694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5636765149359736431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5aac40b1864451b1b5db36a1e61854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeWhile
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _condition:
+    rid: 7326149414874775672
+  _child: {fileID: 4585211842631904929}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7326149414874775672
+      type: {class: AndCondition, ns: Modules.AI, asm: Modules.AI.Elements}
+      data:
+        conditions:
+        - rid: 7326149414874775673
+        - rid: 7326149414874775674
+    - rid: 7326149414874775673
+      type: {class: NotCondition, ns: Modules.AI, asm: Modules.AI.Elements}
+      data:
+        condition:
+          rid: 7326149414874775675
+    - rid: 7326149414874775674
+      type: {class: NotCondition, ns: Modules.AI, asm: Modules.AI.Elements}
+      data:
+        condition:
+          rid: 7326149414874775676
+    - rid: 7326149414874775675
+      type: {class: CanMoveCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
+    - rid: 7326149414874775676
+      type: {class: CanAttackCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &5701748154964936479
 GameObject:
   m_ObjectHideFlags: 0
@@ -2226,6 +3966,115 @@ MonoBehaviour:
   _nodes:
   - {fileID: 8245053862544629157}
   - {fileID: 6415135229208131631}
+--- !u!1 &5761775456184840820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7553193276852602456}
+  - component: {fileID: 3043457793901586972}
+  m_Layer: 0
+  m_Name: MovePositionStrategySelector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7553193276852602456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5761775456184840820}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3484556804054550766}
+  - {fileID: 2162741248668931256}
+  m_Father: {fileID: 4105498752131205824}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3043457793901586972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5761775456184840820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90b38701bdf44658b9e7cb9e1eb0a7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeSelector
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _nodes:
+  - {fileID: 6506783132069682141}
+  - {fileID: 4991180727130876293}
+--- !u!1 &5848678841984416180
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6508157227414657865}
+  - component: {fileID: 5056623853873787570}
+  m_Layer: 0
+  m_Name: WhileAttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6508157227414657865
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5848678841984416180}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1337958744884890945}
+  m_Father: {fileID: 3848556593468302437}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5056623853873787570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5848678841984416180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5aac40b1864451b1b5db36a1e61854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeWhile
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _condition:
+    rid: 7326149404830728411
+  _child: {fileID: 6052721653832953653}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7326149404830728411
+      type: {class: CheckCommandCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
+        _command: 6
 --- !u!1 &5997985775266836025
 GameObject:
   m_ObjectHideFlags: 0
@@ -2386,6 +4235,53 @@ MonoBehaviour:
   _meshRenderer: {fileID: 2273241628694756360}
   _teamConfig: {fileID: 11400000, guid: 2a25c920b71554345892bc87c758c68d, type: 2}
   _teamComponent: {fileID: 5312956498513726121}
+--- !u!1 &6155268682311510689
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 604779564369591421}
+  - component: {fileID: 3965967481812045963}
+  m_Layer: 0
+  m_Name: Attack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &604779564369591421
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6155268682311510689}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3345490741578801090}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3965967481812045963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6155268682311510689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5987ee5ed072e04fb0c99dcd88047a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.AttackNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &6434231425523038031
 GameObject:
   m_ObjectHideFlags: 0
@@ -2531,6 +4427,100 @@ MonoBehaviour:
   _nodes:
   - {fileID: 821375566305534529}
   - {fileID: 2496474901271469451}
+--- !u!1 &6801660499546133017
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5511958310417182277}
+  - component: {fileID: 6999872120931974674}
+  m_Layer: 0
+  m_Name: CompleteCommand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5511958310417182277
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6801660499546133017}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7906579155381141386}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6999872120931974674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6801660499546133017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8937fe12ade3e640b0ddc1120bd2788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.CompleteCommandNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &6802632337495677726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1692568931541735925}
+  - component: {fileID: 4585211842631904929}
+  m_Layer: 0
+  m_Name: NextPatrolPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1692568931541735925
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6802632337495677726}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4533008855008989913}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4585211842631904929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6802632337495677726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc327a9c13e1d0b468e8202f9ab9b34a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.NextPatrolPointNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &6835616756275756475
 GameObject:
   m_ObjectHideFlags: 0
@@ -2575,6 +4565,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27c5a1ed0fbec964ea5f0138f5456062, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.MoveNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &6934834642653407821
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5644071428551132169}
+  - component: {fileID: 167937140808682613}
+  m_Layer: 0
+  m_Name: ResetPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5644071428551132169
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6934834642653407821}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 549547338796383776}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &167937140808682613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6934834642653407821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1794b0c88a2a2ce4c8c8db571b45da97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.ResetPositionNode
   _useUnityLifecycle: 0
   _updateMode: 0
   _blackboard: {fileID: 1635509206525104464}
@@ -2636,6 +4673,53 @@ MonoBehaviour:
       data:
         _blackboard: {fileID: 1635509206525104464}
         _command: 5
+--- !u!1 &7015955362141159925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5237816278827173376}
+  - component: {fileID: 495612616623441996}
+  m_Layer: 0
+  m_Name: Move
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5237816278827173376
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7015955362141159925}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5585813147906204672}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &495612616623441996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7015955362141159925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27c5a1ed0fbec964ea5f0138f5456062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.MoveNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &7042367107634132932
 GameObject:
   m_ObjectHideFlags: 0
@@ -2796,6 +4880,125 @@ MonoBehaviour:
   _useUnityLifecycle: 0
   _updateMode: 0
   _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &7199095293586537063
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5585813147906204672}
+  - component: {fileID: 3456203412120079210}
+  m_Layer: 0
+  m_Name: MoveLoop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5585813147906204672
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7199095293586537063}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5237816278827173376}
+  m_Father: {fileID: 1337958744884890945}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3456203412120079210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7199095293586537063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5aac40b1864451b1b5db36a1e61854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeWhile
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _condition:
+    rid: 7326149404830728535
+  _child: {fileID: 495612616623441996}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7326149404830728535
+      type: {class: AndCondition, ns: Modules.AI, asm: Modules.AI.Elements}
+      data:
+        conditions:
+        - rid: 7326149404830728536
+        - rid: 7326149404830728537
+    - rid: 7326149404830728536
+      type: {class: CanMoveCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
+    - rid: 7326149404830728537
+      type: {class: NotCondition, ns: Modules.AI, asm: Modules.AI.Elements}
+      data:
+        condition:
+          rid: 7326149404830728538
+    - rid: 7326149404830728538
+      type: {class: CanAttackCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &7250466428332933668
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2308672425915881837}
+  - component: {fileID: 8925571727440581199}
+  m_Layer: 0
+  m_Name: ResetTargetNode
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2308672425915881837
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7250466428332933668}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3350607368547009208}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8925571727440581199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7250466428332933668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee2bd2376e1a75419cd87c984082e42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.RemoveTargetNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &7286234498975397048
 GameObject:
   m_ObjectHideFlags: 0
@@ -2938,6 +5141,114 @@ MonoBehaviour:
   _useUnityLifecycle: 0
   _updateMode: 0
   _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &7562950323935121828
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4915047502605329903}
+  - component: {fileID: 5851367825915354810}
+  m_Layer: 0
+  m_Name: AttackSelector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4915047502605329903
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7562950323935121828}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2077579523073795839}
+  - {fileID: 1298495187167625032}
+  m_Father: {fileID: 5980734661577938759}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5851367825915354810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7562950323935121828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90b38701bdf44658b9e7cb9e1eb0a7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeSelector
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _nodes:
+  - {fileID: 7194515089267582324}
+  - {fileID: 2084077325822735906}
+--- !u!1 &7847493634515314659
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3484556804054550766}
+  - component: {fileID: 6506783132069682141}
+  m_Layer: 0
+  m_Name: WhileCanSeeTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3484556804054550766
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7847493634515314659}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2742013367541852942}
+  m_Father: {fileID: 7553193276852602456}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6506783132069682141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7847493634515314659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5aac40b1864451b1b5db36a1e61854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeWhile
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _condition:
+    rid: 7326149404830728508
+  _child: {fileID: 17373973241618379}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7326149404830728508
+      type: {class: CanSeeTargetCondition, ns: SampleGame, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &7896759888454424343
 GameObject:
   m_ObjectHideFlags: 0
@@ -3170,13 +5481,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5806fb341185f1844873b02462f5da77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAI
-  targetTeam: 2
   _blackboard: {fileID: 1635509206525104464}
   _character: {fileID: 8437577021342093696}
   _stoppingRadius: {fileID: 6430962818730356955}
   _shootingRadius: {fileID: 8459060855728802653}
   _searchingRadius: {fileID: 8817443122710807179}
-  _targetFinder: {fileID: 208033051367911725}
 --- !u!1 &7924368072442880386
 GameObject:
   m_ObjectHideFlags: 0
@@ -3324,6 +5633,78 @@ MonoBehaviour:
   _useUnityLifecycle: 0
   _updateMode: 0
   _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &8031858840350001860
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5476231284919230343}
+  - component: {fileID: 394917888452251515}
+  m_Layer: 0
+  m_Name: MoveLoop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5476231284919230343
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8031858840350001860}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8545815081488286518}
+  m_Father: {fileID: 5980734661577938759}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &394917888452251515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8031858840350001860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5aac40b1864451b1b5db36a1e61854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeWhile
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _condition:
+    rid: 7326149404830728535
+  _child: {fileID: 7588211850558332213}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7326149404830728535
+      type: {class: AndCondition, ns: Modules.AI, asm: Modules.AI.Elements}
+      data:
+        conditions:
+        - rid: 7326149404830728536
+        - rid: 7326149404830728537
+    - rid: 7326149404830728536
+      type: {class: CanMoveCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
+    - rid: 7326149404830728537
+      type: {class: NotCondition, ns: Modules.AI, asm: Modules.AI.Elements}
+      data:
+        condition:
+          rid: 7326149404830728538
+    - rid: 7326149404830728538
+      type: {class: CanAttackCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &8071842133300308260
 GameObject:
   m_ObjectHideFlags: 0
@@ -3368,6 +5749,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1794b0c88a2a2ce4c8c8db571b45da97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.ResetPositionNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &8214771641177024939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 568641057917018583}
+  - component: {fileID: 2134638350453746708}
+  m_Layer: 0
+  m_Name: UpdatePatrolPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &568641057917018583
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8214771641177024939}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5980734661577938759}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2134638350453746708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8214771641177024939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04e0af8cc100ce14a800e98a903a88f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.UpdatePatrolPointNode
   _useUnityLifecycle: 0
   _updateMode: 0
   _blackboard: {fileID: 1635509206525104464}
@@ -3418,6 +5846,68 @@ MonoBehaviour:
   _useUnityLifecycle: 0
   _updateMode: 0
   _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &8333331726427350656
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1937319629610872274}
+  - component: {fileID: 1092495837973885358}
+  m_Layer: 0
+  m_Name: WhileCanNotAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1937319629610872274
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8333331726427350656}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8886543173401707243}
+  m_Father: {fileID: 2774532336322811463}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1092495837973885358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8333331726427350656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5aac40b1864451b1b5db36a1e61854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeWhile
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _condition:
+    rid: 7326149404830728439
+  _child: {fileID: 7344430688300163318}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7326149404830728439
+      type: {class: NotCondition, ns: Modules.AI, asm: Modules.AI.Elements}
+      data:
+        condition:
+          rid: 7326149404830728440
+    - rid: 7326149404830728440
+      type: {class: CanAttackCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &8436304183831682139
 GameObject:
   m_ObjectHideFlags: 0
@@ -3599,6 +6089,7 @@ Transform:
   m_Children:
   - {fileID: 957508162122879382}
   - {fileID: 4833306258670015459}
+  - {fileID: 7906579155381141386}
   m_Father: {fileID: 3808393283618733603}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1739204749126604604
@@ -3618,6 +6109,7 @@ MonoBehaviour:
   _nodes:
   - {fileID: 1555389463630709496}
   - {fileID: 3702801757745120452}
+  - {fileID: 8577033467978614110}
 --- !u!1 &8792643899229583332
 GameObject:
   m_ObjectHideFlags: 0
@@ -3769,6 +6261,63 @@ MonoBehaviour:
   _nodes:
   - {fileID: 1550070720094736302}
   - {fileID: 3337893901372831292}
+--- !u!1 &8867817643326653880
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3345490741578801090}
+  - component: {fileID: 5642316642589623779}
+  m_Layer: 0
+  m_Name: WhileCanAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3345490741578801090
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8867817643326653880}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 604779564369591421}
+  m_Father: {fileID: 1119939032705648349}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5642316642589623779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8867817643326653880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5aac40b1864451b1b5db36a1e61854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Modules.AI.BehaviourTree::Modules.AI.BehaviourNodeWhile
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _condition:
+    rid: 7326149404830728438
+  _child: {fileID: 3965967481812045963}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7326149404830728438
+      type: {class: CanAttackCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
+      data:
+        _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &8873409564291421525
 GameObject:
   m_ObjectHideFlags: 0
@@ -3831,6 +6380,53 @@ MonoBehaviour:
       type: {class: CanAttackCondition, ns: SampleGame.Ai, asm: Assembly-CSharp}
       data:
         _blackboard: {fileID: 1635509206525104464}
+--- !u!1 &8914831449141842506
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4457905559522112545}
+  - component: {fileID: 54310924365604847}
+  m_Layer: 0
+  m_Name: UpdateTargetPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4457905559522112545
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8914831449141842506}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2830745838436097048}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &54310924365604847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8914831449141842506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b6f6890c97d49eab436132adc6bcf7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Ai.ChaseNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _blackboard: {fileID: 1635509206525104464}
 --- !u!1 &8975530758788492917
 GameObject:
   m_ObjectHideFlags: 0

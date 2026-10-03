@@ -12,6 +12,7 @@ namespace SampleGame.Ai
             if (!_blackboard.TryGetValue(BlackBoardAPI.Target, out GameObject attackTarget) ||
                 !_blackboard.TryGetValue(BlackBoardAPI.ShootingDistance, out float shootingDistance) ||
                 !_blackboard.TryGetValue(BlackBoardAPI.Character, out GameObject character) ||
+                !attackTarget ||
                 attackTarget == character)
             {
                 return BehaviourResult.Failure;

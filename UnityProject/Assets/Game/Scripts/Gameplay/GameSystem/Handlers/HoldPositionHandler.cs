@@ -19,7 +19,8 @@ namespace SampleGame
             if (Input.GetKeyDown(_keyCode))
             {
                 Debug.Log($"<color=green>[Input]</color> Hold position");
-                _character.GetComponent<CharacterAI>().HoldPosition();
+                CharacterAI ai = _character.GetComponent<CharacterAI>();
+                ai.Execute(new HoldCommand(), context.enqueueCommand);
 
             }
             else if (_next) 

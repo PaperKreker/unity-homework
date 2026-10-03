@@ -18,15 +18,16 @@ namespace SampleGame
         {
             if (Input.GetKey(_keyCode) && context.leftClick)
             {
+                CharacterAI ai = _character.GetComponent<CharacterAI>();
                 if (context.point != null)
                 {
                     Debug.Log($"<color=green>[Input]</color> Follow point {context.point}");
-                    _character.GetComponent<CharacterAI>().Move(context.point.Value);
+                    ai.Execute(new MoveCommand(context.point.Value), context.enqueueCommand);
                 }
                 else if (context.target != null && context.target != _character)
                 {
                     Debug.Log($"<color=green>[Input]</color> Follow point {context.target}");
-                    _character.GetComponent<CharacterAI>().FollowTarget(context.target);
+                    ai.Execute(new FollowCommand(context.target), context.enqueueCommand);
                 }
             }
             else if (_next) 

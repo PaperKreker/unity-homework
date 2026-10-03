@@ -15,6 +15,7 @@ namespace SampleGame.Ai
                 !character ||
                 !attackTarget ||
                 attackTarget == character ||
+                !character.GetComponent<TeamComponent>().IsEnemy(attackTarget) ||
                 attackTarget.GetComponent<HealthComponent>().IsDead
                )
             {

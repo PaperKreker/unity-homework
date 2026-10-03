@@ -46,9 +46,13 @@ namespace SampleGame
 
         private bool CanBeTarget(GameObject targetCandidate, TeamComponent teamComponent)
         {
-            return targetCandidate &&
-                   teamComponent.IsEnemy(targetCandidate.gameObject) &&
+            if (!targetCandidate)
+                return false;
+            
+            float distance = (targetCandidate.transform.position - teamComponent.transform.position).magnitude;
+            return teamComponent.IsEnemy(targetCandidate.gameObject) &&
                    targetCandidate.TryGetComponent(out HealthComponent healthComponent) &&
+                   distance <= _unitRadius.Value &&
                    healthComponent.IsAlive;
         }
     }

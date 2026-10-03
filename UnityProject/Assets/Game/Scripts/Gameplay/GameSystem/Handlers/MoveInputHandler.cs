@@ -15,15 +15,16 @@ namespace SampleGame
         {
             if (context.rightClick)
             {
+                CharacterAI ai = _character.GetComponent<CharacterAI>();
                 if (context.target != null && context.target != _character)
                 {
                     Debug.Log($"<color=green>[Input]</color> Move to target {context.target.name}");
-                    _character.GetComponent<CharacterAI>().MoveToTarget(context.target);
+                    ai.Execute(new MoveCommand(context.target), context.enqueueCommand);
                 }
                 else if (context.point != null)
                 {
                     Debug.Log($"<color=green>[Input]</color> Move to point {context.point}");
-                    _character.GetComponent<CharacterAI>().Move(context.point.Value);
+                    ai.Execute(new MoveCommand(context.point.Value), context.enqueueCommand);
                 }
             }
             else if (_next) 
