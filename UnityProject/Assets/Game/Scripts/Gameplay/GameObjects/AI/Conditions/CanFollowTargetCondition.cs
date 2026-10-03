@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace SampleGame
 {
-    public class HasTargetToFollowCondition : ICondition
+    public class CanFollowTargetCondition : ICondition
     {
         [SerializeField] private Blackboard _blackboard;
         
         public bool Invoke()
         {
-            if (!_blackboard.TryGetValue(BlackBoardAPI.FollowTarget, out GameObject followTarget) ||
+            if (!_blackboard.TryGetValue(BlackBoardAPI.Target, out GameObject followTarget) ||
                 !_blackboard.TryGetValue(BlackBoardAPI.StoppingDistance, out float stoppingDistance) ||
                 !_blackboard.TryGetValue(BlackBoardAPI.Character, out GameObject character) ||
                 !character ||

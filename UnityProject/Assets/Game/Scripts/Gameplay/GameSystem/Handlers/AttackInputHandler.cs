@@ -1,3 +1,4 @@
+using SampleGame.Ai;
 using UnityEngine;
 
 namespace SampleGame
@@ -19,11 +20,13 @@ namespace SampleGame
             {
                 if (context.point != null)
                 {
+                    Debug.Log($"<color=green>[Input]</color> Attack position {context.point}");
                     // TODO: Attack Position
                 }
                 else if (context.target != null && context.target != _character)
                 {
-                    // TODO: Attack Target
+                    Debug.Log($"<color=green>[Input]</color> Attack target {context.target.name}");
+                    _character.GetComponent<CharacterAI>().AttackTarget(context.target);
                 }
             }
             else if (_next)

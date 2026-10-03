@@ -7,8 +7,7 @@ namespace SampleGame.Ai
     public class BlackBoardAPI
     {
         public static readonly BlackboardValueKey<GameObject> Character = new(nameof(Character));
-        public static readonly BlackboardValueKey<GameObject> AttackTarget = new(nameof(AttackTarget));
-        public static readonly BlackboardValueKey<GameObject> FollowTarget = new(nameof(FollowTarget));
+        public static readonly BlackboardValueKey<GameObject> Target = new(nameof(Target));
         
         public static readonly BlackboardValueKey<Vector3> TargetPosition = new(nameof(TargetPosition));
         
@@ -16,6 +15,7 @@ namespace SampleGame.Ai
         public static readonly BlackboardValueKey<float> SearchingDistance = new(nameof(SearchingDistance));
         public static readonly BlackboardValueKey<float> ShootingDistance = new(nameof(ShootingDistance));
         
-        public static readonly BlackboardValueKey<bool> ForceMove = new(nameof(ForceMove));
+        public static readonly BlackboardValueKey<bool> IsForceAttack = new(nameof(IsForceAttack));
+        public static readonly BlackboardValueKey<bool> IsFollow = new(nameof(IsFollow));
     }
 }

@@ -17,10 +17,12 @@ namespace SampleGame
             {
                 if (context.target != null && context.target != _character)
                 {
-                    _character.GetComponent<CharacterAI>().MoveTo(context.target);
+                    Debug.Log($"<color=green>[Input]</color> Move to target {context.target.name}");
+                    _character.GetComponent<CharacterAI>().MoveToTarget(context.target);
                 }
                 else if (context.point != null)
                 {
+                    Debug.Log($"<color=green>[Input]</color> Move to point {context.point}");
                     _character.GetComponent<CharacterAI>().Move(context.point.Value);
                 }
             }

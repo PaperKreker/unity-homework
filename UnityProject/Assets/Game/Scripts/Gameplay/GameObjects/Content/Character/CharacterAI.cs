@@ -10,8 +10,6 @@ namespace SampleGame.Ai
         [SerializeField] private Blackboard _blackboard;
         [SerializeField] private Character _character;
         
-        [SerializeField] private BehaviourNodeSelector _selectorNode;
-        
         [SerializeField] private UnitRadiusComponent _stoppingRadius;
         [SerializeField] private UnitRadiusComponent _shootingRadius;
         [SerializeField] private TargetFinderComponent _targetFinder;
@@ -30,42 +28,60 @@ namespace SampleGame.Ai
             {
                 target = _character.gameObject;
             }
-            _blackboard.SetReferenceValue(BlackBoardAPI.AttackTarget, target);
+            //_blackboard.SetReferenceValue(BlackBoardAPI.Target, target);
         }
 
         public void Stop()
         {
+            ResetFollowTarget();
             ResetTargetPosition();
-            _blackboard.SetPrimitiveValue(BlackBoardAPI.ForceMove, false);
-            _selectorNode.Abort();
+            _blackboard.SetPrimitiveValue(BlackBoardAPI.IsForceAttack, true);
+            _blackboard.SetPrimitiveValue(BlackBoardAPI.IsFollow, false);
         }
         
         public void Move(Vector3 position)
         {
+            ResetFollowTarget();
             _blackboard.SetPrimitiveValue(BlackBoardAPI.TargetPosition, position);
-            _blackboard.SetReferenceValue(BlackBoardAPI.FollowTarget, _character.gameObject);
-            _blackboard.SetPrimitiveValue(BlackBoardAPI.ForceMove, true);
-            _selectorNode.Abort();
+            _blackboard.SetPrimitiveValue(BlackBoardAPI.IsForceAttack, false);
         }
         
-        public void MoveTo(GameObject target)
+        public void MoveToTarget(GameObject target)
         {
             if (!target)
             {
                 target = _character.gameObject;
             }
-            _blackboard.SetReferenceValue(BlackBoardAPI.FollowTarget, target);
-            _blackboard.SetPrimitiveValue(BlackBoardAPI.ForceMove, true);
-            _selectorNode.Abort();
+            _blackboard.SetReferenceValue(BlackBoardAPI.Target, target);
+            _blackboard.SetPrimitiveValue(BlackBoardAPI.IsForceAttack, false);
+            _blackboard.SetPrimitiveValue(BlackBoardAPI.IsFollow, false);
         }
         
-        public void Patrol(Vector3 position)
+        public void FollowTarget(GameObject target)
         {
-            _blackboard.SetPrimitiveValue(BlackBoardAPI.TargetPosition, position);
-            _blackboard.SetPrimitiveValue(BlackBoardAPI.ForceMove, false);
-            _selectorNode.Abort();
+            if (!target)
+            {
+                target = _character.gameObject;
+            }
+            _blackboard.SetReferenceValue(BlackBoardAPI.Target, target);
+            _blackboard.SetPrimitiveValue(BlackBoardAPI.IsForceAttack, false);
+            _blackboard.SetPrimitiveValue(BlackBoardAPI.IsFollow, true);
+        }
+        
+        public void AttackTarget(GameObject target)
+        {
+            if (!target)
+            {
+                target = _character.gameObject;
+            }
+            _blackboard.SetReferenceValue(BlackBoardAPI.Target, target);
+            _blackboard.SetPrimitiveValue(BlackBoardAPI.IsForceAttack, true);
         }
 
+        private void ResetFollowTarget()
+        {
+            _blackboard.SetReferenceValue(BlackBoardAPI.Target, _character.gameObject);
+        }
         private void ResetTargetPosition()
         {
             _blackboard.SetPrimitiveValue(BlackBoardAPI.TargetPosition, _character.transform.position);

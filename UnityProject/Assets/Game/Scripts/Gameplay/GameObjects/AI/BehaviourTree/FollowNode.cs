@@ -9,7 +9,7 @@ namespace SampleGame.Ai
 
         protected override BehaviourResult OnUpdate(float deltaTime)
         {
-            if (!_blackboard.TryGetValue(BlackBoardAPI.FollowTarget, out GameObject followTarget) ||
+            if (!_blackboard.TryGetValue(BlackBoardAPI.Target, out GameObject followTarget) ||
                 !_blackboard.TryGetValue(BlackBoardAPI.Character, out GameObject character) ||
                 !_blackboard.TryGetValue(BlackBoardAPI.TargetPosition, out _) ||
                 !character ||

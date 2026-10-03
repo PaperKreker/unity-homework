@@ -9,7 +9,7 @@ namespace SampleGame.Ai
 
         public bool Invoke()
         {
-            if (!_blackboard.TryGetValue(BlackBoardAPI.AttackTarget, out GameObject attackTarget) ||
+            if (!_blackboard.TryGetValue(BlackBoardAPI.Target, out GameObject attackTarget) ||
                 !_blackboard.TryGetValue(BlackBoardAPI.ShootingDistance, out float shootingDistance) ||
                 !_blackboard.TryGetValue(BlackBoardAPI.Character, out GameObject character) ||
                 !character ||
@@ -18,11 +18,13 @@ namespace SampleGame.Ai
                 attackTarget.GetComponent<HealthComponent>().IsDead
                )
             {
+                Debug.Log("Can attack fail!");
                 return false;
             }
 
             Vector3 positionDelta = attackTarget.transform.position - character.transform.position;
 
+            Debug.Log(positionDelta.magnitude <= shootingDistance);
             return positionDelta.magnitude <= shootingDistance;
         }
     }

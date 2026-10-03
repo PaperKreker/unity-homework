@@ -9,17 +9,17 @@ namespace SampleGame.Ai
 
         protected override BehaviourResult OnUpdate(float deltaTime)
         {
-            if (!_blackboard.TryGetValue(BlackBoardAPI.AttackTarget, out GameObject attackTarget) ||
+            if (!_blackboard.TryGetValue(BlackBoardAPI.Target, out GameObject followTarget) ||
                 !_blackboard.TryGetValue(BlackBoardAPI.Character, out GameObject character) ||
                 !_blackboard.TryGetValue(BlackBoardAPI.TargetPosition, out _) ||
                 !character ||
-                !attackTarget ||
-                attackTarget.Equals(character))
+                !followTarget ||
+                followTarget.Equals(character))
             {
                 return BehaviourResult.Failure;
             }
 
-            Vector3 targetPosition = attackTarget.transform.position;
+            Vector3 targetPosition = followTarget.transform.position;
             _blackboard.SetPrimitiveValue(BlackBoardAPI.TargetPosition, targetPosition);
 
             return BehaviourResult.Success;

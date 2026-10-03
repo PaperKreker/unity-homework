@@ -17,6 +17,7 @@ namespace SampleGame
         {
             if (Input.GetKeyDown(_keyCode))
             {
+                Debug.Log($"<color=green>[Input]</color> Hold position");
                 // TODO: Hold Position
 
             }

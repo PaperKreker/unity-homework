@@ -18,6 +18,7 @@ namespace SampleGame
         {
             if (Input.GetKeyDown(_keyCode))
             {
+                Debug.Log($"<color=green>[Input]</color> Stop");
                 _character.GetComponent<CharacterAI>().Stop();
             }
             else if (_next)

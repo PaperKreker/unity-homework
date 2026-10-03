@@ -20,10 +20,12 @@ namespace SampleGame
               
                 if (context.point != null)
                 {
+                    Debug.Log($"<color=green>[Input]</color> Patrol to point {context.point}");
                     // TODO: Point destination
                 }
                 else if (context.target != null && context.target != _character)
                 {
+                    Debug.Log($"<color=green>[Input]</color> Patrol to target {context.target.name}");
                     // TODO: Target destination
                 }
 
