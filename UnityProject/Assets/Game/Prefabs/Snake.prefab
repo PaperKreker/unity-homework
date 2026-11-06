@@ -275,6 +275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.HitComponent
   _damage: {fileID: 3777341944883217373}
+  _push: {fileID: 6384440878264458694}
   _collision: {fileID: 3907174874795257871}
   _layerMask:
     serializedVersion: 2

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class ZonePush : MonoBehaviour
+    public class ZonePushComponent : MonoBehaviour
     {
         [SerializeField] 
         private TargetFinderComponent _targetFinder;

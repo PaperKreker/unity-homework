@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Game
 {
-    public class RaycastComponent : MonoBehaviour
+    [Serializable]
+    public class RaycastComponent
     {
         [SerializeField]
         private float _distance = 1.0f;

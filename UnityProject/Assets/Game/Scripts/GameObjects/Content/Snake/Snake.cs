@@ -16,7 +16,6 @@ namespace Game
         
         private MoveTransformComponent _moveTransform;
         private TargetFinderComponent _targetFinder;
-        private DamageComponent _damage;
         private HealthComponent _health;
         private PushComponent _push;
 
@@ -24,19 +23,12 @@ namespace Game
         {
             _moveTransform = GetComponent<MoveTransformComponent>();
             _targetFinder = GetComponent<TargetFinderComponent>();
-            _damage = GetComponent<DamageComponent>();
             _health = GetComponent<HealthComponent>();
             _push = GetComponent<PushComponent>();
 
             _health.OnDied += () =>
             {
                 GetComponent<Rigidbody2D>().simulated = false;
-            };
-            
-            
-            _damage.OnHit += () =>
-            {
-                _push.Push(_targetFinder.Target);
             };
         }
 

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 507615772195080138}
   - component: {fileID: 4015483290177404260}
   - component: {fileID: 8999689718699575724}
+  - component: {fileID: 1178511853466844175}
   m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
@@ -205,6 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.HitComponent
   _damage: {fileID: 8999689718699575724}
+  _push: {fileID: 1178511853466844175}
   _collision: {fileID: 507615772195080138}
   _layerMask:
     serializedVersion: 2
@@ -247,6 +249,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.DamageComponent
   _damage: 1
+--- !u!114 &1178511853466844175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473927760801157524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0969694fac285c4c8a263bf7ef4edca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.PushComponent
+  _force: {x: 10, y: 1}
 --- !u!1 &802556461432274881
 GameObject:
   m_ObjectHideFlags: 0

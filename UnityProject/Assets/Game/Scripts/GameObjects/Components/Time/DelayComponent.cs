@@ -1,44 +1,27 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Game
 {
-    public class DelayComponent : MonoBehaviour
+    [Serializable]
+    public class DelayComponent
     {
         public event Action OnExpire;
-        public bool IsExpired => _expired;
         
         [SerializeField] private float _duration;
 
-        private float _currentTime;
-        private bool _expired;
+        private bool _expired = true;
 
-        private void Awake()
+        public IEnumerator StartDelay()
         {
-            _expired = true;
-        }
+            if (!_expired)
+                yield break;
 
-        private void FixedUpdate()
-        {
-            if (!_expired && Time.time - _currentTime >= _duration)
-            {
-                OnExpire?.Invoke();
-                _expired = true;
-            }
-        }
-
-        public void StartDelay()
-        {
-            if (_expired)
-            {
-                Reset();
-            }
-        }
-        
-        public void Reset()
-        {
-            _currentTime = Time.time;
             _expired = false;
+            yield return new WaitForSeconds(_duration);
+            _expired = true;
+            OnExpire?.Invoke();
         }
     }
 }

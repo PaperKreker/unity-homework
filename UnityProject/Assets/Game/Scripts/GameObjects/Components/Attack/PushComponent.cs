@@ -18,8 +18,8 @@ namespace Game
                 return;
 
             Vector2 directionForce = 
-                _force.x * transform.right * direction.x + 
-                _force.y * transform.up * direction.y;
+                transform.right * (_force.x * direction.x) + 
+                transform.up * (_force.y * direction.y);
             target.AddForce(directionForce, ForceMode2D.Impulse);
         }
     }

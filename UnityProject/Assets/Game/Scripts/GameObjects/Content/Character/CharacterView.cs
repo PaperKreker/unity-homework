@@ -13,7 +13,7 @@ namespace Game
         private Character _character;
         
         [SerializeField] 
-        private RequestComponent _jumpRequest;
+        private JumpComponent _jump;
         
         [SerializeField]
         private AudioComponent _audio;
@@ -39,7 +39,7 @@ namespace Game
             
             _takeDamageColor = GetComponent<TakeDamageColorComponent>();
             
-            _jumpRequest.OnInvoke += () =>
+            _jump.OnJump += () =>
             {
                 _animator.SetTrigger(_jumpKey);
                 _audio.Play("Jump");

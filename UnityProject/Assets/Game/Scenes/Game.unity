@@ -596,7 +596,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.7326813, y: 2.300003, z: -5}
+  m_LocalPosition: {x: 2.199997, y: 2.2999992, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1015,6 +1015,65 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &829743000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 829743001}
+  - component: {fileID: 829743002}
+  - component: {fileID: 829743003}
+  m_Layer: 0
+  m_Name: <InputSystem>
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &829743001
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829743000}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.46543, y: 1.13104, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &829743002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829743000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc7933c7661c1a949ad76a26f2f8a6cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputComponent
+--- !u!114 &829743003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829743000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c43cf56c29d02584c8176117aef78903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.CharacterInput
+  _character: {fileID: 5093833677603708955}
+  _input: {fileID: 829743002}
 --- !u!1001 &847944759
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42896,6 +42955,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e3c3aa10ab4848f38169cd5bcaec303, type: 3}
+--- !u!114 &5093833677603708955 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2043139580613342675, guid: 1e3c3aa10ab4848f38169cd5bcaec303, type: 3}
+  m_PrefabInstance: {fileID: 5093833677603708954}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abe7682e989ad4546b3107b800629cb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Character
 --- !u!1001 &5647570631007070162
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43027,3 +43097,4 @@ SceneRoots:
   - {fileID: 263852981}
   - {fileID: 1840973719}
   - {fileID: 5093833677603708954}
+  - {fileID: 829743001}

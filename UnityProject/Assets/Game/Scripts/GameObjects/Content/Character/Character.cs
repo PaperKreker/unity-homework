@@ -11,13 +11,13 @@ namespace Game
     public class Character : MonoBehaviour
     {
         [SerializeField]
-        private RequestComponent _jumpRequest;
+        private JumpComponent _jump;
         
-        [SerializeField]
-        private RequestComponent _pushRequest;
+        [FormerlySerializedAs("_pushAttack")] [SerializeField]
+        private DirectPushComponent directPush;
         
-        [SerializeField]
-        private RequestComponent _tossRequest;
+        [FormerlySerializedAs("_tossAttack")] [SerializeField]
+        private DirectPushComponent toss;
         
         private MoveTransformComponent _moveTransform;
         private HealthComponent _health;
@@ -35,33 +35,36 @@ namespace Game
             };
         }
 
-        void FixedUpdate()
+        public void Move(float direction)
         {
-            if (_health.CurrentHealth == 0)
+            if (_health.IsDied) 
                 return;
-            
-            _moveTransform.Move(new Vector2(Mathf.Abs(_input.HorizontalAxis), 0.0f));
+
+            _moveTransform.Move(new Vector2(Mathf.Abs(direction), 0.0f));
         }
 
-        private void Update()
+        public void Jump()
         {
-            if (_health.CurrentHealth == 0)
+            if (_health.IsDied) 
                 return;
             
-            if (_input.JumpInput)
-            {
-                _jumpRequest.Request();
-            }
+            _jump.JumpDelayed();
+        }
 
-            if (_input.PushInput)
-            {
-                _pushRequest.Request();
-            }
-            
-            if (_input.TossInput)
-            {
-                _tossRequest.Request();
-            }
+        public void Push()
+        {
+            if (_health.IsDied) 
+                return;
+
+            directPush.AttackDelayed();
+        }
+
+        public void Toss()
+        {
+            if (_health.IsDied) 
+                return;
+
+            toss.AttackDelayed();
         }
     }
 }

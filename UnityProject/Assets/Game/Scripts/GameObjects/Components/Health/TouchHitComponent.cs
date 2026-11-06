@@ -9,6 +9,9 @@ namespace Game
         private DamageComponent _damage;
         
         [SerializeField]
+        private PushComponent _push;
+        
+        [SerializeField]
         private CollisionComponent _collision;
         
         [SerializeField]
@@ -23,7 +26,8 @@ namespace Game
             if ((_layerMask.value & (1 << col.gameObject.layer)) == 0)
                  return;
 
-            _damage.Hit(col.gameObject);
+            _damage?.Hit(col.gameObject);
+            _push?.Push(col.rigidbody);
         }
     }
 }

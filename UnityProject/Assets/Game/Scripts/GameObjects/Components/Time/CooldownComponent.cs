@@ -1,19 +1,16 @@
+using System;
 using UnityEngine;
 
 namespace Game
 {
-    public class CooldownComponent : MonoBehaviour
+    [Serializable]
+    public class CooldownComponent
     {
         [SerializeField] private float _duration;
 
         private float _currentTime;
 
         public bool IsExpired => Time.time - _currentTime >= _duration;
-
-        private void Awake()
-        {
-            _currentTime = Time.time - _duration;
-        }
 
         public void Reset()
         {
