@@ -17,11 +17,16 @@ namespace Game
             _moveTransform = GetComponent<MoveTransformComponent>();
             _health = GetComponent<HealthComponent>();
             _patrol = GetComponent<PatrolComponent>();
-            
-            _health.OnDied += () =>
-            {
-                GetComponent<Rigidbody2D>().simulated = false;
-            };
+        }
+        
+        private void OnEnable()
+        {
+            _health.OnDied += Die;
+        }
+        
+        private void OnDisable()
+        {
+            _health.OnDied -= Die;
         }
 
         private void FixedUpdate()
@@ -29,7 +34,12 @@ namespace Game
             if (_health.CurrentHealth == 0)
                 return;
             
-            _moveTransform.Move(_patrol.GetDirection());
+            _moveTransform.Move(_patrol.NextDirection());
+        }
+        
+        private void Die()
+        {
+            GetComponent<Rigidbody2D>().simulated = false;
         }
     }
 }

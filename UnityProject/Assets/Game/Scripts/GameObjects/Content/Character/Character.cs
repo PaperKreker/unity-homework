@@ -1,5 +1,4 @@
 using System;
-using Game;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -7,32 +6,39 @@ namespace Game
 {
     [RequireComponent(typeof(MoveTransformComponent))]
     [RequireComponent(typeof(HealthComponent))]
-    [RequireComponent(typeof(InputComponent))]
     public class Character : MonoBehaviour
     {
+        public float MoveInput { get; private set; }
+
         [SerializeField]
         private JumpComponent _jump;
         
-        [FormerlySerializedAs("_pushAttack")] [SerializeField]
-        private DirectPushComponent directPush;
+        [SerializeField]
+        private DirectPushComponent _push;
         
-        [FormerlySerializedAs("_tossAttack")] [SerializeField]
-        private DirectPushComponent toss;
+        [SerializeField]
+        private DirectPushComponent _toss;
         
         private MoveTransformComponent _moveTransform;
         private HealthComponent _health;
-        private InputComponent _input;
 
         private void Awake()
         {
             _moveTransform = GetComponent<MoveTransformComponent>();
             _health = GetComponent<HealthComponent>();
-            _input = GetComponent<InputComponent>();
+            
+            _push.SetCondition(() => _health.IsAlive);
+            _toss.SetCondition(() => _health.IsAlive);
+        }
 
-            _health.OnDied += () =>
-            {
-                GetComponent<Rigidbody2D>().simulated = false;
-            };
+        private void OnEnable()
+        {
+            _health.OnDied += Die;
+        }
+        
+        private void OnDisable()
+        {
+            _health.OnDied -= Die;
         }
 
         public void Move(float direction)
@@ -40,6 +46,7 @@ namespace Game
             if (_health.IsDied) 
                 return;
 
+            MoveInput = direction;
             _moveTransform.Move(new Vector2(Mathf.Abs(direction), 0.0f));
         }
 
@@ -56,7 +63,7 @@ namespace Game
             if (_health.IsDied) 
                 return;
 
-            directPush.AttackDelayed();
+            _push.AttackDelayed();
         }
 
         public void Toss()
@@ -64,7 +71,12 @@ namespace Game
             if (_health.IsDied) 
                 return;
 
-            toss.AttackDelayed();
+            _toss.AttackDelayed();
+        }
+
+        private void Die()
+        {
+            GetComponent<Rigidbody2D>().simulated = false;
         }
     }
 }

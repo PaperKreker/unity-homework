@@ -19,19 +19,18 @@ namespace Game
             _grounded = GetComponent<GroundedComponent>();
             _health = GetComponent<HealthComponent>();
             _jump = GetComponent<JumpComponent>();
-            
-            _health.OnDied += () =>
-            {
-                GetComponent<Rigidbody2D>().simulated = false;
-            };
-
-            _grounded.OnGrounded += isGrounded =>
-            {
-                if (isGrounded)
-                {
-                    _zonePush.Push();
-                }
-            };
+        }
+        
+        private void OnEnable()
+        {
+            _grounded.OnGrounded += PushOnLand;
+            _health.OnDied += Die;
+        }
+        
+        private void OnDisable()
+        {
+            _grounded.OnGrounded -= PushOnLand;
+            _health.OnDied -= Die;
         }
 
         private void FixedUpdate()
@@ -40,6 +39,19 @@ namespace Game
                 return;
             
             _jump.JumpDelayed();
+        }
+
+        private void PushOnLand(bool isGrounded)
+        {
+            if (isGrounded)
+            {
+                _zonePush.Push();
+            }
+        }
+        
+        private void Die()
+        {
+            GetComponent<Rigidbody2D>().simulated = false;
         }
     }
 }

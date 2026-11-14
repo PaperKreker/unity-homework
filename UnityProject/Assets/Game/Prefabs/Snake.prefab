@@ -52,7 +52,6 @@ GameObject:
   - component: {fileID: 3882517900611148716}
   - component: {fileID: 8536209200808443876}
   - component: {fileID: 3907174874795257871}
-  - component: {fileID: 3777341944883217373}
   m_Layer: 8
   m_Name: Snake
   m_TagString: Untagged
@@ -274,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ec72e870482da5488151c5f16a469d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.HitComponent
-  _damage: {fileID: 3777341944883217373}
+  _damage: 1
   _push: {fileID: 6384440878264458694}
   _collision: {fileID: 3907174874795257871}
   _layerMask:
@@ -292,19 +291,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16615f4fd9aa496686de7e8755045b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.CollisionComponent
---- !u!114 &3777341944883217373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6976110413071386817}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7a6889d7bc345349b836fa133a3ba6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Game.DamageComponent
-  _damage: 1
 --- !u!1 &7657161599582532624
 GameObject:
   m_ObjectHideFlags: 0

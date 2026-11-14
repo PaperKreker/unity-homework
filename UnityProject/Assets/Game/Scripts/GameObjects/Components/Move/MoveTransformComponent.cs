@@ -9,8 +9,11 @@ namespace Game
 
         public void Move(Vector2 direction)
         {
-            if (direction != Vector2.zero) 
-                this.transform.Translate((Vector3) direction * _speed * Time.fixedDeltaTime);
+            Vector3 moveDelta = (Vector3)direction * _speed * Time.fixedDeltaTime;
+            if (direction != Vector2.zero)
+            {
+                this.transform.Translate(moveDelta);
+            }
         }
     }
 }

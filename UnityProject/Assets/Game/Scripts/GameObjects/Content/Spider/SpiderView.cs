@@ -56,14 +56,14 @@ namespace Game
 
         private void RefreshAnimator()
         {
-            float direction = _patrol.GetDirection().x;
+            float direction = _patrol.NextDirection().x;
             _animator.SetBool(_isMovingKey, Mathf.Abs(direction) > 0);
             _animator.SetBool(_isGroundedKey, _grounded.IsGrounded);
         }
         
         private void RefreshLook()
         {
-            float direction = _patrol.GetDirection().x;
+            float direction = _patrol.NextDirection().x;
             if (!direction.Equals(0.0f))
             {
                 lastMoveDirection = direction;

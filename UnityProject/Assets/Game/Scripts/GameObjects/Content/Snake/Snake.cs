@@ -6,8 +6,8 @@ namespace Game
 {
     [RequireComponent(typeof(MoveTransformComponent))]
     [RequireComponent(typeof(TargetFinderComponent))]
+    [RequireComponent(typeof(TouchHitComponent))]
     [RequireComponent(typeof(HealthComponent))]
-    [RequireComponent(typeof(DamageComponent))]
     [RequireComponent(typeof(PushComponent))]
     
     public class Snake : MonoBehaviour
@@ -17,19 +17,22 @@ namespace Game
         private MoveTransformComponent _moveTransform;
         private TargetFinderComponent _targetFinder;
         private HealthComponent _health;
-        private PushComponent _push;
 
         private void Awake()
         {
             _moveTransform = GetComponent<MoveTransformComponent>();
             _targetFinder = GetComponent<TargetFinderComponent>();
             _health = GetComponent<HealthComponent>();
-            _push = GetComponent<PushComponent>();
-
-            _health.OnDied += () =>
-            {
-                GetComponent<Rigidbody2D>().simulated = false;
-            };
+        }
+        
+        private void OnEnable()
+        {
+            _health.OnDied += Die;
+        }
+        
+        private void OnDisable()
+        {
+            _health.OnDied -= Die;
         }
 
         private void FixedUpdate()
@@ -41,6 +44,11 @@ namespace Game
             {
                 _moveTransform.Move(new Vector2(1.0f, 0.0f));
             }
+        }
+        
+        private void Die()
+        {
+            GetComponent<Rigidbody2D>().simulated = false;
         }
     }
 }

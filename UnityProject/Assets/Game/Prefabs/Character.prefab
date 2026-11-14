@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4375523871547856432}
   - component: {fileID: 9080652144006767103}
   - component: {fileID: 2043139580613342675}
-  - component: {fileID: 5015159045107225868}
   - component: {fileID: 6603964500993374123}
   - component: {fileID: 993222762790302532}
   - component: {fileID: 7553515936157981144}
@@ -163,20 +162,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Character
   _jump: {fileID: 762265351398510187}
-  directPush: {fileID: 2821746451634714525}
-  toss: {fileID: 7600872726296522816}
---- !u!114 &5015159045107225868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3322474405303096178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc7933c7661c1a949ad76a26f2f8a6cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InputComponent
+  _push: {fileID: 2821746451634714525}
+  _toss: {fileID: 7600872726296522816}
 --- !u!114 &6603964500993374123
 MonoBehaviour:
   m_ObjectHideFlags: 0

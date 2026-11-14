@@ -21,9 +21,7 @@ namespace Game
         private TakeDamageColorComponent _takeDamageColor;
         private GroundedComponent _grounded;
         private HealthComponent _health;
-        private InputComponent _input;
         private LookComponent _look;
-        private float lastMoveDirection;
         
         private readonly int _jumpKey = Animator.StringToHash("Jump");
         private readonly int _isMovingKey = Animator.StringToHash("IsMoving");
@@ -34,7 +32,6 @@ namespace Game
         {
             _grounded = _character.GetComponent<GroundedComponent>();
             _health = _character.GetComponent<HealthComponent>();
-            _input = _character.GetComponent<InputComponent>();
             _look = _character.GetComponent<LookComponent>();
             
             _takeDamageColor = GetComponent<TakeDamageColorComponent>();
@@ -69,17 +66,16 @@ namespace Game
 
         private void RefreshAnimator()
         {
-            _animator.SetBool(_isMovingKey, Mathf.Abs(_input.HorizontalAxis) > 0);
+            _animator.SetBool(_isMovingKey, Mathf.Abs(_character.MoveInput) > 0);
             _animator.SetBool(_isGroundedKey, _grounded.IsGrounded);
         }
         
         private void RefreshLook()
         {
-            if (!_input.HorizontalAxis.Equals(0.0f))
+            if (!_character.MoveInput.Equals(0.0f))
             {
-                lastMoveDirection = _input.HorizontalAxis;
+                _look.Look(_character.MoveInput);
             }
-            _look.Look(lastMoveDirection);
         }
     }
 }

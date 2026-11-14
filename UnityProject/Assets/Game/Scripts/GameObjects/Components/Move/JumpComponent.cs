@@ -10,9 +10,9 @@ namespace Game
         public event Action OnJump;
         
         [SerializeField] 
-        private CooldownComponent _cooldown;
+        private Cooldown _cooldown;
         [SerializeField]
-        private DelayComponent _delay;
+        private Delay _delay;
         [SerializeField] 
         private Vector2 _force = new (0.0f, 10.0f);
         [SerializeField]

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Game
 {
     [Serializable]
-    public class DelayComponent
+    public class Delay
     {
         public event Action OnExpire;
         

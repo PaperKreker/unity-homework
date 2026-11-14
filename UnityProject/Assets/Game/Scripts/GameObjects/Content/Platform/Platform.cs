@@ -18,7 +18,7 @@ namespace Game
 
         private void FixedUpdate()
         {
-            _moveTransform.Move(_patrol.GetDirection());
+            _moveTransform.Move(_patrol.NextDirection());
         }
     }
 }

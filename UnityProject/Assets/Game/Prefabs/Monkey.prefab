@@ -19,7 +19,6 @@ GameObject:
   - component: {fileID: 4884606297988953384}
   - component: {fileID: 8484099062025830297}
   - component: {fileID: 607910413246226222}
-  - component: {fileID: 9045146153163605508}
   - component: {fileID: 9155084251940499399}
   m_Layer: 8
   m_Name: Monkey
@@ -169,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ec72e870482da5488151c5f16a469d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.HitComponent
-  _damage: {fileID: 9045146153163605508}
+  _damage: 10
   _push: {fileID: 0}
   _collision: {fileID: 6673980903437347129}
   _layerMask:
@@ -229,19 +228,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.ExtraGravityComponent
   _gravity: -7
---- !u!114 &9045146153163605508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2084178272520813888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7a6889d7bc345349b836fa133a3ba6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Game.DamageComponent
-  _damage: 10
 --- !u!114 &9155084251940499399
 MonoBehaviour:
   m_ObjectHideFlags: 0

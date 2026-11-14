@@ -12,15 +12,16 @@ namespace Game
         private Transform _firePoint;
         
         [SerializeField] 
-        private CooldownComponent _cooldown;
+        private Cooldown _cooldown;
         
         [SerializeField] 
-        private DelayComponent _delay;
+        private Delay _delay;
         
         [SerializeField] 
         private RaycastComponent _raycast;
         
         private PushComponent _push;
+        private Func<bool> _condition;
 
         private void Awake()
         {
@@ -37,6 +38,11 @@ namespace Game
             _delay.OnExpire -= TryAttack;
         }
 
+        public void SetCondition(Func<bool> newCondition)
+        {
+            _condition = newCondition;
+        }
+        
         public void AttackDelayed()
         {
             StartCoroutine(_delay.StartDelay());
@@ -44,7 +50,7 @@ namespace Game
         
         private void TryAttack()
         {
-            if (_cooldown.IsExpired)
+            if (_cooldown.IsExpired && _condition())
             {
                 Attack();
             }

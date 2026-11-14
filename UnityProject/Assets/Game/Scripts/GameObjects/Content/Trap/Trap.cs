@@ -9,28 +9,35 @@ namespace Game
     public class Trap : MonoBehaviour
     {
         private HealthComponent _health;
-        private DamageComponent _damage;
+        private TouchHitComponent _touchHit;
         
         private void Awake()
         {
             _health = GetComponent<HealthComponent>();
-            _damage = GetComponent<DamageComponent>();
-
-            _damage.OnHit += () =>
-            {
-                _health.SetZero();
-            };
-
-            _health.OnDied += () =>
-            {
-                StartCoroutine(DestroyNextFixedUpdate());
-            };
+            _touchHit = GetComponent<TouchHitComponent>();
+        }
+        
+        private void OnEnable()
+        {
+            _touchHit.OnHit += _health.SetZero;
+            _health.OnDied += Die;
+        }
+        
+        private void OnDisable()
+        {
+            _touchHit.OnHit -= _health.SetZero;
+            _health.OnDied -= Die;
         }
 
         IEnumerator DestroyNextFixedUpdate()
         {
             yield return new WaitForFixedUpdate();
             Destroy(gameObject);
+        }
+        
+        private void Die()
+        {
+            StartCoroutine(DestroyNextFixedUpdate());
         }
     }
 }

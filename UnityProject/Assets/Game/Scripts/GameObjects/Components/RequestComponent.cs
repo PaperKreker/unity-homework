@@ -8,13 +8,13 @@ namespace Game
         public event Action OnInvoke;
         
         private Func<bool> _condition;
-        private DelayComponent _delay;
+        private Delay _delay;
         private Action _action;
         private bool _required;
 
         private void Awake()
         {
-            _delay = GetComponent<DelayComponent>();
+            _delay = GetComponent<Delay>();
             if (_delay != null)
             {
                 _delay.OnExpire += TryAct;

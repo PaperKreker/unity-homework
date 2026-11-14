@@ -13,7 +13,7 @@ namespace Game
 
         private int _index;
 
-        public Vector3 GetDirection()
+        public Vector3 NextDirection()
         {
             if (_wayPoints.Count == 0)
                 return Vector3.zero;
